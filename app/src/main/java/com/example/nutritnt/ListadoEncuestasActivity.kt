@@ -7,6 +7,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nutritnt.databinding.ActivityListadoEncuestasBinding
+import kotlin.random.Random
 
 class ListadoEncuestasActivity : AppCompatActivity() {
 
@@ -31,10 +32,21 @@ class ListadoEncuestasActivity : AppCompatActivity() {
         }
     }
 
+    private fun generateRandomId(): String {
+        return "ID-${Random.nextInt(1000)}"
+    }
+
     private fun getItemList(): List<ListaElementoActivity> {
         return mutableListOf(
-            ListaElementoActivity("John", "New York", "Active"),
-            ListaElementoActivity("Emily", "Los Angeles", "Inactive")
+            ListaElementoActivity(generateRandomId(), "15-04-2024", "Finalizada"),
+            ListaElementoActivity(generateRandomId(), "16-04-2024", "Comenzada"),
+            ListaElementoActivity(generateRandomId(), "17-04-2024", "Finalizada"),
+            ListaElementoActivity(generateRandomId(), "18-04-2024", "Finalizada"),
+            ListaElementoActivity(generateRandomId(), "19-04-2024", "Comenzada"),
+            ListaElementoActivity(generateRandomId(), "12-04-2024", "Comenzada"),
+            ListaElementoActivity(generateRandomId(), "21-04-2024", "Comenzada"),
+            ListaElementoActivity(generateRandomId(), "01-04-2024", "Finalizada"),
+            ListaElementoActivity(generateRandomId(), "20-04-2024", "Finalizada")
         )
     }
 }

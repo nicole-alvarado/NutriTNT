@@ -32,14 +32,14 @@ class ListaAdapterActivity(private var itemList: List<ListaElementoActivity>, pr
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val iconImage: ImageView = itemView.findViewById(R.id.iconImageView)
-        private val name: TextView = itemView.findViewById(R.id.nameTextView)
-        private val city: TextView = itemView.findViewById(R.id.cityTextView)
-        private val status: TextView = itemView.findViewById(R.id.statusTextView)
+        private val nombre: TextView = itemView.findViewById(R.id.nombreTextView)
+        private val fecha: TextView = itemView.findViewById(R.id.fechaTextView)
+        private val estado: TextView = itemView.findViewById(R.id.estadoTextView)
 
         fun bindData(item: ListaElementoActivity) {
-            name.text = item.name
-            city.text = item.city
-            status.text = item.status
+            nombre.text = item.nombre
+            fecha.text = item.fecha
+            estado.text = item.estado
         }
     }
 }

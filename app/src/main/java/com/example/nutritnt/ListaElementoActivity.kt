@@ -1,3 +1,3 @@
 package com.example.nutritnt
 
-data class ListaElementoActivity(val name: String, val city: String, val status: String)
+data class ListaElementoActivity(val nombre: String, val fecha: String, val estado: String)
