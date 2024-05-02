@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">NutriTNT</string>
+    <string name="button_ingresar">Ingresar</string>
+    <string name="button_ingresar_description">Botón para iniciar sesión</string>
+</resources>
