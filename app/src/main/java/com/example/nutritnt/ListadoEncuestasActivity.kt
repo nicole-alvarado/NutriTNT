@@ -1,6 +1,8 @@
 package com.example.nutritnt
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -9,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nutritnt.databinding.ActivityListadoEncuestasBinding
 import kotlin.random.Random
 
-class ListadoEncuestasActivity : AppCompatActivity() {
+class ListadoEncuestasActivity : AppCompatActivity(), ListaAdapterActivity.OnItemClickListener{
 
     private lateinit var binding: ActivityListadoEncuestasBinding
     private lateinit var listAdapter: ListaAdapterActivity
@@ -24,6 +26,8 @@ class ListadoEncuestasActivity : AppCompatActivity() {
         listAdapter = ListaAdapterActivity(getItemList(), this)
         binding.RecyclerViewEncuestas.layoutManager = LinearLayoutManager(this)
         binding.RecyclerViewEncuestas.adapter = listAdapter
+
+        listAdapter.setOnItemClickListener(this)
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -48,5 +52,15 @@ class ListadoEncuestasActivity : AppCompatActivity() {
             ListaElementoActivity(generateRandomId(), "01-04-2024", "Finalizada"),
             ListaElementoActivity(generateRandomId(), "20-04-2024", "Finalizada")
         )
+    }
+
+    override fun onItemClick(nombre: String, fecha: String, estado: String) {
+        Log.d("ListadoEncuestasActivity", nombre)
+        val context = binding.root.context
+        val intent = Intent(context, DetalleEncuestaActivity::class.java)
+        intent.putExtra("ENCUESTA_ID", nombre)
+        intent.putExtra("FECHA", fecha)
+        intent.putExtra("ESTADO", estado)
+        context.startActivity(intent)
     }
 }

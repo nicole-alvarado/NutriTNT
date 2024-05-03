@@ -31,15 +31,38 @@ class ListaAdapterActivity(private var itemList: List<ListaElementoActivity>, pr
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        init {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    itemClickListener?.onItemClick(itemList[position].nombre, itemList[position].fecha, itemList[position].estado)
+                }
+            }
+        }
+
         private val iconImage: ImageView = itemView.findViewById(R.id.iconImageView)
         private val nombre: TextView = itemView.findViewById(R.id.nombreTextView)
         private val fecha: TextView = itemView.findViewById(R.id.fechaTextView)
         private val estado: TextView = itemView.findViewById(R.id.estadoTextView)
+
 
         fun bindData(item: ListaElementoActivity) {
             nombre.text = item.nombre
             fecha.text = item.fecha
             estado.text = item.estado
         }
+
+
     }
+
+    interface OnItemClickListener {
+        fun onItemClick(nombre: String, fecha: String, estado: String)
+    }
+
+    private var itemClickListener: OnItemClickListener? = null
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        itemClickListener = listener
+    }
+
 }

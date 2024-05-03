@@ -28,8 +28,6 @@
                 android:orientation="horizontal"
                 android:padding="6dp"
                 >
-
-
                 <ImageView
                     android:id="@+id/iconImageView"
                     android:layout_width="70dp"
