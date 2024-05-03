@@ -3,6 +3,7 @@ package com.example.nutritnt
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -22,16 +23,24 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
 
-        binding.buttonIngresar.text = "Ingresar"
+        binding.loginButton.text = "Ingresar"
 
         setContentView(view)
 
-        binding.buttonIngresar.setOnClickListener(){
+        binding.loginButton.setOnClickListener(){
             Log.d("Botones", "Botón ingresar clickeado")
-            val context = binding.root.context
-            val intent = Intent(context, WelcomeActivity::class.java)
+            if (binding.inputUsuario.editText?.text.toString() == "admin" && binding.inputPassword.editText?.text.toString() == "tnt2024"){
+                Toast.makeText(this, "Ingreso exitoso!", Toast.LENGTH_SHORT).show()
 
-            context.startActivity(intent) // Iniciar la actividad con el intent
+                val context = binding.root.context
+                val intent = Intent(context, WelcomeActivity::class.java)
+
+                context.startActivity(intent) // Iniciar la actividad con el intent
+
+            } else {
+                Toast.makeText(this, "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
