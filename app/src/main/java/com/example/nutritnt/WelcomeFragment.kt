@@ -30,9 +30,14 @@ class WelcomeFragment : Fragment() {
 
             binding.buttonEncuestas.setOnClickListener {
                 Log.d("Botones", "Botón ver encuestas clickeado")
-                val context = requireContext()
-                val intent = Intent(context, ListadoEncuestasActivity::class.java)
-                context.startActivity(intent)
+
+                // Crear instancia de WelcomeFragment y reemplazar LoginFragment con ella
+                val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                // R.id.fragmentContainer es el id del contenedor de fragmentos en nuestra actividad
+                transaction.replace(R.id.fragmentContainer, ListEncuestasFragment())
+                // Agregar a la pila de retroceso para volver atrás
+                transaction.addToBackStack(null)
+                transaction.commit()
             }
 
             // Aplicar los insets del sistema a la vista
