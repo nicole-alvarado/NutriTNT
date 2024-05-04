@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nutritnt.databinding.FragmentListEncuestasBinding
 import kotlin.random.Random
 
-class ListEncuestasFragment : Fragment(), ListaAdapterActivity.OnItemClickListener {
+class ListEncuestasFragment : Fragment(), ListAdapterFragment.OnItemClickListener {
     private lateinit var binding: FragmentListEncuestasBinding
-    private lateinit var listAdapter: ListaAdapterActivity
+    private lateinit var listAdapter: ListAdapterFragment
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,7 +25,7 @@ class ListEncuestasFragment : Fragment(), ListaAdapterActivity.OnItemClickListen
         binding = FragmentListEncuestasBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        listAdapter = ListaAdapterActivity(getItemList(), requireContext())
+        listAdapter = ListAdapterFragment(getItemList(), this)
         binding.RecyclerViewEncuestas.layoutManager = LinearLayoutManager(requireContext())
         binding.RecyclerViewEncuestas.adapter = listAdapter
         listAdapter.setOnItemClickListener(this)
