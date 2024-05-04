@@ -12,8 +12,8 @@ class ContainerFragmentActivity :  AppCompatActivity(R.layout.activity_container
             if (savedInstanceState == null) {
                 supportFragmentManager.commit {
                     setReorderingAllowed(true)
-                    add<WelcomeFragment>(R.id.fragmentContainer)
-                    //add<LoginFragment>(R.id.fragmentContainer)
+                    //add<WelcomeFragment>(R.id.fragmentContainer)
+                    add<LoginFragment>(R.id.fragmentContainer)
                 }
             }
         }

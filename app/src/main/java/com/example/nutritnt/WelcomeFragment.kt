@@ -34,7 +34,7 @@ class WelcomeFragment : Fragment() {
                 val intent = Intent(context, ListadoEncuestasActivity::class.java)
                 context.startActivity(intent)
             }
-            
+
             // Aplicar los insets del sistema a la vista
             ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
                 val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
