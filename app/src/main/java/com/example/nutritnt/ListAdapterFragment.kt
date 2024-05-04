@@ -10,11 +10,11 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 
-class ListAdapterFragment(private var itemList: List<ListaElementoActivity>, private val fragment: Fragment) :
+class ListAdapterFragment(private var itemList: List<ListElementFragment>, private val fragment: Fragment) :
     RecyclerView.Adapter<ListAdapterFragment.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(fragment.requireContext()).inflate(R.layout.activity_lista_elemento, parent, false)
+        val view = LayoutInflater.from(fragment.requireContext()).inflate(R.layout.fragment_list_element, parent, false)
         Log.i("enListAdapterFragment","ENTRAMOOOS")
 
         return ViewHolder(view)
@@ -43,7 +43,7 @@ class ListAdapterFragment(private var itemList: List<ListaElementoActivity>, pri
         private val fecha: TextView = itemView.findViewById(R.id.fechaTextView)
         private val estado: TextView = itemView.findViewById(R.id.estadoTextView)
 
-        fun bindData(item: ListaElementoActivity) {
+        fun bindData(item: ListElementFragment) {
             nombre.text = item.nombre
             fecha.text = item.fecha
             estado.text = item.estado

@@ -42,17 +42,17 @@ class ListEncuestasFragment : Fragment(), ListAdapterFragment.OnItemClickListene
         return "ID-${Random.nextInt(1000)}"
     }
 
-    private fun getItemList(): List<ListaElementoActivity> {
+    private fun getItemList(): List<ListElementFragment> {
         return mutableListOf(
-            ListaElementoActivity(generateRandomId(), "15-04-2024", "Finalizada"),
-            ListaElementoActivity(generateRandomId(), "16-04-2024", "Comenzada"),
-            ListaElementoActivity(generateRandomId(), "17-04-2024", "Finalizada"),
-            ListaElementoActivity(generateRandomId(), "18-04-2024", "Finalizada"),
-            ListaElementoActivity(generateRandomId(), "19-04-2024", "Comenzada"),
-            ListaElementoActivity(generateRandomId(), "12-04-2024", "Comenzada"),
-            ListaElementoActivity(generateRandomId(), "21-04-2024", "Comenzada"),
-            ListaElementoActivity(generateRandomId(), "01-04-2024", "Finalizada"),
-            ListaElementoActivity(generateRandomId(), "20-04-2024", "Finalizada")
+            ListElementFragment(generateRandomId(), "15-04-2024", "Finalizada"),
+            ListElementFragment(generateRandomId(), "16-04-2024", "Comenzada"),
+            ListElementFragment(generateRandomId(), "17-04-2024", "Finalizada"),
+            ListElementFragment(generateRandomId(), "18-04-2024", "Finalizada"),
+            ListElementFragment(generateRandomId(), "19-04-2024", "Comenzada"),
+            ListElementFragment(generateRandomId(), "12-04-2024", "Comenzada"),
+            ListElementFragment(generateRandomId(), "21-04-2024", "Comenzada"),
+            ListElementFragment(generateRandomId(), "01-04-2024", "Finalizada"),
+            ListElementFragment(generateRandomId(), "20-04-2024", "Finalizada")
         )
     }
 
