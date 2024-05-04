@@ -31,10 +31,13 @@ class LoginFragment : Fragment() {
             if (binding.inputUsuario.editText?.text.toString() == "admin" && binding.inputPassword.editText?.text.toString() == "tnt2024"){
                 Toast.makeText(context, "Ingreso exitoso!", Toast.LENGTH_SHORT).show()
 
-                val context = requireContext()
-                val intent = Intent(context, WelcomeActivity::class.java)
-
-                context.startActivity(intent) // Iniciar la actividad con el intent
+                // Crear instancia de WelcomeFragment y reemplazar LoginFragment con ella
+                val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                // R.id.fragmentContainer es el id del contenedor de fragmentos en nuestra actividad
+                transaction.replace(R.id.fragmentContainer, WelcomeFragment())
+                // Agregar a la pila de retroceso para volver atrás
+                transaction.addToBackStack(null)
+                transaction.commit()
 
             } else {
                 Toast.makeText(context, "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT).show()
