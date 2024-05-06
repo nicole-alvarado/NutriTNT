@@ -57,13 +57,20 @@ class ListEncuestasFragment : Fragment(), ListAdapterFragment.OnItemClickListene
     }
 
     override fun onItemClick(nombre: String, fecha: String, estado: String) {
-        Log.d("ListadoEncuestasFragment", nombre)
+        Log.d("ListEncuestasFragment", "Nombre de la encuesta seleccionada: $nombre")
         val context = binding.root.context
-        val intent = Intent(context, DetalleEncuestaActivity::class.java)
-        intent.putExtra("ENCUESTA_ID", nombre)
-        intent.putExtra("FECHA", fecha)
-        intent.putExtra("ESTADO", estado)
-        context.startActivity(intent)
+        val bundle = Bundle().apply {
+            putString("ENCUESTA_ID", nombre)
+            putString("FECHA", fecha)
+            putString("ESTADO", estado)
+        }
+
+        val detailFragment = DetailEncuestaFragment()
+        detailFragment.arguments = bundle
+        activity?.supportFragmentManager?.beginTransaction()
+            ?.replace(R.id.fragmentContainer, detailFragment)
+            ?.addToBackStack(null)
+            ?.commit()
     }
 
 }
