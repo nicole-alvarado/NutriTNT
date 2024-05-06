@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.nutritnt.databinding.ActivityWelcomeBinding
 import com.example.nutritnt.databinding.FragmentWelcomeBinding
 
 class WelcomeFragment : Fragment() {
