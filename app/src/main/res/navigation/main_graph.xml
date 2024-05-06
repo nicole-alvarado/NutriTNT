@@ -30,7 +30,7 @@
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome" >
         <action
-            android:id="@+id/action_welcomeFragment_to_listEncuestasFragment2"
+            android:id="@+id/action_welcomeFragment_to_listEncuestasFragment"
             app:destination="@id/listEncuestasFragment" />
     </fragment>
 </navigation>

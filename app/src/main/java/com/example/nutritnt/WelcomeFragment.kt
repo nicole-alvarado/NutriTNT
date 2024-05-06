@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.navigation.fragment.findNavController
 import com.example.nutritnt.databinding.FragmentWelcomeBinding
 
 class WelcomeFragment : Fragment() {
@@ -30,20 +31,14 @@ class WelcomeFragment : Fragment() {
             binding.buttonEncuestas.setOnClickListener {
                 Log.d("Botones", "Botón ver encuestas clickeado")
 
+                findNavController().navigate(R.id.action_welcomeFragment_to_listEncuestasFragment)
                 // Crear instancia de WelcomeFragment y reemplazar LoginFragment con ella
-                val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                //val transaction = requireActivity().supportFragmentManager.beginTransaction()
                 // R.id.fragmentContainer es el id del contenedor de fragmentos en nuestra actividad
-                transaction.replace(R.id.fragmentContainer, ListEncuestasFragment())
+                //transaction.replace(R.id.fragmentContainer, ListEncuestasFragment())
                 // Agregar a la pila de retroceso para volver atrás
-                transaction.addToBackStack(null)
-                transaction.commit()
-            }
-
-            // Aplicar los insets del sistema a la vista
-            ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
-                val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-                insets
+                //transaction.addToBackStack(null)
+                //transaction.commit()
             }
 
             return view

@@ -32,7 +32,7 @@ class LoginFragment : Fragment() {
             if (binding.inputUsuario.editText?.text.toString() == "admin" && binding.inputPassword.editText?.text.toString() == "tnt2024"){
                 Toast.makeText(context, "Ingreso exitoso!", Toast.LENGTH_SHORT).show()
 
-                // Navegar al WelcomeFragment según la acción definida en el navigation graph
+                // Navegar al WelcomeFragment según la acción definida en el navigation graph (main_graph.xml)
                 findNavController().navigate(R.id.action_loginFragment_to_welcomeFragment)
 
             } else {
