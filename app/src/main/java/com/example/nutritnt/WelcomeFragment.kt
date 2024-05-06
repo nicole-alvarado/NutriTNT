@@ -18,12 +18,15 @@ import com.example.nutritnt.databinding.FragmentWelcomeBinding
 class WelcomeFragment : Fragment() {
 
         private lateinit var binding: FragmentWelcomeBinding
+        // Inicializar la variable para manejar los argumentos utilizando navArgs()
         val args:WelcomeFragmentArgs by navArgs()
 
-    // Método que se llama cuando ya tenemos la vista creada
+    // Método que se llama cuando la vista ya ha sido creada
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Obtener el nombre pasado como argumento desde el fragmento anterior
         val name = args.name
+        // Asignar el nombre al TextView en el diseño del fragmento
         binding.textBienvenida.text = name
     }
 
