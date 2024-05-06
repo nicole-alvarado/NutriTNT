@@ -7,17 +7,27 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.nutritnt.databinding.FragmentWelcomeBinding
 
 class WelcomeFragment : Fragment() {
 
         private lateinit var binding: FragmentWelcomeBinding
+        val args:WelcomeFragmentArgs by navArgs()
 
-        override fun onCreateView(
+    // Método que se llama cuando ya tenemos la vista creada
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val name = args.name
+        binding.textBienvenida.text = name
+    }
+
+    override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
         ): View? {
@@ -26,19 +36,13 @@ class WelcomeFragment : Fragment() {
             val view = binding.root
 
             binding.buttonEncuestas.text = "Ver encuestas"
-            binding.textBienvenida.text = "Bienvenido/a"
+            //binding.textBienvenida.text = "Bienvenido/a"
 
             binding.buttonEncuestas.setOnClickListener {
                 Log.d("Botones", "Botón ver encuestas clickeado")
 
                 findNavController().navigate(R.id.action_welcomeFragment_to_listEncuestasFragment)
-                // Crear instancia de WelcomeFragment y reemplazar LoginFragment con ella
-                //val transaction = requireActivity().supportFragmentManager.beginTransaction()
-                // R.id.fragmentContainer es el id del contenedor de fragmentos en nuestra actividad
-                //transaction.replace(R.id.fragmentContainer, ListEncuestasFragment())
-                // Agregar a la pila de retroceso para volver atrás
-                //transaction.addToBackStack(null)
-                //transaction.commit()
+
             }
 
             return view

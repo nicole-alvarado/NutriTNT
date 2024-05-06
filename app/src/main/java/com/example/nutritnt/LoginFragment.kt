@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.nutritnt.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
@@ -33,8 +34,7 @@ class LoginFragment : Fragment() {
                 Toast.makeText(context, "Ingreso exitoso!", Toast.LENGTH_SHORT).show()
 
                 // Navegar al WelcomeFragment según la acción definida en el navigation graph (main_graph.xml)
-                findNavController().navigate(R.id.action_loginFragment_to_welcomeFragment)
-
+                findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToWelcomeFragment("Holaaaaa"))
             } else {
                 Toast.makeText(context, "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT).show()
             }

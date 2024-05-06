@@ -35,7 +35,6 @@
         android:id="@+id/textBienvenida"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bienvenido/a"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
