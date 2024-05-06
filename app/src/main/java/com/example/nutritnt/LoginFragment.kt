@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.navigation.fragment.findNavController
 import com.example.nutritnt.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
@@ -31,25 +32,14 @@ class LoginFragment : Fragment() {
             if (binding.inputUsuario.editText?.text.toString() == "admin" && binding.inputPassword.editText?.text.toString() == "tnt2024"){
                 Toast.makeText(context, "Ingreso exitoso!", Toast.LENGTH_SHORT).show()
 
-                // Crear instancia de WelcomeFragment y reemplazar LoginFragment con ella
-                val transaction = requireActivity().supportFragmentManager.beginTransaction()
-                // R.id.fragmentContainer es el id del contenedor de fragmentos en nuestra actividad
-                transaction.replace(R.id.fragmentContainer, WelcomeFragment())
-                // Agregar a la pila de retroceso para volver atrás
-                transaction.addToBackStack(null)
-                transaction.commit()
+                // Navegar al WelcomeFragment según la acción definida en el navigation graph
+                findNavController().navigate(R.id.action_loginFragment_to_welcomeFragment)
 
             } else {
                 Toast.makeText(context, "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT).show()
             }
         }
 
-        // Aplicar los insets del sistema a la vista
-        ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
         Log.i("estados","onCreate")
         return view
     }
