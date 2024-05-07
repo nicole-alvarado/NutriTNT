@@ -18,12 +18,26 @@
         android:id="@+id/listEncuestasFragment"
         android:name="com.example.nutritnt.ListEncuestasFragment"
         android:label="fragment_list_encuestas"
-        tools:layout="@layout/fragment_list_encuestas" />
+        tools:layout="@layout/fragment_list_encuestas" >
+        <action
+            android:id="@+id/action_listEncuestasFragment_to_detailEncuestaFragment"
+            app:destination="@id/detailEncuestaFragment" />
+    </fragment>
     <fragment
         android:id="@+id/detailEncuestaFragment"
         android:name="com.example.nutritnt.DetailEncuestaFragment"
         android:label="fragment_detail_encuesta"
-        tools:layout="@layout/fragment_detail_encuesta" />
+        tools:layout="@layout/fragment_detail_encuesta" >
+        <argument
+            android:name="idEncuesta"
+            app:argType="string" />
+        <argument
+            android:name="fecha"
+            app:argType="string" />
+        <argument
+            android:name="estado"
+            app:argType="string"/>
+    </fragment>
     <fragment
         android:id="@+id/welcomeFragment"
         android:name="com.example.nutritnt.WelcomeFragment"

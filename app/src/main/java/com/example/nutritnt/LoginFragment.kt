@@ -32,7 +32,7 @@ class LoginFragment : Fragment() {
             Log.d("Botones", "Botón ingresar clickeado")
             if (binding.inputUsuario.editText?.text.toString() == "admin" && binding.inputPassword.editText?.text.toString() == "tnt2024"){
                 Toast.makeText(context, "Ingreso exitoso!", Toast.LENGTH_SHORT).show()
-                
+
                 // Navega al WelcomeFragment utilizando la acción generada por Safe Args y pasa el texto como argumento
                 findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToWelcomeFragment("Bienvenido/a"))
             } else {

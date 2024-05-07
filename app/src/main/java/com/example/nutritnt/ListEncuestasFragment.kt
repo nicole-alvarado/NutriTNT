@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nutritnt.databinding.FragmentListEncuestasBinding
 import kotlin.random.Random
@@ -58,19 +59,19 @@ class ListEncuestasFragment : Fragment(), ListAdapterFragment.OnItemClickListene
 
     override fun onItemClick(nombre: String, fecha: String, estado: String) {
         Log.d("ListEncuestasFragment", "Nombre de la encuesta seleccionada: $nombre")
-        val context = binding.root.context
-        val bundle = Bundle().apply {
-            putString("ENCUESTA_ID", nombre)
-            putString("FECHA", fecha)
-            putString("ESTADO", estado)
-        }
-
-        val detailFragment = DetailEncuestaFragment()
-        detailFragment.arguments = bundle
-        activity?.supportFragmentManager?.beginTransaction()
-            ?.replace(R.id.fragmentContainer, detailFragment)
-            ?.addToBackStack(null)
-            ?.commit()
+        findNavController().navigate(ListEncuestasFragmentDirections.actionListEncuestasFragmentToDetailEncuestaFragment(nombre, fecha, estado))
+        //val context = binding.root.context
+        //val bundle = Bundle().apply {
+        //    putString("ENCUESTA_ID", nombre)
+        //    putString("FECHA", fecha)
+        //    putString("ESTADO", estado)
+        //}
+//        val detailFragment = DetailEncuestaFragment()
+  //      detailFragment.arguments = bundle
+    //    activity?.supportFragmentManager?.beginTransaction()
+      //      ?.replace(R.id.fragmentContainer, detailFragment)
+        //    ?.addToBackStack(null)
+          //  ?.commit()
     }
 
 }
