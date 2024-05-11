@@ -39,13 +39,18 @@ class WelcomeFragment : Fragment() {
             val view = binding.root
 
             binding.buttonEncuestas.text = "Ver encuestas"
+            binding.buttonNewEncuesta.text = "Nueva encuesta"
             //binding.textBienvenida.text = "Bienvenido/a"
 
             binding.buttonEncuestas.setOnClickListener {
                 Log.d("Botones", "Botón ver encuestas clickeado")
 
                 findNavController().navigate(R.id.action_welcomeFragment_to_listEncuestasFragment)
+            }
 
+            binding.buttonNewEncuesta.setOnClickListener{
+                Log.d("enWelcomeFragment","Boton nueva encuesta")
+                findNavController().navigate(R.id.action_welcomeFragment_to_newEncuestaFragment)
             }
 
             return view

@@ -62,6 +62,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="newEncuestaFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="463" />
+                            <option name="y" value="329" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="welcomeFragment">
                     <value>
                       <LayoutPositions>
