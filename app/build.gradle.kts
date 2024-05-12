@@ -37,11 +37,15 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
 }
 
 dependencies {
     val fragment_version = "1.7.0"
     val nav_version = "2.7.7"
+    val lifecycle_version = "2.7.0"
+    val arch_version = "2.2.0"
+
 
     // NavComponent
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
@@ -56,4 +60,11 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("androidx.fragment:fragment-ktx:$fragment_version")
+
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+
+    // LiveData
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+
 }

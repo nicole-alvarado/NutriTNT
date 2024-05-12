@@ -1,5 +1,6 @@
 package com.example.nutritnt
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,11 +14,17 @@ import android.widget.EditText
 import android.widget.NumberPicker
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.nutritnt.databinding.FragmentNewEncuestaBinding
+import com.example.nutritnt.viewmodel.NewEncuestaViewModel
 
 class NewEncuestaFragment : Fragment() {
 
     private lateinit var binding: FragmentNewEncuestaBinding
+
+    private lateinit var viewModelNewEncuesta: NewEncuestaViewModel
+
 
     private lateinit var editText: EditText
     private lateinit var minusButton: Button
@@ -37,6 +44,9 @@ class NewEncuestaFragment : Fragment() {
         binding = FragmentNewEncuestaBinding.inflate(layoutInflater)
         val view = binding.root
 
+        viewModelNewEncuesta = ViewModelProvider(this).get(NewEncuestaViewModel::class.java)
+
+
 
         val picker1: NumberPicker = binding.numberPicker
         picker1.maxValue = 100
@@ -48,11 +58,13 @@ class NewEncuestaFragment : Fragment() {
         // access the spinner
         val spinner_p = view.findViewById<Spinner>(R.id.spinner_portion)
         if (spinner_p != null) {
-            val adapter = ArrayAdapter(
+            val adapter_p = ArrayAdapter(
                 requireContext(),
-                android.R.layout.simple_spinner_item, portions
+                android.R.layout.simple_spinner_item,
+                viewModelNewEncuesta.period.map { it.text }
             )
-            spinner_p.adapter = adapter
+
+            binding.spinnerPortion.adapter = adapter_p
 
             spinner_p.onItemSelectedListener = object :
                 AdapterView.OnItemSelectedListener{
@@ -160,5 +172,13 @@ class NewEncuestaFragment : Fragment() {
             editText.setText(value.toString())
         }
     }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        Log.i("holi","Hubo cambio de config")
+        // Actualiza el diseño de tus vistas según la nueva configuración aquí
+        // Por ejemplo, puedes cambiar la orientación de las vistas, ajustar márgenes, etc.
+    }
+
 
 }
