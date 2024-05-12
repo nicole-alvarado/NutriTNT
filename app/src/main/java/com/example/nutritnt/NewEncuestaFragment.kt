@@ -47,11 +47,6 @@ class NewEncuestaFragment : Fragment() {
         viewModelNewEncuesta = ViewModelProvider(this).get(NewEncuestaViewModel::class.java)
 
 
-
-        val picker1: NumberPicker = binding.numberPicker
-        picker1.maxValue = 100
-        picker1.minValue = 1
-
         // access the items of the list
         val portions = resources.getStringArray(R.array.Portion)
 
@@ -133,10 +128,7 @@ class NewEncuestaFragment : Fragment() {
             }
         }
 
-        picker1.setOnValueChangedListener { picker, oldVal, newVal ->
-            val valuePicker1 = picker1.value
-            Log.d("picker value", valuePicker1.toString())
-        }
+
 
 
 
@@ -148,7 +140,6 @@ class NewEncuestaFragment : Fragment() {
             val frecuencyPosition =   spinner_f.selectedItemPosition
             val valorFrecuencyPosition = frecuency[frecuencyPosition]
 
-            val picker = picker1.value
 
             Log.d("Botones", "Botón registrar clickeado")
 

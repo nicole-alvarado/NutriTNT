@@ -11,114 +11,103 @@
     android:background="#FFFDFD"
     tools:context=".NewEncuestaFragment">
 
+
     <TextView
         android:id="@+id/textViewAlimento"
-        android:layout_width="310dp"
-        android:layout_height="23dp"
+        android:layout_width="359dp"
+        android:layout_height="42dp"
         android:layout_marginTop="44dp"
         android:text="Alimento: Yogur Bebible Entero"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/spinner_portion"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.427"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.025"
 
-        />
-
+        app:layout_constraintVertical_bias="0.032" />
 
     <TextView
         android:id="@+id/textViewPortion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="188dp"
         android:text="Porción:"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewFrecuency"
-        app:layout_constraintEnd_toStartOf="@+id/spinner_portion"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAlimento"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewFrecuency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="424dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="100dp"
+
         android:text="Frecuencia: "
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/spinner_frecuency"
-
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAlimento" />
 
     <Button
         android:id="@+id/buttonRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="104dp"
+        android:layout_marginBottom="36dp"
         android:text="Registrar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.557"
+        app:layout_constraintHorizontal_bias="0.475"
         app:layout_constraintStart_toStartOf="parent" />
+
 
     <Spinner
         android:id="@+id/spinner_portion"
         android:layout_width="131dp"
         android:layout_height="24dp"
-        android:layout_marginEnd="180dp"
-        android:layout_marginBottom="16dp"
         android:backgroundTintMode="screen"
         android:scrollbarStyle="outsideOverlay"
         android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toTopOf="@+id/numberPicker"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="@{viewModel.}"/>
-
+        tools:layout_editor_absoluteY="227dp" />
 
     <Spinner
         android:id="@+id/spinner_frecuency"
         android:layout_width="121dp"
         android:layout_height="27dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="100dp"
         android:backgroundTintMode="screen"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toStartOf="@+id/textViewVeces" />
-
-    <NumberPicker
-        android:id="@+id/numberPicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="344dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-
-        app:layout_constraintEnd_toEndOf="parent" />
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="228dp" />
 
     <TextView
         android:id="@+id/textViewVeces"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="428dp"
 
+        android:layout_marginTop="108dp"
+        android:layout_marginBottom="28dp"
         android:text="Veces"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
 
-        app:layout_constraintEnd_toStartOf="@+id/numberPicker" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewAlimento"
+        app:layout_constraintVertical_bias="0.3"
+        tools:layout_editor_absoluteX="337dp" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="128dp"
+        android:layout_width="226dp"
+        android:layout_height="47dp"
+
+        android:layout_marginStart="82dp"
+        android:layout_marginEnd="104dp"
+        android:layout_marginBottom="56dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/buttonRegister"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
 
         <include
             layout="@layout/horizontal_button_picker"
