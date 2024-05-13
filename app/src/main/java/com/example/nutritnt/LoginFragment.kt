@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.example.nutritnt.databinding.FragmentLoginBinding
 
@@ -19,8 +20,11 @@ class LoginFragment : Fragment() {
     ): View? {
 
         // Inflar el diseño del fragmento utilizando el FragmentWelcomeBinding
-        binding = FragmentLoginBinding.inflate(inflater, container, false)
-        val view = binding.root
+        //binding = FragmentLoginBinding.inflate(inflater, container, false)
+        //val view = binding.root
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
+
 
         binding.loginButton.text = "Ingresar"
         binding.loginButton.setOnClickListener(){
@@ -36,7 +40,7 @@ class LoginFragment : Fragment() {
         }
 
         Log.i("estados","onCreate")
-        return view
+        return binding.root
     }
 
 
