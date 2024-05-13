@@ -23,9 +23,9 @@ class LoginFragment : Fragment() {
         //binding = FragmentLoginBinding.inflate(inflater, container, false)
         //val view = binding.root
 
+        // Inflar el diseño del fragmento utilziando DataBindingUtil para generar el binding
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
-
-
+        
         binding.loginButton.text = "Ingresar"
         binding.loginButton.setOnClickListener(){
             Log.d("Botones", "Botón ingresar clickeado")
@@ -40,6 +40,7 @@ class LoginFragment : Fragment() {
         }
 
         Log.i("estados","onCreate")
+        // Retorna la raíz del layout inflado con Data Binding
         return binding.root
     }
 
