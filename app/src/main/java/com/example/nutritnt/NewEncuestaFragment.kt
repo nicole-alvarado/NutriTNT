@@ -46,7 +46,6 @@ class NewEncuestaFragment : Fragment() {
 
         viewModelNewEncuesta = ViewModelProvider(this).get(NewEncuestaViewModel::class.java)
 
-
         // access the spinner
         val spinner_p = view.findViewById<Spinner>(R.id.spinner_portion)
         if (spinner_p != null) {
@@ -88,9 +87,6 @@ class NewEncuestaFragment : Fragment() {
             plusButton.setOnClickListener {
                 increment()
             }
-
-
-
         }
 
         // access the spinner
