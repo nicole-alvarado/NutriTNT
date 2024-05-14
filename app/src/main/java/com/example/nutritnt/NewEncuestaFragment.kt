@@ -47,16 +47,13 @@ class NewEncuestaFragment : Fragment() {
         viewModelNewEncuesta = ViewModelProvider(this).get(NewEncuestaViewModel::class.java)
 
 
-        // access the items of the list
-        val portions = resources.getStringArray(R.array.Portion)
-
         // access the spinner
         val spinner_p = view.findViewById<Spinner>(R.id.spinner_portion)
         if (spinner_p != null) {
             val adapter_p = ArrayAdapter(
                 requireContext(),
                 android.R.layout.simple_spinner_item,
-                viewModelNewEncuesta.period.map { it.text }
+                viewModelNewEncuesta.portion.map { it.text }
             )
 
             binding.spinnerPortion.adapter = adapter_p
@@ -70,7 +67,7 @@ class NewEncuestaFragment : Fragment() {
                     Toast.makeText(
                         requireContext(),
                         getString(R.string.selected_item) + " " +
-                                "" + portions[position], Toast.LENGTH_SHORT
+                                "" + viewModelNewEncuesta.portion[position].text, Toast.LENGTH_SHORT
                     ).show()
                 }
 
@@ -96,18 +93,16 @@ class NewEncuestaFragment : Fragment() {
 
         }
 
-
-
-        val frecuency = resources.getStringArray(R.array.Frecuency)
-
         // access the spinner
         val spinner_f = view.findViewById<Spinner>(R.id.spinner_frecuency)
         if (spinner_f != null) {
-            val adapter = ArrayAdapter(
+            val adapter_f = ArrayAdapter(
                 requireContext(),
-                android.R.layout.simple_spinner_item, frecuency
+                android.R.layout.simple_spinner_item,
+                viewModelNewEncuesta.period.map { it.text }
             )
-            spinner_f.adapter = adapter
+
+            binding.spinnerFrecuency.adapter = adapter_f
 
             spinner_f.onItemSelectedListener = object :
                 AdapterView.OnItemSelectedListener {
@@ -118,7 +113,7 @@ class NewEncuestaFragment : Fragment() {
                     Toast.makeText(
                         requireContext(),
                         getString(R.string.selected_item) + " " +
-                                "" + frecuency[position], Toast.LENGTH_SHORT
+                                "" + viewModelNewEncuesta.period[position].text, Toast.LENGTH_SHORT
                     ).show()
                 }
 
@@ -135,11 +130,8 @@ class NewEncuestaFragment : Fragment() {
         binding.buttonRegister.setOnClickListener {
 
             val portionPosition =   spinner_p.selectedItemPosition
-            val valorPortionPosition = portions[portionPosition]
 
             val frecuencyPosition =   spinner_f.selectedItemPosition
-            val valorFrecuencyPosition = frecuency[frecuencyPosition]
-
 
             Log.d("Botones", "Botón registrar clickeado")
 
