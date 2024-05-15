@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFDFD"
+    tools:context=".NewEncuestaFragment">
+
+    <TextView
+        android:id="@+id/textViewAlimento"
+        android:layout_width="359dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="44dp"
+        android:text="Alimento: Yogur Bebible Entero"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/spinner_portion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.427"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.032" />
+
+    <TextView
+        android:id="@+id/textViewPortion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="188dp"
+        android:text="Porción:"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewFrecuency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="100dp"
+        android:text="Frecuencia: "
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAlimento" />
+
+    <Button
+        android:id="@+id/buttonRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:text="Registrar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.475"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <Spinner
+        android:id="@+id/spinner_portion"
+        android:layout_width="131dp"
+        android:layout_height="24dp"
+        android:backgroundTintMode="screen"
+        android:scrollbarStyle="outsideOverlay"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="227dp" />
+
+    <Spinner
+        android:id="@+id/spinner_frecuency"
+        android:layout_width="121dp"
+        android:layout_height="27dp"
+        android:backgroundTintMode="screen"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="228dp" />
+
+    <TextView
+        android:id="@+id/textViewVeces"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="108dp"
+        android:layout_marginBottom="28dp"
+        android:text="Veces"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAlimento"
+        app:layout_constraintVertical_bias="0.3"
+        tools:layout_editor_absoluteX="337dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="226dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="82dp"
+        android:layout_marginEnd="104dp"
+        android:layout_marginBottom="56dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/buttonRegister"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <include
+            layout="@layout/horizontal_button_picker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/textViewAlimento"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="249dp"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
