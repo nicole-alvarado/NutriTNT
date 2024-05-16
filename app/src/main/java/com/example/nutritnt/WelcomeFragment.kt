@@ -49,8 +49,8 @@ class WelcomeFragment : Fragment() {
             }
 
             binding.buttonNewEncuesta.setOnClickListener{
-                Log.d("enWelcomeFragment","Boton nueva encuesta")
-                findNavController().navigate(R.id.action_welcomeFragment_to_newEncuestaFragment)
+                Log.d("enWelcomeFragment","Boton encuesta prueba")
+                findNavController().navigate(R.id.action_welcomeFragment_to_encuestaPrueba)
             }
 
             return view

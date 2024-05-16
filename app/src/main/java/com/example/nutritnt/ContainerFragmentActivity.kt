@@ -1,6 +1,7 @@
 package com.example.nutritnt
 
 
+import android.app.Application
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
