@@ -10,6 +10,7 @@ import com.example.nutritnt.database.dao.EncuestaDAO
 import com.example.nutritnt.database.entities.Encuesta
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 // Anotar la clase para convertirla en una Database Room
 // con una Tabla (entity) de la clase Encuesta
@@ -94,10 +95,26 @@ abstract class EncuestaRoomDatabase : RoomDatabase() {
                     )
                     encuestaDAO.insertar(encuesta3)
 
+
                     Log.i("EncuestaRoomDatabase", "Datos de ejemplo insertados")
                 } else {
+                    // Nuevas encuestas
+                    encuestaDAO.insertar(Encuesta(4, generateRandomId(), "15-04-2024", "Finalizada"))
+                    encuestaDAO.insertar(Encuesta(5, generateRandomId(), "16-04-2024", "Comenzada"))
+                    encuestaDAO.insertar(Encuesta(6, generateRandomId(), "17-04-2024", "Finalizada"))
+                    encuestaDAO.insertar(Encuesta(7, generateRandomId(), "18-04-2024", "Finalizada"))
+                    encuestaDAO.insertar(Encuesta(8, generateRandomId(), "19-04-2024", "Comenzada"))
+                    encuestaDAO.insertar(Encuesta(9, generateRandomId(), "12-04-2024", "Comenzada"))
+                    encuestaDAO.insertar(Encuesta(10, generateRandomId(), "21-04-2024", "Comenzada"))
+                    encuestaDAO.insertar(Encuesta(11, generateRandomId(), "01-04-2024", "Finalizada"))
+                    encuestaDAO.insertar(Encuesta(12, generateRandomId(), "20-04-2024", "Finalizada"))
+
                     Log.i("EncuestaRoomDatabase", "La base de datos ya contiene datos")
                 }
+            }
+
+            private fun generateRandomId(): String {
+                return "ID-${Random.nextInt(1000)}"
             }
         }
 
