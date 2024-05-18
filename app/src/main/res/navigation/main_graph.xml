@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/newEncuestaFragment"
-        android:name="com.example.nutritnt.NewEncuestaFragment"
+        android:name="com.example.nutritnt.ui.NewEncuestaFragment"
         android:label="fragment_new_encuesta"
         tools:layout="@layout/fragment_new_encuesta" />
 </navigation>
