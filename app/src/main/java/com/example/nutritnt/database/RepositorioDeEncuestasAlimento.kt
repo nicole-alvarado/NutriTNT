@@ -2,7 +2,6 @@ package com.example.nutritnt.database
 
 import androidx.lifecycle.LiveData
 import com.example.nutritnt.database.dao.Encuesta_AlimentoDAO
-import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.database.entities.Encuesta_Alimento
 
 class RepositorioDeEncuestasAlimento(private val encuestaAlimentoDAO : Encuesta_AlimentoDAO) {
