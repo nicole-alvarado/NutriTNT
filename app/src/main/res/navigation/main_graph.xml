@@ -52,34 +52,10 @@
         <action
             android:id="@+id/action_welcomeFragment_to_newEncuestaFragment"
             app:destination="@id/newEncuestaFragment" />
-        <action
-            android:id="@+id/action_welcomeFragment_to_encuestaPrueba"
-            app:destination="@id/encuestaPrueba" />
     </fragment>
     <fragment
         android:id="@+id/newEncuestaFragment"
         android:name="com.example.nutritnt.NewEncuestaFragment"
         android:label="fragment_new_encuesta"
         tools:layout="@layout/fragment_new_encuesta" />
-    <fragment
-        android:id="@+id/encuestaPrueba"
-        android:name="com.example.nutritnt.EncuestaPrueba"
-        android:label="fragment_encuesta_prueba"
-        tools:layout="@layout/fragment_encuesta_prueba" >
-        <action
-            android:id="@+id/action_encuestaPrueba_to_nuevaEncuestaPruebaFragment"
-            app:destination="@id/nuevaEncuestaPruebaFragment" />
-        <argument
-            android:name="nombre"
-            app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/nuevaEncuestaPruebaFragment"
-        android:name="com.example.nutritnt.NuevaEncuestaPruebaFragment"
-        android:label="fragment_nueva_encuesta_prueba"
-        tools:layout="@layout/fragment_nueva_encuesta_prueba" >
-        <action
-            android:id="@+id/action_nuevaEncuestaPruebaFragment_to_encuestaPrueba"
-            app:destination="@id/encuestaPrueba" />
-    </fragment>
 </navigation>
