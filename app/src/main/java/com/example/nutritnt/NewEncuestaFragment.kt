@@ -16,13 +16,16 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import com.example.nutritnt.database.entities.Encuesta_Alimento
 import com.example.nutritnt.databinding.FragmentNewEncuestaBinding
+import com.example.nutritnt.viewmodel.EncuestaAlimentoViewModel
 import com.example.nutritnt.viewmodel.NewEncuestaViewModel
 
 class NewEncuestaFragment : Fragment() {
 
     private lateinit var binding: FragmentNewEncuestaBinding
 
+    private val viewModelEncuestaAlimento: EncuestaAlimentoViewModel by viewModels()
     private lateinit var viewModelNewEncuesta: NewEncuestaViewModel
 
 
@@ -125,11 +128,24 @@ class NewEncuestaFragment : Fragment() {
 
         binding.buttonRegister.setOnClickListener {
 
-            val portionPosition =   spinner_p.selectedItemPosition
-
-            val frecuencyPosition =   spinner_f.selectedItemPosition
+            // Obtener directamente los valores seleccionados de los Spinners
+            val selectedPortion = spinner_p.selectedItem.toString()
+            val selectedPeriod = spinner_f.selectedItem.toString()
+            val frecuency = editText.text.toString().toIntOrNull() ?: 0
 
             Log.d("Botones", "Botón registrar clickeado")
+
+            // Crea un objeto Encuesta_Alimento con los valores seleccionados
+            val nuevaEncuestaAlimento = Encuesta_Alimento(
+                // Agrega los campos necesarios para tu objeto Encuesta_Alimento
+                portion = selectedPortion,
+                period = selectedPeriod,
+                frecuency = frecuency,
+                encuestaId = 1,
+            )
+
+            // Inserta la nueva encuesta de alimento en la base de datos
+            viewModelEncuestaAlimento.insert(nuevaEncuestaAlimento)
 
             //findNavController().navigate(R.id.action_welcomeFragment_to_listEncuestasFragment)
             // findNavController().navigate(R.id.action_newEncuesta_to_detailEncuestaFragment)
