@@ -35,14 +35,16 @@ class NewEncuestaFragment : Fragment() {
         binding = FragmentNewEncuestaBinding.inflate(layoutInflater)
         val view = binding.root
 
+        // Configurar los Spinners
         setupSpinner(binding.spinnerPortion, R.array.Portion)
         setupSpinner(binding.spinnerPeriod, R.array.Period)
 
+        // Obtener referencias a las vistas de los botones y el EditText
         editText = view.findViewById(R.id.editText)
         minusButton = view.findViewById(R.id.minusButton)
         plusButton = view.findViewById(R.id.plusButton)
 
-        // Configura los listeners para los botones
+        // Configurar los listeners para los botones
         minusButton.setOnClickListener {
             decrement()
         }
@@ -64,20 +66,20 @@ class NewEncuestaFragment : Fragment() {
                 portion = selectedPortion,
                 period = selectedPeriod,
                 frecuency = frecuency,
-                encuestaId = 2,
+                encuestaId = 2, // ID temporal, debemos asignarle el id correcto de una encuesta
             )
 
             // Insertar nueva encuesta de alimento en la base de datos a través del ViewModel
             viewModelEncuestaAlimento.insert(nuevaEncuestaAlimento)
 
-            // Navegar a otro fragmento si es necesario
-            //findNavController().navigate(R.id.action_welcomeFragment_to_listEncuestasFragment)
+            // Verificar el agregado correcto a la bd y volver al fragmento WelcomeFragment
             // findNavController().navigate(R.id.action_newEncuesta_to_detailEncuestaFragment)
         }
 
         return view
     }
 
+    // Configurar un Spinner con un ArrayAdapter y un listener de selección de item
     private fun setupSpinner(spinner: Spinner, arrayResource: Int) {
         val adapter = ArrayAdapter(
             requireContext(),
