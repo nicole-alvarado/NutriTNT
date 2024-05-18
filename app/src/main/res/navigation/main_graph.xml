@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/listEncuestasFragment"
-        android:name="com.example.nutritnt.ListEncuestasFragment"
+        android:name="com.example.nutritnt.listado.ListEncuestasFragment"
         android:label="fragment_list_encuestas"
         tools:layout="@layout/fragment_list_encuestas" >
         <action

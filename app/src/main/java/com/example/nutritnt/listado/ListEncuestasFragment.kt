@@ -1,9 +1,7 @@
-package com.example.nutritnt
+package com.example.nutritnt.listado
 
 import android.app.Application
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,14 +10,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nutritnt.adapter.EncuestaAdapter
-import com.example.nutritnt.adapter.EncuestaViewHolder
 import com.example.nutritnt.databinding.FragmentListEncuestasBinding
-import com.example.nutritnt.provider.EncuestaProvider
 import com.example.nutritnt.viewmodel.EncuestaViewModel
-import kotlin.random.Random
 
 class ListEncuestasFragment : Fragment() {
     private lateinit var binding: FragmentListEncuestasBinding
