@@ -1,5 +1,6 @@
 package com.example.nutritnt
 
+import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,16 +10,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nutritnt.adapter.EncuestaAdapter
 import com.example.nutritnt.adapter.EncuestaViewHolder
 import com.example.nutritnt.databinding.FragmentListEncuestasBinding
 import com.example.nutritnt.provider.EncuestaProvider
+import com.example.nutritnt.viewmodel.EncuestaViewModel
 import kotlin.random.Random
 
 class ListEncuestasFragment : Fragment() {
     private lateinit var binding: FragmentListEncuestasBinding
+    private lateinit var encuestaViewModel: EncuestaViewModel
+    private lateinit var adapter: EncuestaAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,15 +44,33 @@ class ListEncuestasFragment : Fragment() {
         return view
     }
 
+    // Función que se llama cuando la vista ha sido creada
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Inicializar el RecyclerView
         initRecyclerView()
+
+        // Inicializar el ViewModel
+        encuestaViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(
+            requireContext().applicationContext as Application
+        )).get(EncuestaViewModel::class.java)
+
+        // Observar los cambios en los datos de encuestas y actualizar el adaptador cuando los datos cambien
+        encuestaViewModel.todasLasEncuestas.observe(viewLifecycleOwner, Observer { encuestas ->
+            encuestas?.let { adapter.setEncuestas(it) }
+        })
+
     }
 
-    private fun initRecyclerView(){
+    private fun initRecyclerView() {
+        // Obtener la referencia al RecyclerView desde el binding
         val recyclerView = binding.recyclerViewEncuesta
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = EncuestaAdapter(EncuestaProvider.encuestaList)
+        // Inicializar el adaptador
+        adapter = EncuestaAdapter()
+        recyclerView.adapter = adapter
+
+
     }
 
 }
