@@ -113,10 +113,10 @@
                         encuestaDAO.insertar(Encuesta(12, generateRandomId(), "20-04-2024", "Finalizada"))
 
                         // Insertar datos de prueba para tabla_encuesta_alimento
-                        val encuestaAlimento1 = Encuesta_Alimento(portion = "1 taza", period = "Día", frecuency = 2, encuestaId = 1)
-                        encuestaAlimentoDAO.insertar(encuestaAlimento1)
-                        val encuestaAlimento2 = Encuesta_Alimento(portion = "1/2 taza", period = "Semana", frecuency = 3, encuestaId = 2)
-                        encuestaAlimentoDAO.insertar(encuestaAlimento2)
+//                        val encuestaAlimento1 = Encuesta_Alimento(portion = "1 taza", period = "Día", frecuency = 2, encuestaId = 1)
+//                        encuestaAlimentoDAO.insertar(encuestaAlimento1)
+//                        val encuestaAlimento2 = Encuesta_Alimento(portion = "1/2 taza", period = "Semana", frecuency = 3, encuestaId = 2)
+//                        encuestaAlimentoDAO.insertar(encuestaAlimento2)
 
                         Log.i("EncuestaRoomDatabase", "La base de datos ya contiene datos")
                     }
