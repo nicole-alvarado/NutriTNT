@@ -5,11 +5,13 @@ import android.app.Application
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-
 class ContainerFragmentActivity :  AppCompatActivity() {
+
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
+
             setContentView(R.layout.activity_container_fragment)
+
         }
 
     override fun onConfigurationChanged(newConfig: Configuration) {

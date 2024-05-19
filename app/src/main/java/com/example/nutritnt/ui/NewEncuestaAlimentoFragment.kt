@@ -15,12 +15,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.nutritnt.R
 import com.example.nutritnt.database.entities.Encuesta_Alimento
-import com.example.nutritnt.databinding.FragmentNewEncuestaBinding
+import com.example.nutritnt.databinding.FragmentNewEncuestaAlimentoBinding
 import com.example.nutritnt.viewmodel.EncuestaAlimentoViewModel
 
-class NewEncuestaFragment : Fragment() {
+class NewEncuestaAlimentoFragment : Fragment() {
 
-    private lateinit var binding: FragmentNewEncuestaBinding
+    private lateinit var binding: FragmentNewEncuestaAlimentoBinding
     private val viewModelEncuestaAlimento: EncuestaAlimentoViewModel by viewModels()
 
     private lateinit var editText: EditText
@@ -32,7 +32,7 @@ class NewEncuestaFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentNewEncuestaBinding.inflate(layoutInflater)
+        binding = FragmentNewEncuestaAlimentoBinding.inflate(layoutInflater)
         val view = binding.root
 
         // Configurar los Spinners
