@@ -19,7 +19,7 @@
     // Anotar la clase para convertirla en una Database Room
     // con una Tabla (entity) de la clase Encuesta
 
-    @Database(entities = [Encuesta::class, Encuesta_Alimento::class, Alimento::class], version = 5, exportSchema = false)
+    @Database(entities = [Encuesta::class, Encuesta_Alimento::class, Alimento::class], version = 6, exportSchema = false)
     abstract class EncuestaRoomDatabase : RoomDatabase() {
 
         abstract fun encuestaAlimentoDao(): Encuesta_AlimentoDAO
@@ -94,17 +94,20 @@
                         encuestaDAO.insertar(Encuesta(12, generateRandomId(), "20-04-2024", "Finalizada"))
                         Log.i("EncuestaRoomDatabase", "Datos de Encuestas insertados")
 
-                        // Nuevas encuestas
-                        // Insertar datos de prueba para tabla_encuesta_alimento
-//                        val encuestaAlimento1 = Encuesta_Alimento(portion = "1 taza", period = "Día", frecuency = 2, encuestaId = 1)
-//                        encuestaAlimentoDAO.insertar(encuestaAlimento1)
-//                        val encuestaAlimento2 = Encuesta_Alimento(portion = "1/2 taza", period = "Semana", frecuency = 3, encuestaId = 2)
-//                        encuestaAlimentoDAO.insertar(encuestaAlimento2
                     }
                     if ( alimentoDAO.cantidadDeAlimentos() == 0) {
                         val alimento1 = Alimento(alimentoId = 1,"Yogur bebible",100,4F)
                         alimentoDAO.insertar(alimento1)
                         Log.i("EncuestaRoomDatabase", "Datos de Alimentos insertados")
+                    }
+
+                    if (encuestaAlimentoDAO.cantidadDeEncuestasAlimento() == 0){
+                        val encuestaAlimento1 = Encuesta_Alimento(encuestaAlimentoId = 1, portion = "1 taza", period = "Día", frecuency = 2, encuestaId = 1, alimentoId = 1)
+                        encuestaAlimentoDAO.insertar(encuestaAlimento1)
+                        val encuestaAlimento2 = Encuesta_Alimento(encuestaAlimentoId = 2, "1/2 taza", period = "Semana", frecuency = 3, encuestaId = 2, alimentoId = 1)
+                        encuestaAlimentoDAO.insertar(encuestaAlimento2)
+                        Log.i("EncuestaRoomDatabase", "Datos de Encuesta_Alimentos insertados")
+
                     }
 
                 }
