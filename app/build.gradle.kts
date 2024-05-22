@@ -41,16 +41,28 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.2"
     }
 
 }
 
 dependencies {
+    implementation(libs.androidx.legacy.support.v4)
+    implementation(libs.androidx.ui.tooling.preview.android)
     val fragment_version = "1.7.0"
     val nav_version = "2.7.7"
     val lifecycle_version = "2.7.0"
     val arch_version = "2.2.0"
     val room_version = "2.6.1"
+
+    //Compose
+    val composeBom = platform("androidx.compose:compose-bom:2024.05.00")
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
 
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
@@ -98,5 +110,9 @@ dependencies {
 
     // LiveData
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+
+    //Graficos
+    implementation("com.github.tehras:charts:0.2.4-alpha")
+    implementation("androidx.compose.material3:material3")
 
 }
