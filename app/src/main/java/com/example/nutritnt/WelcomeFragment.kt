@@ -27,7 +27,7 @@ class WelcomeFragment : Fragment() {
         // Obtener el nombre pasado como argumento desde el fragmento anterior
         val name = args.name
         // Asignar el nombre al TextView en el diseño del fragmento
-        binding.textBienvenida.text = name
+     //   binding.textBienvenida.text = name
     }
 
     override fun onCreateView(
