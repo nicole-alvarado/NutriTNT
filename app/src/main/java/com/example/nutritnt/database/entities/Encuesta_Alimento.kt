@@ -6,10 +6,16 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "tabla_encuesta_alimento",
-    foreignKeys = [ForeignKey(entity = Encuesta::class,
-        parentColumns = ["encuestaId"],
-        childColumns = ["encuestaId"],
-        onDelete = ForeignKey.CASCADE)])
+    foreignKeys =
+    [
+        ForeignKey(entity = Encuesta::class,
+            parentColumns = ["encuestaId"],
+            childColumns = ["encuestaId"],
+            onDelete = ForeignKey.CASCADE),
+        ForeignKey(entity = Alimento::class,
+            parentColumns = ["alimentoId"],
+            childColumns = ["alimentoId"],
+            onDelete = ForeignKey.CASCADE)])
 
 data class Encuesta_Alimento(
     @PrimaryKey(autoGenerate = true)
@@ -26,4 +32,7 @@ data class Encuesta_Alimento(
 
     @ColumnInfo(name = "encuestaId")
     var encuestaId: Int,
+
+    @ColumnInfo(name = "alimentoId")
+    var alimentoId: Int
 )

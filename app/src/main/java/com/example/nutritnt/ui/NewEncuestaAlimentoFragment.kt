@@ -67,6 +67,7 @@ class NewEncuestaAlimentoFragment : Fragment() {
                 period = selectedPeriod,
                 frecuency = frecuency,
                 encuestaId = 2, // ID temporal, debemos asignarle el id correcto de una encuesta
+                alimentoId = 1,
             )
 
             // Insertar nueva encuesta de alimento en la base de datos a través del ViewModel
