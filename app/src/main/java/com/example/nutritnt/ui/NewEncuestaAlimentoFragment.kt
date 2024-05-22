@@ -73,7 +73,7 @@ class NewEncuestaAlimentoFragment : Fragment() {
 
             // Insertar nueva encuesta de alimento en la base de datos a través del ViewModel
             viewModelEncuestaAlimento.insert(nuevaEncuestaAlimento)
-            //findNavController().navigate(R.id.action_newEncuestaFragment_to_listEncuestasAlimentosFragment)
+            findNavController().navigate(R.id.action_newEncuestaFragment_to_listEncuestasAlimentosFragment)
 
         }
 
