@@ -8,10 +8,30 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.navigation.fragment.navArgs
 import com.example.nutritnt.databinding.FragmentDetailEncuestaBinding
 
 class DetailEncuestaFragment : Fragment() {
     private lateinit var binding: FragmentDetailEncuestaBinding
+    // Inicializar la variable para manejar los argumentos utilizando navArgs()
+    val args:DetailEncuestaFragmentArgs by navArgs()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Obtener los datos como argumentos desde el fragmento anterior
+        val idEncuesta = args.idEncuesta
+        val fecha = args.fecha
+        val estado = args.estado
+
+        Log.i("conSafeArgs", "ID de Encuesta: $idEncuesta")
+
+        // Configurar los valores en las vistas
+        binding.idEncuestaValorTextView.text = idEncuesta
+        binding.fechaValorTextView.text = fecha
+        binding.estadoValorTextView.text = estado
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -20,23 +40,6 @@ class DetailEncuestaFragment : Fragment() {
         // Inflar el diseño del fragmento utilizando el FragmentWelcomeBinding
         binding = FragmentDetailEncuestaBinding.inflate(inflater, container, false)
         val view = binding.root
-
-        val idEncuesta = arguments?.getString("ENCUESTA_ID").toString()
-        val fecha = arguments?.getString("FECHA").toString()
-        val estado = arguments?.getString("ESTADO").toString()
-
-        Log.i("enDetailEncuestaFragment", "ID de Encuesta: $idEncuesta")
-
-        binding.idEncuestaValorTextView.text = idEncuesta
-        binding.fechaValorTextView.text = fecha
-        binding.estadoValorTextView.text = estado
-
-        // Aplicar los insets del sistema a la vista
-        ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
         Log.i("enDetailEncuestaFragment", "onCreate")
         // Inflate the layout for this fragment

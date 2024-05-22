@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.nutritnt.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listEncuestasFragment"
+        android:name="com.example.nutritnt.listado.ListEncuestasFragment"
+        android:label="fragment_list_encuestas"
+        tools:layout="@layout/fragment_list_encuestas" >
+        <action
+            android:id="@+id/action_listEncuestasFragment_to_detailEncuestaFragment"
+            app:destination="@id/detailEncuestaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailEncuestaFragment"
+        android:name="com.example.nutritnt.DetailEncuestaFragment"
+        android:label="fragment_detail_encuesta"
+        tools:layout="@layout/fragment_detail_encuesta" >
+        <argument
+            android:name="idEncuesta"
+            app:argType="string" />
+        <argument
+            android:name="fecha"
+            app:argType="string" />
+        <argument
+            android:name="estado"
+            app:argType="string"/>
+    </fragment>
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.example.nutritnt.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_listEncuestasFragment"
+            app:destination="@id/listEncuestasFragment" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_newEncuestaFragment"
+            app:destination="@id/newEncuestaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newEncuestaFragment"
+        android:name="com.example.nutritnt.ui.NewEncuestaAlimentoFragment"
+        android:label="fragment_new_encuesta"
+        tools:layout="@layout/fragment_new_encuesta_alimento" />
+</navigation>

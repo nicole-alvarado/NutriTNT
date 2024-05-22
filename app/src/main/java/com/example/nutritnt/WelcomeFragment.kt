@@ -7,17 +7,30 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.nutritnt.databinding.ActivityWelcomeBinding
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.nutritnt.databinding.FragmentWelcomeBinding
 
 class WelcomeFragment : Fragment() {
 
         private lateinit var binding: FragmentWelcomeBinding
+        // Inicializar la variable para manejar los argumentos utilizando navArgs()
+        val args:WelcomeFragmentArgs by navArgs()
 
-        override fun onCreateView(
+    // Método que se llama cuando la vista ya ha sido creada
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // Obtener el nombre pasado como argumento desde el fragmento anterior
+        val name = args.name
+        // Asignar el nombre al TextView en el diseño del fragmento
+        binding.textBienvenida.text = name
+    }
+
+    override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
         ): View? {
@@ -26,25 +39,18 @@ class WelcomeFragment : Fragment() {
             val view = binding.root
 
             binding.buttonEncuestas.text = "Ver encuestas"
-            binding.textBienvenida.text = "Bienvenido/a"
+            binding.buttonNewEncuesta.text = "Nueva encuesta"
+            //binding.textBienvenida.text = "Bienvenido/a"
 
             binding.buttonEncuestas.setOnClickListener {
                 Log.d("Botones", "Botón ver encuestas clickeado")
 
-                // Crear instancia de WelcomeFragment y reemplazar LoginFragment con ella
-                val transaction = requireActivity().supportFragmentManager.beginTransaction()
-                // R.id.fragmentContainer es el id del contenedor de fragmentos en nuestra actividad
-                transaction.replace(R.id.fragmentContainer, ListEncuestasFragment())
-                // Agregar a la pila de retroceso para volver atrás
-                transaction.addToBackStack(null)
-                transaction.commit()
+                findNavController().navigate(R.id.action_welcomeFragment_to_listEncuestasFragment)
             }
 
-            // Aplicar los insets del sistema a la vista
-            ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
-                val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-                insets
+            binding.buttonNewEncuesta.setOnClickListener{
+                Log.d("enWelcomeFragment","Boton encuesta prueba")
+                findNavController().navigate(R.id.action_welcomeFragment_to_newEncuestaFragment)
             }
 
             return view

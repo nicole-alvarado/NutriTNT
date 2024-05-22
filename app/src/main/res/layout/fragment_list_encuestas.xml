@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListEncuestasFragment">
+    tools:context=".listado.ListEncuestasFragment">
 
     <TextView
         android:id="@+id/textEncuestas"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RecyclerViewEncuestas"
+        android:id="@+id/recyclerViewEncuesta"
         android:layout_width="409dp"
         android:layout_height="661dp"
         android:layout_marginStart="1dp"
