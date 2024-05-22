@@ -6,8 +6,10 @@
     import androidx.room.Room
     import androidx.room.RoomDatabase
     import androidx.sqlite.db.SupportSQLiteDatabase
+    import com.example.nutritnt.database.dao.AlimentoDAO
     import com.example.nutritnt.database.dao.EncuestaDAO
     import com.example.nutritnt.database.dao.Encuesta_AlimentoDAO
+    import com.example.nutritnt.database.entities.Alimento
     import com.example.nutritnt.database.entities.Encuesta
     import com.example.nutritnt.database.entities.Encuesta_Alimento
     import kotlinx.coroutines.CoroutineScope
@@ -17,11 +19,12 @@
     // Anotar la clase para convertirla en una Database Room
     // con una Tabla (entity) de la clase Encuesta
 
-    @Database(entities = [Encuesta::class, Encuesta_Alimento::class], version = 4, exportSchema = false)
+    @Database(entities = [Encuesta::class, Encuesta_Alimento::class, Alimento::class], version = 5, exportSchema = false)
     abstract class EncuestaRoomDatabase : RoomDatabase() {
 
         abstract fun encuestaAlimentoDao(): Encuesta_AlimentoDAO
         abstract fun encuestaDao(): EncuestaDAO
+        abstract fun alimentoDao(): AlimentoDAO
 
         companion object {
             // Singleton previene multiples instancias de
@@ -63,45 +66,23 @@
                     INSTANCIA?.let { database ->
                         Log.i("EncuestaRoomDatabase", "Database Abierta")
                         scope.launch {
-                            cargarBaseDeDatos(database.encuestaDao(),database.encuestaAlimentoDao())
+                            cargarBaseDeDatos(database.encuestaDao(),database.encuestaAlimentoDao(),database.alimentoDao())
                         }
                     }
                 }
 
-                suspend fun cargarBaseDeDatos(encuestaDAO: EncuestaDAO, encuestaAlimentoDAO: Encuesta_AlimentoDAO) {
+                suspend fun cargarBaseDeDatos(encuestaDAO: EncuestaDAO, encuestaAlimentoDAO: Encuesta_AlimentoDAO, alimentoDAO: AlimentoDAO) {
                     Log.i("EncuestaRoomDatabase", "Cargar Base de Datos iniciado")
                     if (encuestaDAO.cantidadDeEncuestas() == 0) {
                         Log.i("EncuestaRoomDatabase", "Base de datos vacía, cargando datos de ejemplo...")
                         encuestaDAO.borrarTodos()
 
-                        val encuesta1 = Encuesta(
-                            1,
-                            "nombre-1",
-                            "21-05-2024",
-                            "ACTIVA"
-                        )
+                        val encuesta1 = Encuesta(1,"nombre-1","21-05-2024","ACTIVA")
                         encuestaDAO.insertar(encuesta1)
-
-                        val encuesta2 = Encuesta(
-                            2,
-                            "nombre-2",
-                            "22-05-2024",
-                            "ACTIVA"
-                        )
+                        val encuesta2 = Encuesta(2,"nombre-2","22-05-2024","ACTIVA")
                         encuestaDAO.insertar(encuesta2)
-
-                        val encuesta3 = Encuesta(
-                            3,
-                            "nombre-3",
-                            "23-05-2024",
-                            "ACTIVA"
-                        )
+                        val encuesta3 = Encuesta( 3, "nombre-3","23-05-2024","ACTIVA")
                         encuestaDAO.insertar(encuesta3)
-
-
-                        Log.i("EncuestaRoomDatabase", "Datos de ejemplo insertados")
-                    } else {
-                        // Nuevas encuestas
                         encuestaDAO.insertar(Encuesta(4, generateRandomId(), "15-04-2024", "Finalizada"))
                         encuestaDAO.insertar(Encuesta(5, generateRandomId(), "16-04-2024", "Comenzada"))
                         encuestaDAO.insertar(Encuesta(6, generateRandomId(), "17-04-2024", "Finalizada"))
@@ -111,15 +92,21 @@
                         encuestaDAO.insertar(Encuesta(10, generateRandomId(), "21-04-2024", "Comenzada"))
                         encuestaDAO.insertar(Encuesta(11, generateRandomId(), "01-04-2024", "Finalizada"))
                         encuestaDAO.insertar(Encuesta(12, generateRandomId(), "20-04-2024", "Finalizada"))
+                        Log.i("EncuestaRoomDatabase", "Datos de Encuestas insertados")
 
+                        // Nuevas encuestas
                         // Insertar datos de prueba para tabla_encuesta_alimento
 //                        val encuestaAlimento1 = Encuesta_Alimento(portion = "1 taza", period = "Día", frecuency = 2, encuestaId = 1)
 //                        encuestaAlimentoDAO.insertar(encuestaAlimento1)
 //                        val encuestaAlimento2 = Encuesta_Alimento(portion = "1/2 taza", period = "Semana", frecuency = 3, encuestaId = 2)
-//                        encuestaAlimentoDAO.insertar(encuestaAlimento2)
-
-                        Log.i("EncuestaRoomDatabase", "La base de datos ya contiene datos")
+//                        encuestaAlimentoDAO.insertar(encuestaAlimento2
                     }
+                    if ( alimentoDAO.cantidadDeAlimentos() == 0) {
+                        val alimento1 = Alimento(alimentoId = 1,"Yogur bebible",100,4F)
+                        alimentoDAO.insertar(alimento1)
+                        Log.i("EncuestaRoomDatabase", "Datos de Alimentos insertados")
+                    }
+
                 }
 
                 private fun generateRandomId(): String {
