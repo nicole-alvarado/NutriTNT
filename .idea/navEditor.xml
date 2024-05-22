@@ -20,6 +20,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="listEncuestasAlimentosFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="504" />
+                            <option name="y" value="339" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="listEncuestasFragment">
                     <value>
                       <LayoutPositions>
@@ -86,6 +98,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_welcomeFragment_to_listEncuestasFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_welcomeFragment_to_newEncuestaFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

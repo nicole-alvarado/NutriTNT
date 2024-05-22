@@ -13,6 +13,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.nutritnt.R
 import com.example.nutritnt.database.entities.Encuesta_Alimento
 import com.example.nutritnt.databinding.FragmentNewEncuestaAlimentoBinding
@@ -72,13 +73,13 @@ class NewEncuestaAlimentoFragment : Fragment() {
 
             // Insertar nueva encuesta de alimento en la base de datos a través del ViewModel
             viewModelEncuestaAlimento.insert(nuevaEncuestaAlimento)
+            //findNavController().navigate(R.id.action_newEncuestaFragment_to_listEncuestasAlimentosFragment)
 
-            // Verificar el agregado correcto a la bd y volver al fragmento WelcomeFragment
-            // findNavController().navigate(R.id.action_newEncuesta_to_detailEncuestaFragment)
         }
 
         return view
     }
+
 
     // Configurar un Spinner con un ArrayAdapter y un listener de selección de item
     private fun setupSpinner(spinner: Spinner, arrayResource: Int) {
