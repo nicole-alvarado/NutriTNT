@@ -23,7 +23,7 @@ class EncuestaAlimentoViewModel(application: Application) : AndroidViewModel(app
 
     init {
         val encuestasAlimentoDao = EncuestaRoomDatabase
-            .obtenerDatabase(application, viewModelScope).encuestaAlimentoDao()
+            .obtenerDatabase(application).encuestaAlimentoDao()
         repositorio = RepositorioDeEncuestasAlimento(encuestasAlimentoDao)
         todasLasEncuestasAlimento = repositorio.todasLasEncuestasAlimento
     }
