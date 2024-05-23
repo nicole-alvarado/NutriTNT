@@ -53,6 +53,10 @@ class WelcomeFragment : Fragment() {
                 findNavController().navigate(R.id.action_welcomeFragment_to_newEncuestaFragment)
             }
 
+            binding.buttonEstadisticas.setOnClickListener{
+                findNavController().navigate(R.id.action_welcomeFragment_to_estadisticaFragment)
+            }
+
             return view
         }
     }

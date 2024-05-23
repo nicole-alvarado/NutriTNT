@@ -6,8 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -32,8 +36,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -69,29 +76,46 @@ class EstadisticaFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_estadistica, container, false)
+    ): View {
+        // Usa ComposeView para renderizar composables en el fragmento
+        val composeView = ComposeView(requireContext()).apply {
+            setContent {
+                generalStatistics()
+            }
+        }
+        return composeView
     }
 
     @Composable
     fun generalStatistics(){
         var periodoSeleccionado by remember { mutableStateOf("dia") }
-        Column(
-            modifier = Modifier.verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally
+        Box(
+            modifier = Modifier.fillMaxSize()
         ) {
-            Text(text = "Grasas Totales",
-                fontSize = 24.sp,
-                modifier = Modifier.padding(top = 16.dp))
+            Image(
+                painter = painterResource(id = R.drawable.background_estadisticas),
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop // Escalar la imagen para llenar el Box
+            )
+            Column(
+                modifier = Modifier.verticalScroll(rememberScrollState()),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Grasas Totales",
+                    fontSize = 24.sp,
+                    modifier = Modifier.padding(top = 76.dp)
+                )
 
-            selectorPeriodo { periodo ->
-                periodoSeleccionado = periodo
+                selectorPeriodo { periodo ->
+                    periodoSeleccionado = periodo
+                }
+
+                // Llama a la función que dibuja el gráfico pasando el periodo seleccionado
+                dibujoBarras(periodoSeleccionado)
+
             }
-
-            // Llama a la función que dibuja el gráfico pasando el periodo seleccionado
-            dibujoBarras(periodoSeleccionado)
-
         }
     }
 
@@ -152,10 +176,12 @@ class EstadisticaFragment : Fragment() {
         var barras = ArrayList<BarChartData.Bar>()
         listDatos.mapIndexed { index, datos ->
 
+            var valor = DatosConsumoGrasas.obtenerDatosPorZonaYPeriodo(listDatos.get(index).zona, listDatos.get(index).periodo)
+
             barras.add(
                 BarChartData.Bar(
-                    label = "Zona " + listDatos.get(index).zona,
-                    value = DatosConsumoGrasas.obtenerDatosPorZonaYPeriodo(listDatos.get(index).zona, listDatos.get(index).periodo),
+                    label = "Zona ${listDatos[index].zona}\n",
+                    value = valor,
                     color = randomColor()
                 )
             )
@@ -236,7 +262,10 @@ class EstadisticaFragment : Fragment() {
         }
 
 
-        Column(Modifier.padding(20.dp).clickable { expanded = !expanded }) {
+        Column(
+            Modifier
+                .padding(20.dp)
+                .clickable { expanded = !expanded }) {
             OutlinedTextField(
                 value = selectedText,
                 onValueChange = { selectedText = it },

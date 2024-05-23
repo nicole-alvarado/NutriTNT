@@ -52,10 +52,17 @@
         <action
             android:id="@+id/action_welcomeFragment_to_newEncuestaFragment"
             app:destination="@id/newEncuestaFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_estadisticaFragment"
+            app:destination="@id/estadisticaFragment" />
     </fragment>
     <fragment
         android:id="@+id/newEncuestaFragment"
         android:name="com.example.nutritnt.ui.NewEncuestaAlimentoFragment"
         android:label="fragment_new_encuesta"
         tools:layout="@layout/fragment_new_encuesta_alimento" />
+    <fragment
+        android:id="@+id/estadisticaFragment"
+        android:name="com.example.nutritnt.model.EstadisticaFragment"
+        android:label="EstadisticaFragment" />
 </navigation>

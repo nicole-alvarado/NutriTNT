@@ -83,6 +83,7 @@
 
 
             <Button
+                android:id="@+id/buttonEstadisticas"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="12dp"
