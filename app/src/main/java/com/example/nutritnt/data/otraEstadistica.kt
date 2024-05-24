@@ -21,7 +21,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.example.nutritnt.R
+import com.example.nutritnt.viewmodel.EncuestaAlimentoViewModel
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
@@ -33,6 +36,8 @@ import com.github.mikephil.charting.utils.ColorTemplate
 
 class OtraEstadisticaFragment : Fragment() {
 
+    private val encuestaAlimentoViewModel: EncuestaAlimentoViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,7 +45,7 @@ class OtraEstadisticaFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setContent {
                 MyApp {
-                    BarChartWithCustomLabelsAndValues()
+                    DrawBars()
                 }
             }
         }
@@ -69,13 +74,39 @@ class OtraEstadisticaFragment : Fragment() {
                     .fillMaxSize()
 
             ) {
-                BarChartWithCustomLabelsAndValues()
+                DrawBars()
             }
         }
     }
 
     @Composable
-    fun BarChartWithCustomLabelsAndValues() {
+    fun DrawBars() {
+
+        Text(text = "Resultado total de consumo: ",
+            fontSize = 20.sp)
+        Text(text = String.format("%.2f", 10F) + " ml",
+            fontSize = 18.sp)
+
+        val zonas: List<String> = listOf(
+            "Zona A",
+            "Zona B",
+            "Zona C",
+            "Zona D",
+        )
+
+        for (zona in zonas){
+            encuestaAlimentoViewModel.getEncuestaAlimentosByZonaAndAlimento(zona, 1).observe(viewLifecycleOwner, Observer { encuestaAlimentos ->
+                // Actualiza la UI con los datos
+                encuestaAlimentos?.let {
+
+                }
+            })
+        }
+
+
+
+
+
         val barChartData = listOf(
             BarEntry(0f, 298.52f),
             BarEntry(1f, 314.72f),

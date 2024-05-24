@@ -2,6 +2,8 @@ package com.example.nutritnt.database
 
 import androidx.lifecycle.LiveData
 import com.example.nutritnt.database.dao.Encuesta_AlimentoDAO
+import com.example.nutritnt.database.entities.Alimento
+import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.database.entities.Encuesta_Alimento
 
 class RepositorioDeEncuestasAlimento(private val encuestaAlimentoDAO : Encuesta_AlimentoDAO) {
@@ -15,4 +17,10 @@ class RepositorioDeEncuestasAlimento(private val encuestaAlimentoDAO : Encuesta_
     suspend fun insertar(encuestaAlimento: Encuesta_Alimento){
         encuestaAlimentoDAO.insertar(encuestaAlimento)
     }
+
+    fun getEncuestaAlimentosByZonaAndAlimento(zona: String, alimentoId: Int): List<Encuesta_Alimento> {
+        return encuestaAlimentoDAO.getEncuestaAlimentosByZonaAndAlimento(zona, alimentoId)
+    }
+
+
 }

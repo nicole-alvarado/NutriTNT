@@ -174,15 +174,12 @@ class EstadisticaFragment : Fragment() {
             sumaTotal += grasasTotalesZona.grasasTotales
         }
 
-        Text(text = "Resultado total de consumo: ",
-            fontSize = 20.sp)
-        Text(text = String.format("%.2f", sumaTotal) + " ml",
-            fontSize = 18.sp)
+
 
 
 
         var barras = ArrayList<BarChartData.Bar>()
-        listDatos.mapIndexed { index, datos ->
+      /*  listDatos.mapIndexed { index, datos ->
 
             var valor = DatosConsumoGrasas.obtenerDatosPorZonaYPeriodo(listDatos.get(index).zona, listDatos.get(index).periodo)
             "%.2f".format(valor).toFloat()
@@ -196,7 +193,17 @@ class EstadisticaFragment : Fragment() {
 
             )
             InfoBox(color, "%.2f".format(valor).toFloat())
-        }
+        }*/
+
+        barras.add(
+            BarChartData.Bar(
+                label = "Zona 1",
+                value = 100.toFloat() ,
+                color = Color.Cyan
+            )
+
+        )
+
         BarChart(
             barChartData = BarChartData(
                 bars = barras

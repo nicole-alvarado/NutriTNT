@@ -21,4 +21,12 @@ interface Encuesta_AlimentoDAO {
 
     @Query("SELECT COUNT(encuestaAlimentoId) from tabla_encuesta_alimento")
     suspend fun cantidadDeEncuestasAlimento(): Int
+
+    @Query("""
+        SELECT ea.* 
+        FROM tabla_encuesta_alimento ea
+        INNER JOIN tabla_encuesta eg ON ea.encuestaId = eg.encuestaId
+        WHERE eg.zona = :zona AND ea.alimentoId = :alimentoId
+    """)
+    fun getEncuestaAlimentosByZonaAndAlimento(zona: String, alimentoId: Int): List<Encuesta_Alimento>
 }

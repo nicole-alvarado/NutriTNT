@@ -35,11 +35,11 @@ public class DatosConsumoGrasas {
 
             // Filtrar por zona
            // val datosPorZona = datosConsumoYogur?.filter {  it.zona.toInt() == zonaBuscada }
-            val datosPorZona = DatosEncuestaAlimentos.datosConsumoYogur.filter { it.zona == zonaBuscada }
+         //   val datosPorZona = DatosEncuestaAlimentos.datosConsumoYogur.filter { it.zona == zonaBuscada }
 
             // Filtrar por período dentro de la zona y ajustar los valores de frecuencia según el período
            // val sumaTotal = datosPorZona?.map { datos ->
-            val sumaTotal = datosPorZona.map { datos ->
+          /*  val sumaTotal = datosPorZona.map { datos ->
                 val frecuenciaAjustada = when (periodoBuscado) {
                     "dia" -> {
                         when (datos.period) {
@@ -86,8 +86,9 @@ public class DatosConsumoGrasas {
                 Log.i("frecuenciaAjustada ", " " +frecuenciaAjustada.toFloat())
                 (datos.portion.toInt()) * frecuenciaAjustada.toFloat() * (0.4).toFloat()
             }.sum()
-
-            return sumaTotal
+*/
+         //   return sumaTotal
+            return 8F
         }
 
 
