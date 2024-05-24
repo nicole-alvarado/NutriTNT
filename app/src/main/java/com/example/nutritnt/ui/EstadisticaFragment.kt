@@ -11,10 +11,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.toggleable
@@ -52,6 +55,7 @@ import com.example.nutritnt.viewmodel.EncuestaAlimentoViewModel
 import com.github.tehras.charts.bar.BarChart
 import com.github.tehras.charts.bar.BarChartData
 import com.github.tehras.charts.bar.renderer.label.SimpleValueDrawer
+import com.github.tehras.charts.bar.renderer.yaxis.SimpleYAxisDrawer
 
 
 data class PorcentajeZonas(val zona: String, val variable: String, val total: Int)
@@ -111,6 +115,10 @@ class EstadisticaFragment : Fragment() {
                 selectorPeriodo { periodo ->
                     periodoSeleccionado = periodo
                 }
+
+                InfoBox(color = Color.Red, (7).toFloat())
+
+                Spacer(modifier = Modifier.height(16.dp))
 
                 // Llama a la función que dibuja el gráfico pasando el periodo seleccionado
                 dibujoBarras(periodoSeleccionado)
@@ -177,29 +185,51 @@ class EstadisticaFragment : Fragment() {
         listDatos.mapIndexed { index, datos ->
 
             var valor = DatosConsumoGrasas.obtenerDatosPorZonaYPeriodo(listDatos.get(index).zona, listDatos.get(index).periodo)
-
+            "%.2f".format(valor).toFloat()
+            var color = randomColor()
             barras.add(
                 BarChartData.Bar(
                     label = "Zona ${listDatos[index].zona}\n",
-                    value = valor,
-                    color = randomColor()
+                    value = "%.2f".format(valor).toFloat() ,
+                    color = color
                 )
+
             )
+            InfoBox(color, "%.2f".format(valor).toFloat())
         }
         BarChart(
             barChartData = BarChartData(
                 bars = barras
             ),
             modifier = Modifier
-                .padding(horizontal = 30.dp, vertical = 80.dp)
-                .height(300.dp),
+                .padding(horizontal = 30.dp, vertical = 3.dp)
+                .height(360.dp),
             labelDrawer = SimpleValueDrawer(
                 drawLocation = SimpleValueDrawer.DrawLocation.XAxis
-            )
+            ),
+            yAxisDrawer = SimpleYAxisDrawer(
+                labelTextColor = Color.Black,
+                labelValueFormatter = { value -> "%.2f".format(value) }),
+
         )
 
 
 
+    }
+
+    @Composable
+    fun InfoBox(color: Color, percentage: Float) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(16.dp)
+                    .background(color)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(text = "$percentage%", fontSize = 16.sp, color = Color.Black)
+        }
     }
 
 
@@ -229,6 +259,7 @@ class EstadisticaFragment : Fragment() {
     fun randomColor(): Color {
         val randomIndex = (Math.random() * colors.size).toInt()
         val color = colors[randomIndex]
+
         colors.removeAt(randomIndex)
         return color
     }

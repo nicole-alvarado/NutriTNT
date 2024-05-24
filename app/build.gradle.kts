@@ -115,4 +115,7 @@ dependencies {
     implementation("com.github.tehras:charts:0.2.4-alpha")
     implementation("androidx.compose.material3:material3")
 
+    //nuevo grafico barras
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
 }

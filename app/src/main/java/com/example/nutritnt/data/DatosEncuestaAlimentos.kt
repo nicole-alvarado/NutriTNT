@@ -8,7 +8,7 @@ public class DatosEncuestaAlimentos {
 
     companion object{
         val datosConsumoYogur = listOf(
-            Encuesta_Alimento_M(1,  "100",  "dia",  3, 1,1),
+            Encuesta_Alimento_M(1,  "100",  "semana",  1, 1,1),
             Encuesta_Alimento_M( 2,  "200",  "semana",  1, 1,1),
             Encuesta_Alimento_M( 3,  "275",  "mes",  2, 1,1),
             Encuesta_Alimento_M( 4,  "100",  "dia",  4, 1,1),
