@@ -31,7 +31,7 @@ public class DatosConsumoGrasas {
         //}
 
 
-        fun obtenerDatosPorZonaYPeriodo(zonaBuscada: Int, periodoBuscado: String): Float {
+        fun obtenerDatosPorPeriodo(listaEncuestaAlimento: List<Encuesta_Alimento> , periodoBuscado: String): Float {
 
             // Filtrar por zona
            // val datosPorZona = datosConsumoYogur?.filter {  it.zona.toInt() == zonaBuscada }
@@ -39,7 +39,8 @@ public class DatosConsumoGrasas {
 
             // Filtrar por período dentro de la zona y ajustar los valores de frecuencia según el período
            // val sumaTotal = datosPorZona?.map { datos ->
-          /*  val sumaTotal = datosPorZona.map { datos ->
+            val sumaTotal = listaEncuestaAlimento.map { datos ->
+                Log.i("contadorGrasasTotales", "datos " + datos.period + " id " + datos.alimentoId)
                 val frecuenciaAjustada = when (periodoBuscado) {
                     "dia" -> {
                         when (datos.period) {
@@ -84,11 +85,13 @@ public class DatosConsumoGrasas {
                     else -> datos.frecuency
                 }
                 Log.i("frecuenciaAjustada ", " " +frecuenciaAjustada.toFloat())
-                (datos.portion.toInt()) * frecuenciaAjustada.toFloat() * (0.4).toFloat()
+
+                Log.i ("contadorGrasasTotales", "total " + datos.portion.toInt()*(DatosDatabase.alimentos[0].grasas_totales/DatosDatabase.alimentos[0].cantidad) *frecuenciaAjustada.toFloat())
+                datos.portion.toInt()*(DatosDatabase.alimentos[0].grasas_totales/DatosDatabase.alimentos[0].cantidad) *frecuenciaAjustada.toFloat()
             }.sum()
-*/
-         //   return sumaTotal
-            return 8F
+
+            return sumaTotal
+
         }
 
 

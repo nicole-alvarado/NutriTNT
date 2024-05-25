@@ -1,9 +1,11 @@
 package com.example.nutritnt.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.nutritnt.database.EncuestaRoomDatabase
 import com.example.nutritnt.database.RepositorioDeEncuestasAlimento
@@ -11,6 +13,11 @@ import com.example.nutritnt.database.entities.Alimento
 import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.database.entities.Encuesta_Alimento
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 
 
@@ -38,13 +45,26 @@ class EncuestaAlimentoViewModel(application: Application) : AndroidViewModel(app
         repositorio.insertar(encuestaAlimento)
     }
 
-    fun getEncuestaAlimentosByZonaAndAlimento(zona: String, alimentoId: Int): LiveData<List<Encuesta_Alimento>> {
-        val result = MutableLiveData<List<Encuesta_Alimento>>()
-        viewModelScope.launch {
-            result.value = repositorio.getEncuestaAlimentosByZonaAndAlimento(zona, alimentoId)
+    /*
+    fun getEncuestaAlimentosByZonaAndAlimento(alimentoId: Int): LiveData<List<Encuesta_Alimento>> {
+        return liveData {
+            val result = repositorio.getEncuestaAlimentosByZonaAndAlimento(alimentoId)
+            emit(result)
         }
-        return result
+    }*/
+
+    // StateFlow para la consulta
+    private val _encuestaAlimentos = MutableStateFlow<List<Encuesta_Alimento>>(emptyList())
+    val encuestaAlimentos: StateFlow<List<Encuesta_Alimento>> = _encuestaAlimentos
+
+    fun fetchEncuestaAlimentosByZonaAndAlimento(zona: String, alimentoId: Int): Flow<List<Encuesta_Alimento>> {
+        return flow {
+            val datos = repositorio.getEncuestaAlimentosByZonaAndAlimento(zona, alimentoId)
+            emit(datos)
+        }.flowOn(Dispatchers.IO)
     }
+
+
 
     suspend fun safeInsertMultiple(
         encuestasGeneral: List<Encuesta>,

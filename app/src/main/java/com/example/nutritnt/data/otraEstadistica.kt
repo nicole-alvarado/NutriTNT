@@ -2,6 +2,7 @@ package com.example.nutritnt.data
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -91,17 +92,20 @@ class OtraEstadisticaFragment : Fragment() {
             "Zona A",
             "Zona B",
             "Zona C",
-            "Zona D",
+            "Zona D"
         )
 
-        for (zona in zonas){
-            encuestaAlimentoViewModel.getEncuestaAlimentosByZonaAndAlimento(zona, 1).observe(viewLifecycleOwner, Observer { encuestaAlimentos ->
-                // Actualiza la UI con los datos
-                encuestaAlimentos?.let {
+        //zonas.forEachIndexed { index, zona ->
+         //   encuestaAlimentoViewModel.getEncuestaAlimentosByZonaAndAlimento(1)
+           //     .observe(viewLifecycleOwner, Observer { encuestaAlimentos ->
+                    // Actualiza la UI con los datos
+           //         encuestaAlimentos?.let {
+             //           Log.i("EstadisticasEncuestas", "aver $index: $encuestaAlimentos")
+              //      }
+               // })
+        //}
 
-                }
-            })
-        }
+
 
 
 

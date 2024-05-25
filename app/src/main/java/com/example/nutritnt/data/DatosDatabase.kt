@@ -25,7 +25,7 @@ class DatosDatabase {
         val encuestas = listOf(
             Encuesta(1, "nombre1", "21-05-2024", "ACTIVA", "Zona A"),
             Encuesta(2, "nombre2", "22-05-2024", "ACTIVA", "Zona C"),
-            Encuesta(3, "nombre3", "23-05-2024", "ACTIVA", "Zona C"),
+            Encuesta(3, "nombre3", "23-05-2024", "ACTIVA", "Zona D"),
             Encuesta(4, "nombre4", "15-04-2024", "Finalizada", "Zona B"),
             Encuesta(5, "nombre5", "16-04-2024", "Comenzada", "Zona A"),
             Encuesta(6, "nombre6", "21-05-2024", "ACTIVA", "Zona A"),
@@ -35,13 +35,13 @@ class DatosDatabase {
             Encuesta(10, "nombre10", "16-04-2024", "Comenzada", "Zona A"),
             Encuesta(11, "nombre11", "21-05-2024", "ACTIVA", "Zona A"),
             Encuesta(12, "nombre12", "22-05-2024", "ACTIVA", "Zona C"),
-            Encuesta(13, "nombre13", "23-05-2024", "ACTIVA", "Zona C"),
+            Encuesta(13, "nombre13", "23-05-2024", "ACTIVA", "Zona D"),
             Encuesta(14, "nombre14", "15-04-2024", "Finalizada", "Zona B"),
             Encuesta(15, "nombre15", "16-04-2024", "Comenzada", "Zona A"),
         )
 
         val alimentos = listOf(
-            Alimento(alimentoId = 1, "Yogur bebible", 100, 4F)
+            Alimento(alimentoId = 1, "Yogur bebible", 100, 4f)
         )
     }
 }

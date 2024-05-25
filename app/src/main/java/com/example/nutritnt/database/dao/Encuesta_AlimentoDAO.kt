@@ -29,4 +29,5 @@ interface Encuesta_AlimentoDAO {
         WHERE eg.zona = :zona AND ea.alimentoId = :alimentoId
     """)
     fun getEncuestaAlimentosByZonaAndAlimento(zona: String, alimentoId: Int): List<Encuesta_Alimento>
+
 }
