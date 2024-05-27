@@ -32,4 +32,6 @@ class EncuestaAlimentoAdapter(private val alimentoViewModel: AlimentoViewModel) 
         notifyDataSetChanged()
     }
 
+
+
 }

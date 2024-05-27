@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nutritnt.R
 import com.example.nutritnt.adapter.EncuestaAdapter
@@ -35,6 +36,10 @@ class ListEncuestasAlimentosFragment : Fragment() {
         // Inflar el diseño del fragmento utilizando el FragmentWelcomeBinding
         binding = FragmentListEncuestasAlimentosBinding.inflate(inflater, container, false)
         val view = binding.root
+
+        binding.buttonInicio.setOnClickListener(){
+            findNavController().navigate(ListEncuestasAlimentosFragmentDirections.actionListEncuestasAlimentosFragmentToWelcomeFragment("Bienvenido/a"))
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

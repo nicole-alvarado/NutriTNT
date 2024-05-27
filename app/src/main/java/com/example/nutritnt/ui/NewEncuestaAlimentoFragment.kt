@@ -77,6 +77,7 @@ class NewEncuestaAlimentoFragment : Fragment() {
             viewModelEncuestaAlimento.insert(nuevaEncuestaAlimento)
             findNavController().navigate(R.id.action_newEncuestaFragment_to_listEncuestasAlimentosFragment)
 
+
         }
 
         return view

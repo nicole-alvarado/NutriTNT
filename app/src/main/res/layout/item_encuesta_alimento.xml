@@ -38,16 +38,16 @@
                     android:layout_alignParentTop="true"
                     android:orientation="vertical"
                     android:layout_marginLeft="4dp">
-                    <!--<TextView
+                    <TextView
                         android:id="@+id/labelEncuestaAlimento"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="2dp"
                         android:text="ID:"
                         android:textColor="@android:color/black"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textStyle="bold">
-                    </TextView>-->
+                    </TextView>
                     <TextView
                         android:id="@+id/labelAlimento"
                         android:layout_width="match_parent"
@@ -75,16 +75,15 @@
                     android:orientation="vertical"
                     android:layout_marginLeft="4dp"
                     >
-                    <!--<TextView
+                    <TextView
                         android:id="@+id/tvEncuestaAlimento"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="2dp"
                         android:text="Encuesta alimento"
                         android:textColor="@android:color/black"
-                        android:textSize="20sp"
-                        android:textStyle="bold">
-                    </TextView>-->
+                        android:textSize="18sp">
+                    </TextView>
                     <TextView
                         android:id="@+id/tvDescripcionAlimento"
                         android:layout_width="match_parent"
