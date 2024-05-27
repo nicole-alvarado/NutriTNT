@@ -14,14 +14,14 @@ class EncuestaAlimentoViewHolder(view:View, private val alimentoViewModel: Alime
 
     // Esta función se va a llamar por cada item del listado de encuestas
      fun render(encuestaAlimentoModel: Encuesta_Alimento){
-        binding.tvEncuestaAlimento.text = encuestaAlimentoModel.encuestaAlimentoId.toString()
-        binding.tvEncuesta.text = encuestaAlimentoModel.encuestaId.toString()
+
         // Observar el LiveData para obtener los datos del alimento asociado a la encuesta de alimento
         alimentoViewModel.fetchAlimentoByEncuestaAlimento(encuestaAlimentoModel.encuestaAlimentoId).observe(itemView.context as LifecycleOwner) { alimento ->
             // Actualizar la vista con los datos del alimento
-            binding.tvAlimento.text = alimento?.descripcion ?: "Descripción no disponible"
+            binding.tvDescripcionAlimento.text = alimento?.descripcion ?: "Descripción no disponible"
             Log.i("Alimentoooo", alimento?.descripcion ?: "Descripción no disponible")
         }
+        binding.tvEstado.text = encuestaAlimentoModel.estado
 //        binding.tvAlimento.text = encuestaAlimentoModel.alimentoId.toString()
 
     }

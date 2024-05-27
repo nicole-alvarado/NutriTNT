@@ -38,7 +38,7 @@
                     android:layout_alignParentTop="true"
                     android:orientation="vertical"
                     android:layout_marginLeft="4dp">
-                    <TextView
+                    <!--<TextView
                         android:id="@+id/labelEncuestaAlimento"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -47,19 +47,21 @@
                         android:textColor="@android:color/black"
                         android:textSize="20sp"
                         android:textStyle="bold">
-                    </TextView>
-                    <TextView
-                        android:id="@+id/labelEncuesta"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Encuesta:"
-                        android:textSize="18sp">
-                    </TextView>
+                    </TextView>-->
                     <TextView
                         android:id="@+id/labelAlimento"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Alimento:"
+                        android:textStyle="bold"
+                        android:textSize="18sp">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/labelEstado"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Estado:"
+                        android:textStyle="bold"
                         android:textSize="18sp">
                     </TextView>
                 </LinearLayout>
@@ -73,7 +75,7 @@
                     android:orientation="vertical"
                     android:layout_marginLeft="4dp"
                     >
-                    <TextView
+                    <!--<TextView
                         android:id="@+id/tvEncuestaAlimento"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -82,19 +84,19 @@
                         android:textColor="@android:color/black"
                         android:textSize="20sp"
                         android:textStyle="bold">
-                    </TextView>
+                    </TextView>-->
                     <TextView
-                        android:id="@+id/tvEncuesta"
+                        android:id="@+id/tvDescripcionAlimento"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="1"
+                        android:text="Yogur"
                         android:textSize="18sp">
                     </TextView>
                     <TextView
-                        android:id="@+id/tvAlimento"
+                        android:id="@+id/tvEstado"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="2"
+                        android:text="Comenzada"
                         android:textSize="18sp">
                     </TextView>
                 </LinearLayout>
