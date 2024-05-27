@@ -23,21 +23,21 @@ class DatosDatabase {
         )
 
         val encuestas = listOf(
-            Encuesta(1, "nombre1", "21-05-2024", "ACTIVA", "Zona A"),
-            Encuesta(2, "nombre2", "22-05-2024", "ACTIVA", "Zona C"),
-            Encuesta(3, "nombre3", "23-05-2024", "ACTIVA", "Zona D"),
-            Encuesta(4, "nombre4", "15-04-2024", "Finalizada", "Zona B"),
-            Encuesta(5, "nombre5", "16-04-2024", "Comenzada", "Zona A"),
-            Encuesta(6, "nombre6", "21-05-2024", "ACTIVA", "Zona A"),
-            Encuesta(7, "nombre7", "22-05-2024", "ACTIVA", "Zona C"),
-            Encuesta(8, "nombre8", "23-05-2024", "ACTIVA", "Zona C"),
-            Encuesta(9, "nombre9", "15-04-2024", "Finalizada", "Zona B"),
-            Encuesta(10, "nombre10", "16-04-2024", "Comenzada", "Zona A"),
-            Encuesta(11, "nombre11", "21-05-2024", "ACTIVA", "Zona A"),
-            Encuesta(12, "nombre12", "22-05-2024", "ACTIVA", "Zona C"),
-            Encuesta(13, "nombre13", "23-05-2024", "ACTIVA", "Zona D"),
-            Encuesta(14, "nombre14", "15-04-2024", "Finalizada", "Zona B"),
-            Encuesta(15, "nombre15", "16-04-2024", "Comenzada", "Zona A"),
+            Encuesta(1, "ID-123", "21-05-2024", "Finalizada", "Zona A"),
+            Encuesta(2, "ID-890", "22-05-2024", "Finalizada", "Zona C"),
+            Encuesta(3, "ID-296", "23-05-2024", "Finalizada", "Zona C"),
+            Encuesta(4, "ID-719", "15-04-2024", "Finalizada", "Zona B"),
+            Encuesta(5, "ID-655", "16-04-2024", "Comenzada", "Zona A"),
+            Encuesta(6, "ID-333", "21-05-2024", "Comenzada", "Zona A"),
+            Encuesta(7, "ID-978", "22-05-2024", "Comenzada", "Zona C"),
+            Encuesta(8, "ID-246", "23-05-2024", "Comenzada", "Zona C"),
+            Encuesta(9, "ID-367", "15-04-2024", "Finalizada", "Zona B"),
+            Encuesta(10, "ID-518", "16-04-2024", "Comenzada", "Zona A"),
+            Encuesta(11, "ID-332", "21-05-2024", "Comenzada", "Zona A"),
+            Encuesta(12, "ID-796", "22-05-2024", "Comenzada", "Zona C"),
+            Encuesta(13, "ID-447", "23-05-2024", "Comenzada", "Zona C"),
+            Encuesta(14, "ID-517", "15-04-2024", "Finalizada", "Zona B"),
+            Encuesta(15, "ID-642", "16-04-2024", "Comenzada", "Zona A"),
         )
 
         val alimentos = listOf(

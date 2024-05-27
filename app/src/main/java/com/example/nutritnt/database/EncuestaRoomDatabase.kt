@@ -86,21 +86,21 @@ abstract class EncuestaRoomDatabase : RoomDatabase() {
                     Log.i("EncuestaRoomDatabase", "Base de datos vacía, cargando datos de ejemplo...")
 
                     val encuestas = listOf(
-                        Encuesta(1, generateRandomId(), "21-05-2024", "Finalizada", "Zona A"),
-                        Encuesta(2, generateRandomId(), "22-05-2024", "Finalizada", "Zona C"),
-                        Encuesta(3, generateRandomId(), "23-05-2024", "Finalizada", "Zona C"),
-                        Encuesta(4, generateRandomId(), "15-04-2024", "Finalizada", "Zona B"),
-                        Encuesta(5, generateRandomId(), "16-04-2024", "Comenzada", "Zona A"),
-                        Encuesta(6, generateRandomId(), "21-05-2024", "Comenzada", "Zona A"),
-                        Encuesta(7, generateRandomId(), "22-05-2024", "Comenzada", "Zona C"),
-                        Encuesta(8, generateRandomId(), "23-05-2024", "Comenzada", "Zona C"),
-                        Encuesta(9, generateRandomId(), "15-04-2024", "Finalizada", "Zona B"),
-                        Encuesta(10, generateRandomId(), "16-04-2024", "Comenzada", "Zona A"),
-                        Encuesta(11, generateRandomId(), "21-05-2024", "Comenzada", "Zona A"),
-                        Encuesta(12, generateRandomId(), "22-05-2024", "Comenzada", "Zona C"),
-                        Encuesta(13, generateRandomId(), "23-05-2024", "Comenzada", "Zona C"),
-                        Encuesta(14, generateRandomId(), "15-04-2024", "Finalizada", "Zona B"),
-                        Encuesta(15, generateRandomId(), "16-04-2024", "Comenzada", "Zona A"),
+                        Encuesta(1, "ID-123", "21-05-2024", "Finalizada", "Zona A"),
+                        Encuesta(2, "ID-890", "22-05-2024", "Finalizada", "Zona C"),
+                        Encuesta(3, "ID-296", "23-05-2024", "Finalizada", "Zona C"),
+                        Encuesta(4, "ID-719", "15-04-2024", "Finalizada", "Zona B"),
+                        Encuesta(5, "ID-655", "16-04-2024", "Comenzada", "Zona A"),
+                        Encuesta(6, "ID-333", "21-05-2024", "Comenzada", "Zona A"),
+                        Encuesta(7, "ID-978", "22-05-2024", "Comenzada", "Zona C"),
+                        Encuesta(8, "ID-246", "23-05-2024", "Comenzada", "Zona C"),
+                        Encuesta(9, "ID-367", "15-04-2024", "Finalizada", "Zona B"),
+                        Encuesta(10, "ID-518", "16-04-2024", "Comenzada", "Zona A"),
+                        Encuesta(11, "ID-332", "21-05-2024", "Comenzada", "Zona A"),
+                        Encuesta(12, "ID-796", "22-05-2024", "Comenzada", "Zona C"),
+                        Encuesta(13, "ID-447", "23-05-2024", "Comenzada", "Zona C"),
+                        Encuesta(14, "ID-517", "15-04-2024", "Finalizada", "Zona B"),
+                        Encuesta(15, "ID-642", "16-04-2024", "Comenzada", "Zona A"),
 
                     )
                     encuestas.forEach { encuestaDAO.insertar(it) }
