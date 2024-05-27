@@ -34,8 +34,12 @@ data class Encuesta_Alimento(
     var encuestaId: Int,
 
     @ColumnInfo(name = "alimentoId")
+<<<<<<< HEAD
     var alimentoId: Int,
 
     @ColumnInfo(name = "estado")
     var estado: String,
+=======
+    var alimentoId: Int
+>>>>>>> feature/listado-encuestas-alimentos
 )

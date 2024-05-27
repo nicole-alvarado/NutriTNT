@@ -5,7 +5,10 @@ import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+<<<<<<< HEAD
 import androidx.room.Transaction
+=======
+>>>>>>> feature/listado-encuestas-alimentos
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.nutritnt.database.dao.AlimentoDAO
 import com.example.nutritnt.database.dao.EncuestaDAO
@@ -44,6 +47,7 @@ abstract class EncuestaRoomDatabase : RoomDatabase() {
             }
         }
 
+<<<<<<< HEAD
         @Transaction
         open suspend fun safeInsertMultiple(
             encuestasGeneral: List<Encuesta>,
@@ -76,6 +80,8 @@ abstract class EncuestaRoomDatabase : RoomDatabase() {
             return true
         }
 
+=======
+>>>>>>> feature/listado-encuestas-alimentos
             suspend fun cargarBaseDeDatos(encuestaDAO: EncuestaDAO, encuestaAlimentoDAO: Encuesta_AlimentoDAO, alimentoDAO: AlimentoDAO) {
                 Log.i("EncuestaRoomDatabase", "Cargar Base de Datos iniciado")
                 if (encuestaDAO.cantidadDeEncuestas() == 0) {
@@ -87,6 +93,7 @@ abstract class EncuestaRoomDatabase : RoomDatabase() {
                         Encuesta(3, "nombre3", "23-05-2024", "ACTIVA", "Zona C"),
                         Encuesta(4, "nombre4", "15-04-2024", "Finalizada", "Zona B"),
                         Encuesta(5, "nombre5", "16-04-2024", "Comenzada", "Zona A"),
+<<<<<<< HEAD
                         Encuesta(6, "nombre6", "21-05-2024", "ACTIVA", "Zona A"),
                         Encuesta(7, "nombre7", "22-05-2024", "ACTIVA", "Zona C"),
                         Encuesta(8, "nombre8", "23-05-2024", "ACTIVA", "Zona C"),
@@ -97,6 +104,8 @@ abstract class EncuestaRoomDatabase : RoomDatabase() {
                         Encuesta(13, "nombre13", "23-05-2024", "ACTIVA", "Zona C"),
                         Encuesta(14, "nombre14", "15-04-2024", "Finalizada", "Zona B"),
                         Encuesta(15, "nombre15", "16-04-2024", "Comenzada", "Zona A"),
+=======
+>>>>>>> feature/listado-encuestas-alimentos
                     )
                     encuestas.forEach { encuestaDAO.insertar(it) }
                     Log.i("EncuestaRoomDatabase", "Datos de Encuestas insertados")

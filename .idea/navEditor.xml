@@ -20,13 +20,22 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+<<<<<<< HEAD
                   <entry key="estadisticaFragment">
+=======
+                  <entry key="listEncuestasAlimentosFragment">
+>>>>>>> feature/listado-encuestas-alimentos
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
+<<<<<<< HEAD
                             <option name="x" value="359" />
                             <option name="y" value="-396" />
+=======
+                            <option name="x" value="504" />
+                            <option name="y" value="339" />
+>>>>>>> feature/listado-encuestas-alimentos
                           </Point>
                         </option>
                       </LayoutPositions>

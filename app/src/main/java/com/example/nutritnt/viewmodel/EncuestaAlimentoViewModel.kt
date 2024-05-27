@@ -5,7 +5,10 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+<<<<<<< HEAD
 import androidx.lifecycle.liveData
+=======
+>>>>>>> feature/listado-encuestas-alimentos
 import androidx.lifecycle.viewModelScope
 import com.example.nutritnt.database.EncuestaRoomDatabase
 import com.example.nutritnt.database.RepositorioDeEncuestasAlimento
