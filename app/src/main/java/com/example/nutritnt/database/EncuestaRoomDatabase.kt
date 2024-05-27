@@ -77,27 +77,30 @@ abstract class EncuestaRoomDatabase : RoomDatabase() {
             return true
         }
 
+        private fun generateRandomId(): String {
+            return "ID-${Random.nextInt(1000)}"
+        }
             suspend fun cargarBaseDeDatos(encuestaDAO: EncuestaDAO, encuestaAlimentoDAO: Encuesta_AlimentoDAO, alimentoDAO: AlimentoDAO) {
                 Log.i("EncuestaRoomDatabase", "Cargar Base de Datos iniciado")
                 if (encuestaDAO.cantidadDeEncuestas() == 0) {
                     Log.i("EncuestaRoomDatabase", "Base de datos vacía, cargando datos de ejemplo...")
 
                     val encuestas = listOf(
-                        Encuesta(1, "nombre1", "21-05-2024", "ACTIVA", "Zona A"),
-                        Encuesta(2, "nombre2", "22-05-2024", "ACTIVA", "Zona C"),
-                        Encuesta(3, "nombre3", "23-05-2024", "ACTIVA", "Zona C"),
-                        Encuesta(4, "nombre4", "15-04-2024", "Finalizada", "Zona B"),
-                        Encuesta(5, "nombre5", "16-04-2024", "Comenzada", "Zona A"),
-                        Encuesta(6, "nombre6", "21-05-2024", "ACTIVA", "Zona A"),
-                        Encuesta(7, "nombre7", "22-05-2024", "ACTIVA", "Zona C"),
-                        Encuesta(8, "nombre8", "23-05-2024", "ACTIVA", "Zona C"),
-                        Encuesta(9, "nombre9", "15-04-2024", "Finalizada", "Zona B"),
-                        Encuesta(10, "nombre10", "16-04-2024", "Comenzada", "Zona A"),
-                        Encuesta(11, "nombre11", "21-05-2024", "ACTIVA", "Zona A"),
-                        Encuesta(12, "nombre12", "22-05-2024", "ACTIVA", "Zona C"),
-                        Encuesta(13, "nombre13", "23-05-2024", "ACTIVA", "Zona C"),
-                        Encuesta(14, "nombre14", "15-04-2024", "Finalizada", "Zona B"),
-                        Encuesta(15, "nombre15", "16-04-2024", "Comenzada", "Zona A"),
+                        Encuesta(1, generateRandomId(), "21-05-2024", "Finalizada", "Zona A"),
+                        Encuesta(2, generateRandomId(), "22-05-2024", "Finalizada", "Zona C"),
+                        Encuesta(3, generateRandomId(), "23-05-2024", "Finalizada", "Zona C"),
+                        Encuesta(4, generateRandomId(), "15-04-2024", "Finalizada", "Zona B"),
+                        Encuesta(5, generateRandomId(), "16-04-2024", "Comenzada", "Zona A"),
+                        Encuesta(6, generateRandomId(), "21-05-2024", "Comenzada", "Zona A"),
+                        Encuesta(7, generateRandomId(), "22-05-2024", "Comenzada", "Zona C"),
+                        Encuesta(8, generateRandomId(), "23-05-2024", "Comenzada", "Zona C"),
+                        Encuesta(9, generateRandomId(), "15-04-2024", "Finalizada", "Zona B"),
+                        Encuesta(10, generateRandomId(), "16-04-2024", "Comenzada", "Zona A"),
+                        Encuesta(11, generateRandomId(), "21-05-2024", "Comenzada", "Zona A"),
+                        Encuesta(12, generateRandomId(), "22-05-2024", "Comenzada", "Zona C"),
+                        Encuesta(13, generateRandomId(), "23-05-2024", "Comenzada", "Zona C"),
+                        Encuesta(14, generateRandomId(), "15-04-2024", "Finalizada", "Zona B"),
+                        Encuesta(15, generateRandomId(), "16-04-2024", "Comenzada", "Zona A"),
 
                     )
                     encuestas.forEach { encuestaDAO.insertar(it) }

@@ -13,6 +13,7 @@ class EncuestaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun render(encuestaModel: Encuesta){
         binding.tvNombre.text = encuestaModel.nombre
         binding.tvFecha.text = encuestaModel.fecha
+        binding.tvZona.text = encuestaModel.zona
         binding.tvEstado.text = encuestaModel.estado
 
     }
