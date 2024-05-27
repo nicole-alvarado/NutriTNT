@@ -56,7 +56,7 @@ class NewEncuestaAlimentoFragment : Fragment() {
 
         binding.buttonRegistrar.setOnClickListener {
             // Obtener los valores seleccionados de los Spinners y el texto ingresado en el EditText
-            val selectedPortion = binding.spinnerPortion.selectedItem.toString()
+            val selectedPortion = extractNumber(binding.spinnerPortion.selectedItem.toString())
             val selectedPeriod = binding.spinnerPeriod.selectedItem.toString()
             val frecuency = editText.text.toString().toIntOrNull() ?: 0
 
@@ -64,7 +64,7 @@ class NewEncuestaAlimentoFragment : Fragment() {
 
             // Crear objeto Encuesta_Alimento con los valores seleccionados
             val nuevaEncuestaAlimento = Encuesta_Alimento(
-                portion = selectedPortion,
+                portion = selectedPortion.toString(),
                 period = selectedPeriod,
                 frecuency = frecuency,
                 encuestaId = 2, // ID temporal, debemos asignarle el id correcto de una encuesta
@@ -120,4 +120,12 @@ class NewEncuestaAlimentoFragment : Fragment() {
             editText.setText(valueFrecuency.toString())
         }
     }
+
+    // Función para extraer solo los números de un string
+    private fun extractNumber(input: String): Int {
+        val regex = Regex("[0-9]+") // Expresión regular para encontrar solo los números
+        val matchResult = regex.find(input)
+        return matchResult?.value?.toIntOrNull() ?: 0 // Devolver el valor encontrado como entero o 0 si no se encontraron números
+    }
+
 }
