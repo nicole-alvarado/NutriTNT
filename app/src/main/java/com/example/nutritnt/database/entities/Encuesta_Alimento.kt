@@ -34,5 +34,8 @@ data class Encuesta_Alimento(
     var encuestaId: Int,
 
     @ColumnInfo(name = "alimentoId")
-    var alimentoId: Int
+    var alimentoId: Int,
+
+    @ColumnInfo(name = "estado")
+    var estado: String,
 )
