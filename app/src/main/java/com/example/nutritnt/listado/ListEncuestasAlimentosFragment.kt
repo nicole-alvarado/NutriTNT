@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +17,7 @@ import com.example.nutritnt.adapter.EncuestaAdapter
 import com.example.nutritnt.adapter.EncuestaAlimentoAdapter
 import com.example.nutritnt.databinding.FragmentListEncuestasAlimentosBinding
 import com.example.nutritnt.databinding.FragmentListEncuestasBinding
+import com.example.nutritnt.viewmodel.AlimentoViewModel
 import com.example.nutritnt.viewmodel.EncuestaAlimentoViewModel
 import com.example.nutritnt.viewmodel.EncuestaViewModel
 
@@ -23,6 +25,7 @@ class ListEncuestasAlimentosFragment : Fragment() {
     private lateinit var binding: FragmentListEncuestasAlimentosBinding
     private lateinit var encuestaAlimentoViewModel: EncuestaAlimentoViewModel
     private lateinit var adapter: EncuestaAlimentoAdapter
+    private val alimentoViewModel: AlimentoViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,7 +68,7 @@ class ListEncuestasAlimentosFragment : Fragment() {
         val recyclerView = binding.recyclerViewEncuestaAlimento
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         // Inicializar el adaptador
-        adapter = EncuestaAlimentoAdapter()
+        adapter = EncuestaAlimentoAdapter(alimentoViewModel)
         recyclerView.adapter = adapter
 
 

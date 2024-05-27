@@ -28,5 +28,5 @@ interface AlimentoDAO {
         INNER JOIN tabla_encuesta_alimento ea ON a.alimentoId == ea.alimentoId
         WHERE ea.encuestaAlimentoId = :encuestaAlimentoId
     """)
-    fun getAlimentoByEncuestaAlimentoId(encuestaAlimentoId: Int): Alimento
+    fun getAlimentoByEncuestaAlimentoId(encuestaAlimentoId: Int): LiveData<Alimento>
 }
