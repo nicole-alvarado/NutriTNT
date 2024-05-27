@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.nutritnt.database.entities.Alimento
+import com.example.nutritnt.database.entities.Encuesta_Alimento
 
 @Dao
 interface AlimentoDAO {
@@ -20,4 +21,12 @@ interface AlimentoDAO {
 
     @Query("SELECT COUNT(alimentoId) from tabla_alimento")
     suspend fun cantidadDeAlimentos(): Int
+
+    @Query("""
+        SELECT a.*
+        FROM tabla_alimento a
+        INNER JOIN tabla_encuesta_alimento ea ON a.alimentoId == ea.alimentoId
+        WHERE ea.encuestaAlimentoId = :encuestaAlimentoId
+    """)
+    fun getAlimentoByEncuestaAlimentoId(encuestaAlimentoId: Int): Alimento
 }
