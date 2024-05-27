@@ -60,22 +60,17 @@
         android:id="@+id/newEncuestaFragment"
         android:name="com.example.nutritnt.ui.NewEncuestaAlimentoFragment"
         android:label="fragment_new_encuesta"
-<<<<<<< HEAD
         tools:layout="@layout/fragment_new_encuesta_alimento" />
     <fragment
         android:id="@+id/estadisticaFragment"
         android:name="com.example.nutritnt.model.EstadisticaFragment"
         android:label="EstadisticaFragment" />
-=======
-        tools:layout="@layout/fragment_new_encuesta_alimento" >
         <action
             android:id="@+id/action_newEncuestaFragment_to_listEncuestasAlimentosFragment"
             app:destination="@id/listEncuestasAlimentosFragment" />
-    </fragment>
     <fragment
         android:id="@+id/listEncuestasAlimentosFragment"
         android:name="com.example.nutritnt.listado.ListEncuestasAlimentosFragment"
         android:label="fragment_list_encuestas_alimentos"
         tools:layout="@layout/fragment_list_encuestas_alimentos" />
->>>>>>> feature/listado-encuestas-alimentos
 </navigation>
