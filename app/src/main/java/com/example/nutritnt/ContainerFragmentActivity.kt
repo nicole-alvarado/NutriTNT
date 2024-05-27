@@ -6,16 +6,13 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-<<<<<<< HEAD
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.nutritnt.data.DatosDatabase
 import com.example.nutritnt.database.EncuestaRoomDatabase
 import com.example.nutritnt.viewmodel.EncuestaAlimentoViewModel
-=======
-import com.example.nutritnt.database.EncuestaRoomDatabase
->>>>>>> feature/listado-encuestas-alimentos
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,7 +28,7 @@ class ContainerFragmentActivity :  AppCompatActivity() {
 
             // Inicialización de la base de datos y carga de datos de ejemplo
             val database = EncuestaRoomDatabase.obtenerDatabase(applicationContext)
-<<<<<<< HEAD
+
            // val encuestaDAO = database.encuestaDao()
            // val alimentoDAO = database.alimentoDao()
            // val encuestaAlimentoDAO = database.encuestaAlimentoDao()
@@ -57,7 +54,6 @@ class ContainerFragmentActivity :  AppCompatActivity() {
            //     EncuestaRoomDatabase.cargarBaseDeDatos(encuestaDAO, encuestaAlimentoDAO, alimentoDAO)
             //}
 
-=======
             val encuestaDAO = database.encuestaDao()
             val alimentoDAO = database.alimentoDao()
             val encuestaAlimentoDAO = database.encuestaAlimentoDao()
@@ -66,7 +62,6 @@ class ContainerFragmentActivity :  AppCompatActivity() {
                 EncuestaRoomDatabase.cargarBaseDeDatos(encuestaDAO, encuestaAlimentoDAO, alimentoDAO)
             }
 
->>>>>>> feature/listado-encuestas-alimentos
         }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
