@@ -98,7 +98,7 @@ class NewEncuestaAlimentoFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 if (view != null) {
                     val selectedOption = parent.getItemAtPosition(position).toString()
-                    Toast.makeText(requireContext(), getString(R.string.selected_item) + " " + selectedOption, Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireContext(), getString(R.string.selected_item) + " " + selectedOption, Toast.LENGTH_SHORT).show()
                 }
             }
 

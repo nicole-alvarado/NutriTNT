@@ -54,13 +54,13 @@ class ContainerFragmentActivity :  AppCompatActivity() {
            //     EncuestaRoomDatabase.cargarBaseDeDatos(encuestaDAO, encuestaAlimentoDAO, alimentoDAO)
             //}
 
-            val encuestaDAO = database.encuestaDao()
-            val alimentoDAO = database.alimentoDao()
-            val encuestaAlimentoDAO = database.encuestaAlimentoDao()
+            //val encuestaDAO = database.encuestaDao()
+            //val alimentoDAO = database.alimentoDao()
+            //val encuestaAlimentoDAO = database.encuestaAlimentoDao()
 
-            CoroutineScope(Dispatchers.IO).launch {
-                EncuestaRoomDatabase.cargarBaseDeDatos(encuestaDAO, encuestaAlimentoDAO, alimentoDAO)
-            }
+            //CoroutineScope(Dispatchers.IO).launch {
+            //    EncuestaRoomDatabase.cargarBaseDeDatos(encuestaDAO, encuestaAlimentoDAO, alimentoDAO)
+            //}
 
         }
 

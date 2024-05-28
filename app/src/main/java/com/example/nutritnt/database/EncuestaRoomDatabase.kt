@@ -88,11 +88,11 @@ abstract class EncuestaRoomDatabase : RoomDatabase() {
                     val encuestas = listOf(
                         Encuesta(1, "ID-123", "21-05-2024", "Finalizada", "Zona A"),
                         Encuesta(2, "ID-890", "22-05-2024", "Finalizada", "Zona C"),
-                        Encuesta(3, "ID-296", "23-05-2024", "Finalizada", "Zona C"),
+                        Encuesta(3, "ID-296", "23-05-2024", "Finalizada", "Zona D"),
                         Encuesta(4, "ID-719", "15-04-2024", "Finalizada", "Zona B"),
                         Encuesta(5, "ID-655", "16-04-2024", "Comenzada", "Zona A"),
                         Encuesta(6, "ID-333", "21-05-2024", "Comenzada", "Zona A"),
-                        Encuesta(7, "ID-978", "22-05-2024", "Comenzada", "Zona C"),
+                        Encuesta(7, "ID-978", "22-05-2024", "Comenzada", "Zona D"),
                         Encuesta(8, "ID-246", "23-05-2024", "Comenzada", "Zona C"),
                         Encuesta(9, "ID-367", "15-04-2024", "Finalizada", "Zona B"),
                         Encuesta(10, "ID-518", "16-04-2024", "Comenzada", "Zona A"),
