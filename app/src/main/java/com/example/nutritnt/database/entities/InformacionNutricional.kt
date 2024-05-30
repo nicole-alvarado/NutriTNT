@@ -1,8 +1,10 @@
 package com.example.nutritnt.database.entities
 
 import androidx.room.ColumnInfo
+import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+@Entity(tableName = "tabla_informacion_nutricional")
 class InformacionNutricional(
     @PrimaryKey(autoGenerate = true)
     var informacionNutricionalId: Int = 0,
