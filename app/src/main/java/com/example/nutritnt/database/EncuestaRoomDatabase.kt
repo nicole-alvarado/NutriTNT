@@ -10,19 +10,22 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.nutritnt.database.dao.AlimentoDAO
 import com.example.nutritnt.database.dao.EncuestaDAO
 import com.example.nutritnt.database.dao.Encuesta_AlimentoDAO
+import com.example.nutritnt.database.dao.EncuestadorDAO
 import com.example.nutritnt.database.entities.Alimento
 import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.database.entities.Encuesta_Alimento
+import com.example.nutritnt.database.entities.Encuestador
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
-@Database(entities = [Encuesta::class, Encuesta_Alimento::class, Alimento::class], version = 5, exportSchema = false)
+@Database(entities = [Encuesta::class, Encuesta_Alimento::class, Alimento::class, Encuestador::class], version = 6, exportSchema = false)
 abstract class EncuestaRoomDatabase : RoomDatabase() {
 
     abstract fun encuestaAlimentoDao(): Encuesta_AlimentoDAO
     abstract fun encuestaDao(): EncuestaDAO
     abstract fun alimentoDao(): AlimentoDAO
+    abstract fun encuestadorDao(): EncuestadorDAO
 
     companion object {
         @Volatile
@@ -52,19 +55,19 @@ abstract class EncuestaRoomDatabase : RoomDatabase() {
             encuestasAlimento: List<Encuesta_Alimento>,
             encuestaDAO: EncuestaDAO,
             encuestaAlimentoDAO: Encuesta_AlimentoDAO,
-            alimentoDAO: AlimentoDAO
+            alimentoDAO: AlimentoDAO,
+            encuestadores: List<Encuestador>,
+            encuestadorDAO: EncuestadorDAO
         ): Boolean {
 
             encuestasGeneral.forEach { encuestaGeneral ->
                 Log.i("InsercionEnRoom", "encuestaAlimento" + encuestaGeneral.toString())
-
                 val encuestaGeneralId = encuestaDAO.insertar(encuestaGeneral)
 
             }
 
             alimentos.forEach { alimento ->
                 Log.i("InsercionEnRoom", "encuestaAlimento" + alimento.toString())
-
                 val alimentoId = alimentoDAO.insertar(alimento)
 
             }
@@ -72,7 +75,10 @@ abstract class EncuestaRoomDatabase : RoomDatabase() {
             encuestasAlimento.forEach { encuestaAlimento ->
                 Log.i("InsercionEnRoom", "encuestaAlimento" + encuestaAlimento.toString())
                 val result = encuestaAlimentoDAO.insertar(encuestaAlimento)
+            }
 
+            encuestadores.forEach{encuestador ->
+                Log.i("InsercionEnRoom","encuestador"+encuestador.toString())
             }
             return true
         }
