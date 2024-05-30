@@ -12,6 +12,7 @@ import com.example.nutritnt.database.RepositorioDeEncuestasAlimento
 import com.example.nutritnt.database.entities.Alimento
 import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.database.entities.Encuesta_Alimento
+import com.example.nutritnt.database.entities.Encuestador
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -69,7 +70,8 @@ class EncuestaAlimentoViewModel(application: Application) : AndroidViewModel(app
     suspend fun safeInsertMultiple(
         encuestasGeneral: List<Encuesta>,
         alimentos: List<Alimento>,
-        encuestasAlimento: List<Encuesta_Alimento>
+        encuestasAlimento: List<Encuesta_Alimento>,
+        encuestadores: List <Encuestador>
     ): Boolean {
         val encuestaDAO = EncuestaRoomDatabase
             .obtenerDatabase(getApplication()).encuestaDao()
@@ -77,7 +79,9 @@ class EncuestaAlimentoViewModel(application: Application) : AndroidViewModel(app
             .obtenerDatabase(getApplication()).alimentoDao()
         val encuestaAlimentoDAO = EncuestaRoomDatabase
             .obtenerDatabase(getApplication()).encuestaAlimentoDao()
+        val encuestadorDAO = EncuestaRoomDatabase
+            .obtenerDatabase(getApplication()).encuestadorDao()
 
-        return EncuestaRoomDatabase.safeInsertMultiple(encuestasGeneral, alimentos, encuestasAlimento, encuestaDAO, encuestaAlimentoDAO, alimentoDAO)
+        return EncuestaRoomDatabase.safeInsertMultiple(encuestasGeneral, alimentos, encuestasAlimento, encuestadores ,encuestaDAO, encuestaAlimentoDAO, alimentoDAO, encuestadorDAO)
     }
 }

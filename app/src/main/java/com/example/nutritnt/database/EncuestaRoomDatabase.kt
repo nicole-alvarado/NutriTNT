@@ -53,10 +53,10 @@ abstract class EncuestaRoomDatabase : RoomDatabase() {
             encuestasGeneral: List<Encuesta>,
             alimentos: List<Alimento>,
             encuestasAlimento: List<Encuesta_Alimento>,
+            encuestadores: List<Encuestador>,
             encuestaDAO: EncuestaDAO,
             encuestaAlimentoDAO: Encuesta_AlimentoDAO,
             alimentoDAO: AlimentoDAO,
-            encuestadores: List<Encuestador>,
             encuestadorDAO: EncuestadorDAO
         ): Boolean {
 
