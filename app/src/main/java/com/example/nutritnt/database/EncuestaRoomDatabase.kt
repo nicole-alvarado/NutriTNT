@@ -11,21 +11,28 @@ import com.example.nutritnt.database.dao.AlimentoDAO
 import com.example.nutritnt.database.dao.EncuestaDAO
 import com.example.nutritnt.database.dao.Encuesta_AlimentoDAO
 import com.example.nutritnt.database.dao.EncuestadorDAO
+import com.example.nutritnt.database.dao.InformacionNutricionalDAO
+import com.example.nutritnt.database.dao.ZonaDAO
 import com.example.nutritnt.database.entities.Alimento
 import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.database.entities.Encuesta_Alimento
 import com.example.nutritnt.database.entities.Encuestador
+import com.example.nutritnt.database.entities.InformacionNutricional
+import com.example.nutritnt.database.entities.Zona
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
-@Database(entities = [Encuesta::class, Encuesta_Alimento::class, Alimento::class, Encuestador::class], version = 6, exportSchema = false)
+@Database(entities = [Encuesta::class, Encuesta_Alimento::class, Alimento::class, Encuestador::class, Zona::class, InformacionNutricional::class], version = 6, exportSchema = false)
 abstract class EncuestaRoomDatabase : RoomDatabase() {
 
     abstract fun encuestaAlimentoDao(): Encuesta_AlimentoDAO
     abstract fun encuestaDao(): EncuestaDAO
     abstract fun alimentoDao(): AlimentoDAO
     abstract fun encuestadorDao(): EncuestadorDAO
+
+    abstract fun zonaDao(): ZonaDAO
+    abstract fun informacionNutricionalDao(): InformacionNutricionalDAO
 
     companion object {
         @Volatile
@@ -54,10 +61,14 @@ abstract class EncuestaRoomDatabase : RoomDatabase() {
             alimentos: List<Alimento>,
             encuestasAlimento: List<Encuesta_Alimento>,
             encuestadores: List<Encuestador>,
+            zonas: List<Zona>,
+            listaInformacionNutricional: List<InformacionNutricional>,
             encuestaDAO: EncuestaDAO,
             encuestaAlimentoDAO: Encuesta_AlimentoDAO,
             alimentoDAO: AlimentoDAO,
-            encuestadorDAO: EncuestadorDAO
+            encuestadorDAO: EncuestadorDAO,
+            zonaDAO: ZonaDAO,
+            informacionNutricionalDAO: InformacionNutricionalDAO
         ): Boolean {
 
             encuestasGeneral.forEach { encuestaGeneral ->
@@ -80,6 +91,16 @@ abstract class EncuestaRoomDatabase : RoomDatabase() {
             encuestadores.forEach{encuestador ->
                 Log.i("InsercionEnRoom","encuestador"+encuestador.toString())
                 encuestadorDAO.insertar(encuestador)
+            }
+
+            zonas.forEach{zona ->
+                Log.i("InsercionEnRoom","zona"+zona.toString())
+                zonaDAO.insertar(zona)
+            }
+
+            listaInformacionNutricional.forEach{info ->
+                Log.i("InsercionEnRoom","info nutricional"+info.toString())
+                informacionNutricionalDAO.insertar(info)
             }
             return true
         }
