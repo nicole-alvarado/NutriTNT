@@ -79,6 +79,7 @@ abstract class EncuestaRoomDatabase : RoomDatabase() {
 
             encuestadores.forEach{encuestador ->
                 Log.i("InsercionEnRoom","encuestador"+encuestador.toString())
+                encuestadorDAO.insertar(encuestador)
             }
             return true
         }
