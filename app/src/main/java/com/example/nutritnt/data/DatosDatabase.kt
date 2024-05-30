@@ -3,6 +3,7 @@ package com.example.nutritnt.data
 import com.example.nutritnt.database.entities.Alimento
 import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.database.entities.Encuesta_Alimento
+import com.example.nutritnt.database.entities.Encuestador
 
 class DatosDatabase {
 
@@ -42,6 +43,10 @@ class DatosDatabase {
 
         val alimentos = listOf(
             Alimento(alimentoId = 1, "Yogur bebible", 100, 4f)
+        )
+
+        val encuestadores = listOf(
+            Encuestador(encuestadorId = 1, "correo@gmail.com","1234")
         )
     }
 }

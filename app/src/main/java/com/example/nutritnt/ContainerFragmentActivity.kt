@@ -27,7 +27,7 @@ class ContainerFragmentActivity :  AppCompatActivity() {
             setContentView(R.layout.activity_container_fragment)
 
             // Inicialización de la base de datos y carga de datos de ejemplo
-            val database = EncuestaRoomDatabase.obtenerDatabase(applicationContext)
+            //val database = EncuestaRoomDatabase.obtenerDatabase(applicationContext)
 
            // val encuestaDAO = database.encuestaDao()
            // val alimentoDAO = database.alimentoDao()
@@ -39,7 +39,7 @@ class ContainerFragmentActivity :  AppCompatActivity() {
                 val encuestasGeneral = DatosDatabase.encuestas
                 val alimentos = DatosDatabase.alimentos
                 val encuestasAlimento = DatosDatabase.datosConsumoYogur
-
+                
                 encuestaAlimentoViewModel.safeInsertMultiple(encuestasGeneral, alimentos, encuestasAlimento).let { exitoso ->
                         if (exitoso) {
                             Log.i("Insercion", "insercion Exitosa")

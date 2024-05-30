@@ -13,5 +13,5 @@ data class Encuestador(
     var email: String,
 
     @ColumnInfo(name = "password")
-    var password: Int,
+    var password: String,
 )
