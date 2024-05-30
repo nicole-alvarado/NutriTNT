@@ -13,6 +13,8 @@ import com.example.nutritnt.database.entities.Alimento
 import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.database.entities.Encuesta_Alimento
 import com.example.nutritnt.database.entities.Encuestador
+import com.example.nutritnt.database.entities.InformacionNutricional
+import com.example.nutritnt.database.entities.Zona
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -71,7 +73,9 @@ class EncuestaAlimentoViewModel(application: Application) : AndroidViewModel(app
         encuestasGeneral: List<Encuesta>,
         alimentos: List<Alimento>,
         encuestasAlimento: List<Encuesta_Alimento>,
-        encuestadores: List <Encuestador>
+        encuestadores: List<Encuestador>,
+        zonas: List<Zona>,
+        listaInformacionNutricional: List<InformacionNutricional>
     ): Boolean {
         val encuestaDAO = EncuestaRoomDatabase
             .obtenerDatabase(getApplication()).encuestaDao()
@@ -81,7 +85,12 @@ class EncuestaAlimentoViewModel(application: Application) : AndroidViewModel(app
             .obtenerDatabase(getApplication()).encuestaAlimentoDao()
         val encuestadorDAO = EncuestaRoomDatabase
             .obtenerDatabase(getApplication()).encuestadorDao()
+        val zonaDAO = EncuestaRoomDatabase
+            .obtenerDatabase(getApplication()).zonaDao()
+        val informacionNutricionalDAO = EncuestaRoomDatabase
+            .obtenerDatabase(getApplication()).informacionNutricionalDao()
 
-        return EncuestaRoomDatabase.safeInsertMultiple(encuestasGeneral, alimentos, encuestasAlimento, encuestadores ,encuestaDAO, encuestaAlimentoDAO, alimentoDAO, encuestadorDAO)
+        return EncuestaRoomDatabase.safeInsertMultiple(encuestasGeneral, alimentos, encuestasAlimento, encuestadores, zonas, listaInformacionNutricional,
+            encuestaDAO, encuestaAlimentoDAO, alimentoDAO, encuestadorDAO, zonaDAO, informacionNutricionalDAO)
     }
 }
