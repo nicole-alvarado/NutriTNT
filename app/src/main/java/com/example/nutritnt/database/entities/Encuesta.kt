@@ -19,5 +19,14 @@ data class Encuesta(
     var estado: String,
 
     @ColumnInfo(name = "zona")
-    var zona: String
+    var zona: String,
+
+    @ColumnInfo(name = "codigoParticipante")
+    var codigoParticipante: String,
+
+    @ColumnInfo(name = "latitud")
+    var latitud: String,
+
+    @ColumnInfo(name = "longitud")
+    var longitud: String,
 )
