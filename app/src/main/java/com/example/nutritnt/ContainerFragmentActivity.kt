@@ -39,8 +39,9 @@ class ContainerFragmentActivity :  AppCompatActivity() {
                 val encuestasGeneral = DatosDatabase.encuestas
                 val alimentos = DatosDatabase.alimentos
                 val encuestasAlimento = DatosDatabase.datosConsumoYogur
-                
-                encuestaAlimentoViewModel.safeInsertMultiple(encuestasGeneral, alimentos, encuestasAlimento).let { exitoso ->
+                val encuestadores = DatosDatabase.encuestadores
+
+                encuestaAlimentoViewModel.safeInsertMultiple(encuestasGeneral, alimentos, encuestasAlimento, encuestadores).let { exitoso ->
                         if (exitoso) {
                             Log.i("Insercion", "insercion Exitosa")
                         } else {
