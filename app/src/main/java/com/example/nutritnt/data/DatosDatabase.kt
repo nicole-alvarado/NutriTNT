@@ -4,6 +4,8 @@ import com.example.nutritnt.database.entities.Alimento
 import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.database.entities.Encuesta_Alimento
 import com.example.nutritnt.database.entities.Encuestador
+import com.example.nutritnt.database.entities.InformacionNutricional
+import com.example.nutritnt.database.entities.Zona
 
 class DatosDatabase {
 
@@ -48,5 +50,14 @@ class DatosDatabase {
         val encuestadores = listOf(
             Encuestador(encuestadorId = 1, "correo@gmail.com","1234")
         )
+
+        val zonas = listOf(
+            Zona(1,"sur","norte","este","oeste")
+        )
+
+        val informacionNutricional = listOf(
+            InformacionNutricional(1,0F,0F,0F,0F,0F,0F,0F,0F)
+        )
+
     }
 }
