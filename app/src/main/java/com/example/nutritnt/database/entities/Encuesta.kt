@@ -16,5 +16,8 @@ data class Encuesta(
     var fecha: String,
 
     @ColumnInfo(name = "estado")
-    var estado: String
+    var estado: String,
+
+    @ColumnInfo(name = "zona")
+    var zona: String
 )

@@ -27,7 +27,7 @@ class WelcomeFragment : Fragment() {
         // Obtener el nombre pasado como argumento desde el fragmento anterior
         val name = args.name
         // Asignar el nombre al TextView en el diseño del fragmento
-        binding.textBienvenida.text = name
+     //   binding.textBienvenida.text = name
     }
 
     override fun onCreateView(
@@ -51,6 +51,10 @@ class WelcomeFragment : Fragment() {
             binding.buttonNewEncuesta.setOnClickListener{
                 Log.d("enWelcomeFragment","Boton encuesta prueba")
                 findNavController().navigate(R.id.action_welcomeFragment_to_newEncuestaFragment)
+            }
+
+            binding.buttonEstadisticas.setOnClickListener{
+                findNavController().navigate(R.id.action_welcomeFragment_to_estadisticaFragment)
             }
 
             return view

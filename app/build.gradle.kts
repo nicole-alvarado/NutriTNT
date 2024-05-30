@@ -41,16 +41,20 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
+
     }
 
 }
 
 dependencies {
+    implementation(libs.androidx.legacy.support.v4)
+    implementation(libs.androidx.ui.tooling.preview.android)
     val fragment_version = "1.7.0"
     val nav_version = "2.7.7"
     val lifecycle_version = "2.7.0"
     val arch_version = "2.2.0"
     val room_version = "2.6.1"
+
 
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
@@ -98,5 +102,8 @@ dependencies {
 
     // LiveData
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+
+    //nuevo grafico barras
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
 }

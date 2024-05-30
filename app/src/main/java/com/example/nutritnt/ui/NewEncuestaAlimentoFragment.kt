@@ -13,6 +13,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.nutritnt.R
 import com.example.nutritnt.database.entities.Encuesta_Alimento
 import com.example.nutritnt.databinding.FragmentNewEncuestaAlimentoBinding
@@ -55,7 +56,7 @@ class NewEncuestaAlimentoFragment : Fragment() {
 
         binding.buttonRegistrar.setOnClickListener {
             // Obtener los valores seleccionados de los Spinners y el texto ingresado en el EditText
-            val selectedPortion = binding.spinnerPortion.selectedItem.toString()
+            val selectedPortion = extractNumber(binding.spinnerPortion.selectedItem.toString())
             val selectedPeriod = binding.spinnerPeriod.selectedItem.toString()
             val frecuency = editText.text.toString().toIntOrNull() ?: 0
 
@@ -63,21 +64,25 @@ class NewEncuestaAlimentoFragment : Fragment() {
 
             // Crear objeto Encuesta_Alimento con los valores seleccionados
             val nuevaEncuestaAlimento = Encuesta_Alimento(
-                portion = selectedPortion,
+                portion = selectedPortion.toString(),
                 period = selectedPeriod,
                 frecuency = frecuency,
                 encuestaId = 2, // ID temporal, debemos asignarle el id correcto de una encuesta
+                alimentoId = 1,
+                estado = "Finalizada"
+
             )
 
             // Insertar nueva encuesta de alimento en la base de datos a través del ViewModel
             viewModelEncuestaAlimento.insert(nuevaEncuestaAlimento)
+            findNavController().navigate(R.id.action_newEncuestaFragment_to_listEncuestasAlimentosFragment)
 
-            // Verificar el agregado correcto a la bd y volver al fragmento WelcomeFragment
-            // findNavController().navigate(R.id.action_newEncuesta_to_detailEncuestaFragment)
+
         }
 
         return view
     }
+
 
     // Configurar un Spinner con un ArrayAdapter y un listener de selección de item
     private fun setupSpinner(spinner: Spinner, arrayResource: Int) {
@@ -93,7 +98,7 @@ class NewEncuestaAlimentoFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 if (view != null) {
                     val selectedOption = parent.getItemAtPosition(position).toString()
-                    Toast.makeText(requireContext(), getString(R.string.selected_item) + " " + selectedOption, Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireContext(), getString(R.string.selected_item) + " " + selectedOption, Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -115,4 +120,12 @@ class NewEncuestaAlimentoFragment : Fragment() {
             editText.setText(valueFrecuency.toString())
         }
     }
+
+    // Función para extraer solo los números de un string
+    private fun extractNumber(input: String): Int {
+        val regex = Regex("[0-9]+") // Expresión regular para encontrar solo los números
+        val matchResult = regex.find(input)
+        return matchResult?.value?.toIntOrNull() ?: 0 // Devolver el valor encontrado como entero o 0 si no se encontraron números
+    }
+
 }

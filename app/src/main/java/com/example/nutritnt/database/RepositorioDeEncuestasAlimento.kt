@@ -2,7 +2,11 @@ package com.example.nutritnt.database
 
 import androidx.lifecycle.LiveData
 import com.example.nutritnt.database.dao.Encuesta_AlimentoDAO
+import com.example.nutritnt.database.entities.Alimento
+import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.database.entities.Encuesta_Alimento
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class RepositorioDeEncuestasAlimento(private val encuestaAlimentoDAO : Encuesta_AlimentoDAO) {
     // LiveData observada va a notificar a sus observadores cuando los datos cambien.
@@ -15,4 +19,15 @@ class RepositorioDeEncuestasAlimento(private val encuestaAlimentoDAO : Encuesta_
     suspend fun insertar(encuestaAlimento: Encuesta_Alimento){
         encuestaAlimentoDAO.insertar(encuestaAlimento)
     }
+
+    suspend fun getEncuestaAlimentosByZonaAndAlimento(zona: String, alimentoId: Int): List<Encuesta_Alimento> {
+        return withContext(Dispatchers.IO) {
+            encuestaAlimentoDAO.getEncuestaAlimentosByZonaAndAlimento(zona, alimentoId)
+        }
+    }
+
+
+
+
+
 }

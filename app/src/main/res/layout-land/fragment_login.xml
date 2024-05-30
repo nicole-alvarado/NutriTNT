@@ -40,7 +40,7 @@
                     android:fontFamily="sans-serif-black"
                     android:text="NUTRITNT"
                     android:textAlignment="center"
-                    android:textColor="@color/white"
+                    android:textColor="@color/login_global"
                     android:textSize="36sp"
                     android:textStyle="bold" />
 
@@ -50,7 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
-                    android:layout_marginTop="37dp"
+                    android:layout_marginTop="12dp"
                     android:layout_marginEnd="32dp"
                     android:hint="Usuario">
 
@@ -66,7 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
-                    android:layout_marginTop="52dp"
+                    android:layout_marginTop="12dp"
                     android:layout_marginEnd="32dp"
                     android:hint="Contraseña">
 
@@ -81,7 +81,7 @@
                     android:layout_height="60dp"
                     android:id="@+id/loginButton"
                     android:textSize="18sp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="15dp"
                     android:backgroundTint="@color/login_global"
                     app:cornerRadius="20dp"/>
 
