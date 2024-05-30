@@ -71,6 +71,11 @@ abstract class EncuestaRoomDatabase : RoomDatabase() {
             informacionNutricionalDAO: InformacionNutricionalDAO
         ): Boolean {
 
+            listaInformacionNutricional.forEach{info ->
+                Log.i("InsercionEnRoom","info nutricional"+info.toString())
+                informacionNutricionalDAO.insertar(info)
+            }
+
             encuestasGeneral.forEach { encuestaGeneral ->
                 Log.i("InsercionEnRoom", "encuestaAlimento" + encuestaGeneral.toString())
                 val encuestaGeneralId = encuestaDAO.insertar(encuestaGeneral)
@@ -98,10 +103,6 @@ abstract class EncuestaRoomDatabase : RoomDatabase() {
                 zonaDAO.insertar(zona)
             }
 
-            listaInformacionNutricional.forEach{info ->
-                Log.i("InsercionEnRoom","info nutricional"+info.toString())
-                informacionNutricionalDAO.insertar(info)
-            }
             return true
         }
 
