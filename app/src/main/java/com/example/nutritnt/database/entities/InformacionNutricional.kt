@@ -9,8 +9,11 @@ class InformacionNutricional(
     @PrimaryKey(autoGenerate = true)
     var informacionNutricionalId: Int = 0,
 
-    @ColumnInfo(name = "cantidadGramos")
-    var cantidadGramos: Float,
+    @ColumnInfo(name = "cantidad")
+    var cantidad: Int,
+
+    @ColumnInfo(name = "unidad")
+    var unidad: String,
 
     @ColumnInfo(name = "kcalTotales")
     var kcalTotales: Float,

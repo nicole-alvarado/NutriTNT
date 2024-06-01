@@ -56,7 +56,7 @@ class DatosDatabase {
         )
 
         val informacionNutricional = listOf(
-            InformacionNutricional(1,0F,0F,0F,0F,0F,0F,0F,0F)
+            InformacionNutricional(1,100,"ml",73F,14F,2.9F,0.6F,0F,0F, 0F)
         )
 
     }
