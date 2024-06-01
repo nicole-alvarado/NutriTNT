@@ -18,12 +18,6 @@ data class Alimento (
     @ColumnInfo(name = "descripcion")
     var descripcion: String,
 
-    @ColumnInfo(name = "cantidad")
-    var cantidad: Int,
-
-    @ColumnInfo(name = "grasas_totales")
-    var grasas_totales: Float,
-
     @ColumnInfo(name = "codigo")
     var codigo: String,
 

@@ -9,10 +9,6 @@ import com.example.nutritnt.database.entities.Encuesta_Alimento
 import com.example.nutritnt.viewmodel.EncuestaAlimentoViewModel
 import com.example.nutritnt.viewmodel.EncuestaViewModel
 
-data class Datos(val zona: Int, val porcion: String, val periodo: String, val frecuencia: Int)
-
-data class Alimento (val nombre: String, val grasasTotales: Float, val tamaño: String)
-
 
 public class DatosConsumoGrasas {
 
@@ -86,11 +82,12 @@ public class DatosConsumoGrasas {
                 }
                 Log.i("frecuenciaAjustada ", " " +frecuenciaAjustada.toFloat())
 
-                Log.i ("contadorGrasasTotales", "total " + datos.portion.toInt()*(DatosDatabase.alimentos[0].grasas_totales/DatosDatabase.alimentos[0].cantidad) *frecuenciaAjustada.toFloat())
-                datos.portion.toInt()*(DatosDatabase.alimentos[0].grasas_totales/DatosDatabase.alimentos[0].cantidad) *frecuenciaAjustada.toFloat()
+               // Log.i ("contadorGrasasTotales", "total " + datos.portion.toInt()*(DatosDatabase.alimentos[0].grasas_totales/DatosDatabase.alimentos[0].cantidad) *frecuenciaAjustada.toFloat())
+              //  datos.portion.toInt()*(DatosDatabase.alimentos[0].grasas_totales/DatosDatabase.alimentos[0].cantidad) *frecuenciaAjustada.toFloat()
             }.sum()
 
-            return sumaTotal
+            return 4F
+           // return sumaTotal
 
         }
 

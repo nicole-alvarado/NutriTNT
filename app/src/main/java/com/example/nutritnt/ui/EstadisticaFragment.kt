@@ -27,13 +27,6 @@ import com.github.mikephil.charting.utils.ColorTemplate
 import kotlinx.coroutines.launch
 
 
-data class PorcentajeZonas(val zona: String, val variable: String, val total: Int)
-
-data class ConsultaZonaPeriodo(val zona: Int, val periodo: String)
-
-data class GrasasTotalesZona (val zona: String, var grasasTotales: Float)
-
-
 class EstadisticaFragment : Fragment() {
 
     // ViewModel de EncuestaAlimento

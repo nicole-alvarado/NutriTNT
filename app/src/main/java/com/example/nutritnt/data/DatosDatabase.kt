@@ -44,7 +44,7 @@ class DatosDatabase {
         )
 
         val alimentos = listOf(
-            Alimento(alimentoId = 1, "Yogur bebible", 100, 4f,"Y","Leche y yogur", "",1)
+            Alimento(alimentoId = 1, "Yogur bebible", "Y","Leche y yogur", "",1)
         )
 
         val encuestadores = listOf(
