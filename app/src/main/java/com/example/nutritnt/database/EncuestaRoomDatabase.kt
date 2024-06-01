@@ -46,7 +46,7 @@ abstract class EncuestaRoomDatabase : RoomDatabase() {
                     context.applicationContext,
                     EncuestaRoomDatabase::class.java,
                     "encuesta_database"
-                )
+                ).fallbackToDestructiveMigration()
                     .build()
                 INSTANCIA = instancia
                 Log.i("EncuestaRoomDatabase", "Base de datos creada")
