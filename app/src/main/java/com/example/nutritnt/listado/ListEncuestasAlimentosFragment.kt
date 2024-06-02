@@ -38,7 +38,8 @@ class ListEncuestasAlimentosFragment : Fragment() {
         val view = binding.root
 
         binding.buttonInicio.setOnClickListener(){
-            findNavController().navigate(ListEncuestasAlimentosFragmentDirections.actionListEncuestasAlimentosFragmentToWelcomeFragment("Bienvenido/a"))
+            //findNavController().navigate(ListEncuestasAlimentosFragmentDirections.actionListEncuestasAlimentosFragmentToWelcomeFragment("Bienvenido/a"))
+            findNavController().navigate(R.id.action_listEncuestasAlimentosFragment_to_welcomeFragment)
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->

@@ -52,7 +52,8 @@ class LoginFragment : Fragment() {
                 Toast.makeText(context, "Ingreso exitoso!", Toast.LENGTH_SHORT).show()
 
                 // Navega al WelcomeFragment utilizando la acción generada por Safe Args y pasa el texto como argumento
-                findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToWelcomeFragment("Bienvenido/a"))
+                //findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToWelcomeFragment("Bienvenido/a"))
+                findNavController().navigate(R.id.action_loginFragment_to_welcomeFragment)
             } else {
                 Toast.makeText(context, "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT).show()
             }

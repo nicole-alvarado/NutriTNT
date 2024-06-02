@@ -46,9 +46,6 @@
         <action
             android:id="@+id/action_welcomeFragment_to_listEncuestasFragment"
             app:destination="@id/listEncuestasFragment" />
-        <argument
-            android:name="name"
-            app:argType="string" />
         <action
             android:id="@+id/action_welcomeFragment_to_newEncuestaFragment"
             app:destination="@id/newEncuestaFragment" />
