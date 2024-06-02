@@ -1,0 +1,31 @@
+Codigo,Grupo,Subgrupo,Descripcion,Cantidad,Unidad,Kcal totales,Carbohidratos (g),Proteínas (g),Grasas totales (g),Alcohol (g),Colesterol (mg),Fibra (g)
+A1,Leche y yogur,Leche,Leche en polvo entera,100,mg,494.0,38.1,26.2,26.4,0.0,80.5,0.0
+A2,Leche y yogur,Leche,Leche fluida entera ,100,ml,57.9,4.6,3.1,3.0,0.0,10.1,0.0
+A3,Leche y yogur,Yogur,Yogur entero bebible,100,ml,73.0,14.0,2.9,0.6,0.0,0.0,0.0
+B1,Grasas animales,Quesos,De pasta dura,100,g,373.8,0.3,32.4,27.0,0.0,83.0,0.0
+B2,Grasas animales,Quesos,De pasta semidura/azul,100,g,328.2,0.1,25.3,25.2,0.0,72.1,0.0
+B3,Grasas animales,Cuerpos grasos,Manteca,100,g,745.4,0.0,0.3,82.7,0.0,223.0,0.0
+C1,Carnes y huevos,Huevos,De gallina entero crudo-hervido- poché,100,unidad,153.8,0.2,12.7,11.4,0.0,449.0,0.0
+C2,Carnes y huevos,Huevos,De gallina entero frito,100,unidad,191.3,0.8,13.6,14.8,0.0,401.0,0.0
+C3,Carnes y huevos,Carnes frescas y vísceras,Vacuna magra,100,g,130.6,0.0,21.4,5.0,0.0,62.3,0.0
+C4,Carnes y huevos,Carnes frescas y vísceras,Vacuna cortes grasos,100,g,199.6,0.0,19.0,13.8,0.0,68.3,0.0
+C5,Carnes y huevos,Carnes frescas y vísceras,Carne picada ,100,g,165.1,0.0,20.2,9.4,0.0,65.3,0.0
+D1,Carnes procesadas,,Salchichas,100,g,187.9,5.8,12.3,12.9,0.0,30.0,0.0
+D2,Carnes procesadas,,Salame-salamín-chorizo seco-longaniza,100,g,377.5,0.3,19.5,33.1,0.0,78.0,0.0
+D3,Carnes procesadas,,Mortadela,100,g,265.2,1.6,13.0,23.0,0.0,71.0,0.0
+E1,Platos populares,,Papas fritas caseras,100,g,162.0,17.5,2.1,9.3,0.0,0.0,2.4
+E2,Platos populares,,Pizza,100,g,251.9,26.5,13.6,10.2,0.0,17.0,2.3
+E3,Platos populares,,Empanadas de carne fritas,100,g,297.5,14.8,10.1,22.0,0.0,68.9,0.6
+E4,Platos populares,,Empanadas de carne ,100,g,214.4,14.8,10.1,12.7,0.0,68.9,0.6
+E5,Platos populares,,Pastel de papas,100,g,143.3,7.7,8.3,8.8,0.0,68.5,1.0
+E6,Platos populares,,Puchero,100,g,100.1,12.4,5.5,3.2,0.0,14.4,4.0
+K1,Frutas,,Banana,100,g,98.7,22.8,1.1,0.3,0.0,0.0,2.6
+K2,Frutas,,Durazno,100,g,46.5,10.1,0.9,0.3,0.0,0.0,1.5
+K3,Frutas,,Manzana,100,g,58.2,13.8,0.3,0.2,0.0,0.0,2.4
+O1,Bebidas e infusiones azucaradas,,Aguas saborizadas clásicas,100,ml,32.0,8.0,0.0,0.0,0.0,0.0,0.0
+O2,Bebidas e infusiones azucaradas,,Bebidas deportivas y energizantes,100,ml,24.0,6.0,0.0,0.0,0.0,0.0,0.0
+O3,Bebidas e infusiones azucaradas,,Gaseosas clásicas,100,ml,43.0,10.7,0.0,0.0,0.0,0.0,0.0
+R1,Bebidas alcohólicas,,Vino,100,ml,86.6,3.2,0.2,0.0,10.5,0.0,0.0
+R2,Bebidas alcohólicas,,Cerveza o aperitivos,100,ml,35.5,1.6,0.3,0.1,3.9,0.0,0.0
+R3,Bebidas alcohólicas,,Licor,100,ml,370.4,46.8,0.1,0.3,25.8,0.0,0.0
+R4,Bebidas alcohólicas,,Bebidas blancas,100,ml,233.8,0.0,0.0,0.0,33.4,0.0,0.0

@@ -1,21 +1,23 @@
 package com.example.nutritnt
 
 
-import android.app.Application
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.nutritnt.data.DatosDatabase
-import com.example.nutritnt.database.EncuestaRoomDatabase
+import com.example.nutritnt.data.ReadCSV
+import com.example.nutritnt.database.entities.Alimento
+import com.example.nutritnt.database.entities.InformacionNutricional
 import com.example.nutritnt.viewmodel.EncuestaAlimentoViewModel
-
 import kotlinx.coroutines.CoroutineScope
+
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ContainerFragmentActivity :  AppCompatActivity() {
 
@@ -35,15 +37,19 @@ class ContainerFragmentActivity :  AppCompatActivity() {
 
             encuestaAlimentoViewModel = ViewModelProvider(this).get(EncuestaAlimentoViewModel::class.java)
 
-            lifecycleScope.launch {
+            CoroutineScope(Dispatchers.Main).launch {
                 val encuestasGeneral = DatosDatabase.encuestas
-                val alimentos = DatosDatabase.alimentos
+                //val alimentos = DatosDatabase.alimentos
+                val alimentosList = mutableListOf<Alimento>()
+                val informacionNutricionalList = mutableListOf<InformacionNutricional>()
+
+                ReadCSV.readFromCSV(this@ContainerFragmentActivity, alimentosList, informacionNutricionalList)
+
                 val encuestasAlimento = DatosDatabase.datosConsumoYogur
                 val encuestadores = DatosDatabase.encuestadores
                 val zonas = DatosDatabase.zonas
-                val listaInformacionNutricional = DatosDatabase.informacionNutricional
 
-                encuestaAlimentoViewModel.safeInsertMultiple(encuestasGeneral, alimentos, encuestasAlimento, encuestadores, zonas, listaInformacionNutricional).let { exitoso ->
+                encuestaAlimentoViewModel.safeInsertMultiple(encuestasGeneral, alimentosList, encuestasAlimento, encuestadores, zonas, informacionNutricionalList).let { exitoso ->
                         if (exitoso) {
                             Log.i("Insercion", "insercion Exitosa")
                         } else {
@@ -51,6 +57,8 @@ class ContainerFragmentActivity :  AppCompatActivity() {
                         }
                     }
             }
+
+
 
 
           //  CoroutineScope(Dispatchers.IO).launch {
@@ -66,6 +74,7 @@ class ContainerFragmentActivity :  AppCompatActivity() {
             //}
 
         }
+
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)

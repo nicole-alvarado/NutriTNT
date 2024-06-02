@@ -20,7 +20,9 @@ import com.example.nutritnt.database.entities.Encuestador
 import com.example.nutritnt.database.entities.InformacionNutricional
 import com.example.nutritnt.database.entities.Zona
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.random.Random
 
 @Database(entities = [Encuesta::class, Encuesta_Alimento::class, Alimento::class, Encuestador::class, Zona::class, InformacionNutricional::class], version = 6, exportSchema = false)
@@ -69,8 +71,8 @@ abstract class EncuestaRoomDatabase : RoomDatabase() {
             encuestadorDAO: EncuestadorDAO,
             zonaDAO: ZonaDAO,
             informacionNutricionalDAO: InformacionNutricionalDAO
-        ): Boolean {
-
+        ): Boolean = withContext(Dispatchers.IO) {
+            try {
             listaInformacionNutricional.forEach{info ->
                 Log.i("InsercionEnRoom","info nutricional"+info.toString())
                 informacionNutricionalDAO.insertar(info)
@@ -103,7 +105,10 @@ abstract class EncuestaRoomDatabase : RoomDatabase() {
                 zonaDAO.insertar(zona)
             }
 
-            return true
+             true
+            } catch (e: Exception) {
+                false // Indica que hubo un error durante la inserción
+            }
         }
 
 //        private fun generateRandomId(): String {
