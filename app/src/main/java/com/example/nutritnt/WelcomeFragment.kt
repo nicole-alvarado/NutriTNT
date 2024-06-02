@@ -50,7 +50,8 @@ class WelcomeFragment : Fragment() {
 
             binding.buttonNewEncuesta.setOnClickListener{
                 Log.d("enWelcomeFragment","Boton encuesta prueba")
-                findNavController().navigate(R.id.action_welcomeFragment_to_newEncuestaFragment)
+                //findNavController().navigate(R.id.action_welcomeFragment_to_newEncuestaFragment)
+                findNavController().navigate(R.id.action_welcomeFragment_to_nuevaEncuestaFragment)
             }
 
             binding.buttonEstadisticas.setOnClickListener{
