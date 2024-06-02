@@ -16,25 +16,9 @@ public class DatosConsumoGrasas {
 
     companion object {
 
-       // private var datosConsumoYogur: List<EncuestaAlimentoWithZona>? = null
-
-       // fun registrarDatos(lista: List<EncuestaAlimentoWithZona>): List<EncuestaAlimentoWithZona>{
-        //    if (datosConsumoYogur == null)
-        //        datosConsumoYogur = lista.toList()
-
-          //  return datosConsumoYogur as List<EncuestaAlimentoWithZona>
-
-        //}
-
 
         fun obtenerDatosPorPeriodo(listaEncuestaAlimento: List<Encuesta_Alimento> , periodoBuscado: String): Float {
 
-            // Filtrar por zona
-           // val datosPorZona = datosConsumoYogur?.filter {  it.zona.toInt() == zonaBuscada }
-         //   val datosPorZona = DatosEncuestaAlimentos.datosConsumoYogur.filter { it.zona == zonaBuscada }
-
-            // Filtrar por período dentro de la zona y ajustar los valores de frecuencia según el período
-           // val sumaTotal = datosPorZona?.map { datos ->
             val sumaTotal = listaEncuestaAlimento.map { datos ->
                 Log.i("contadorGrasasTotales", "datos " + datos.period + " id " + datos.alimentoId)
                 val frecuenciaAjustada = when (periodoBuscado) {

@@ -12,10 +12,14 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.nutritnt.data.DatosConsumoGrasas
+import com.example.nutritnt.database.relations.EncuestaAlimento_AlimentoInformacionNutricional
 import com.example.nutritnt.databinding.FragmentEstadisticaBinding
+import com.example.nutritnt.viewmodel.AlimentoViewModel
 import com.example.nutritnt.viewmodel.EncuestaAlimentoViewModel
+import com.example.nutritnt.viewmodel.EncuestaViewModel
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
@@ -31,6 +35,8 @@ class EstadisticaFragment : Fragment() {
 
     // ViewModel de EncuestaAlimento
     private val encuestaAlimentoViewModel: EncuestaAlimentoViewModel by viewModels()
+    private val encuestaViewModel: EncuestaViewModel by viewModels()
+    private val alimentoViewModel: AlimentoViewModel by viewModels()
     private var barChart: BarChart? = null
     private lateinit var binding: FragmentEstadisticaBinding
 
@@ -49,17 +55,9 @@ class EstadisticaFragment : Fragment() {
         binding = FragmentEstadisticaBinding.inflate(inflater, container, false)
         val view = binding.root
 
-
-        val zonas: List<String> = listOf(
-            "Zona A",
-            "Zona B",
-            "Zona C",
-            "Zona D"
-        )
-
         barChart = view.findViewById(com.example.nutritnt.R.id.bar_chart)
 
-        actualizarGrafico("dia", zonas)
+        actualizarGrafico("dia")
 
         val spinner: Spinner = binding.spinnerPeriod
         val periods= listOf("Dia", "Semana", "Mes", "Año") // Ejemplo de lista de opciones para el selector
@@ -72,7 +70,7 @@ class EstadisticaFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val periodSelected = periods[position]
                 // llamada a la función para actualizar el gráfico con los datos del periodo seleccionado
-                actualizarGrafico(periodSelected.lowercase(), zonas)
+                actualizarGrafico(periodSelected.lowercase())
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -84,7 +82,8 @@ class EstadisticaFragment : Fragment() {
 
     }
 
-    private fun actualizarGrafico(periodo: String, zonas: List<String>){
+    private fun actualizarGrafico(periodo: String){
+
         lifecycleScope.launch {
             // Recorrer el array de zonas
             var valorX = 0f
@@ -93,29 +92,57 @@ class EstadisticaFragment : Fragment() {
             var totalConsumoGrasas = 0f
 
 
-            for (zona in zonas) {
-                // Observar el flujo desde el ViewModel
-                encuestaAlimentoViewModel.fetchEncuestaAlimentosByZonaAndAlimento(zona, 1).collect { datos ->
-                    // Llenar el gráfico con los datos obtenidos
+            alimentoViewModel.cargarAlimentosConInformacionNutricional()
 
-                    val totalPorZona: Float = DatosConsumoGrasas.obtenerDatosPorPeriodo(datos, periodo).toFloat()
+            // Acceder a los datos cargados cuando sea necesario
+            val alimentosConInfo = alimentoViewModel.alimentosConInfoNutricional
 
-                    Log.i("xmlEstadisticas", "zona " + zona + " total " + totalPorZona)
+            val listadoZonas = encuestaViewModel.obtenerZonasDistintas()
 
-                    totalConsumoGrasas += totalPorZona
+            var observadorEjecutado = false
 
-                    entries.add(BarEntry(valorX, totalPorZona))
+            // Llamar al método con la lista de zonas
+            encuestaAlimentoViewModel.fetchEncuestasAlimentosConInfo(listadoZonas)
 
-                    valorX += 1f
-                    otroValorX += 10f
+            // Observar el LiveData una vez
+            encuestaAlimentoViewModel.encuestasAlimentosConInfo.observe(viewLifecycleOwner, Observer<Map<String, List<EncuestaAlimento_AlimentoInformacionNutricional>>> { dataMap ->
+                if(!observadorEjecutado) {
+                    dataMap?.let {
+                        Log.i("xmlEstadisticas", listadoZonas.toString())
+                        listadoZonas.forEach { zona ->
+                            val encuestas = dataMap[zona] ?: emptyList()
+                            val totalPorZona: Float = 4F
+                            // DatosConsumoGrasas.obtenerDatosPorPeriodo(it, periodo)
+                            //    .toFloat()
+
+                            Log.i(
+                                "xmlEstadisticas",
+                                "valorX " + valorX + " zona " + zona + "listado" + encuestas.toString() + " total " + totalPorZona
+                            )
+
+                            totalConsumoGrasas += totalPorZona
+
+                            entries.add(BarEntry(valorX, totalPorZona))
+
+
+
+                            valorX += 1f
+                            otroValorX += 10f
+                        }
+                    }
                 }
-            }
-            llenarGrafico(entries, zonas)
+                observadorEjecutado = true;
+                Log.i("entries", entries.toString())
+                llenarGrafico(entries, listadoZonas)
+            })
+
             "${"%.2f".format(totalConsumoGrasas)} gr".also { binding.textTotalConsumoGrasas.text = it }
         }
-    }
+
+        }
 
     private fun llenarGrafico(entries: MutableList<BarEntry>, zonas: List<String>) {
+        Log.i("entries", entries.toString() + " zonas " + zonas)
 
         // Crear el conjunto de datos y configurar el gráfico
         val dataSet = BarDataSet(entries, "Datos de la zona")
@@ -150,5 +177,8 @@ class EstadisticaFragment : Fragment() {
         // Actualizar el gráfico
         barChart?.invalidate()
     }
+
+
+
 
 }

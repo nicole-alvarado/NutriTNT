@@ -21,6 +21,9 @@ interface EncuestaDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertar(encuesta: Encuesta)
 
+    @Query("SELECT DISTINCT zona FROM tabla_encuesta")
+    suspend fun getAllZonas(): List<String>
+
     @Query("DELETE FROM tabla_encuesta")
     suspend fun borrarTodos()
 

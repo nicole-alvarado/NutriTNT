@@ -5,8 +5,10 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import com.example.nutritnt.database.entities.Alimento
 import com.example.nutritnt.database.entities.Encuesta_Alimento
+import com.example.nutritnt.database.relations.AlimentoInformacionNutricional
 
 @Dao
 interface AlimentoDAO {
@@ -29,4 +31,9 @@ interface AlimentoDAO {
         WHERE ea.encuestaAlimentoId = :encuestaAlimentoId
     """)
     fun getAlimentoByEncuestaAlimentoId(encuestaAlimentoId: Int): LiveData<Alimento>
+
+    @Transaction
+    @Query("SELECT * FROM tabla_alimento")
+    suspend fun obtenerAlimentosConInformacionNutricional(): List<AlimentoInformacionNutricional>
+
 }

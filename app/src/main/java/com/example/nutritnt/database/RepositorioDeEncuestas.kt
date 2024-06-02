@@ -15,4 +15,8 @@ class RepositorioDeEncuestas (private val encuestaDAO: EncuestaDAO) {
     suspend fun insertar(encuesta: Encuesta){
         encuestaDAO.insertar(encuesta)
     }
+
+    suspend fun getZonas(): List<String> {
+        return encuestaDAO.getAllZonas()
+    }
 }
