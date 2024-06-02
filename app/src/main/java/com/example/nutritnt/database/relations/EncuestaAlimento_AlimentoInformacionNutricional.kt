@@ -6,7 +6,7 @@ import com.example.nutritnt.database.entities.Alimento
 import com.example.nutritnt.database.entities.Encuesta_Alimento
 
 data class EncuestaAlimento_AlimentoInformacionNutricional(
-    @Embedded val encuestaAlimentos: Encuesta_Alimento,
+    @Embedded val encuestaAlimento: Encuesta_Alimento,
     @Relation(
         parentColumn = "alimentoId",
         entityColumn = "alimentoId",
