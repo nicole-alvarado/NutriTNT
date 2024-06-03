@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.nutritnt.database.entities.Encuesta
 
 @Dao
@@ -29,4 +30,7 @@ interface EncuestaDAO {
 
     @Query("SELECT COUNT(encuestaId) from tabla_encuesta")
     suspend fun cantidadDeEncuestas(): Int
+
+    @Update
+    suspend fun actualizar(encuesta: Encuesta)
 }

@@ -37,6 +37,9 @@ class EncuestaViewModel (application: Application) : AndroidViewModel(applicatio
         repositorio.insertar(encuesta)
     }
 
+    fun update(encuesta: Encuesta) = viewModelScope.launch(Dispatchers.IO){
+        repositorio.actualizar(encuesta)
+    }
     suspend fun obtenerZonasDistintas(): List<String> {
         return repositorio.getZonas()
     }

@@ -12,14 +12,14 @@
         android:id="@+id/textViewCodigoParticipante"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="156dp"
         android:text="Ingrese el código del participante:"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/textInputCodigoParticipante"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/textInputCodigoParticipante"
@@ -27,20 +27,24 @@
         android:layout_height="42dp"
         android:hint="Código"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonComenzarEncuesta"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="221dp" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewCodigoParticipante"
+        app:layout_constraintVertical_bias="0.5" />
 
     <Button
         android:id="@+id/buttonComenzarEncuesta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="272dp"
         android:text="Comenzar"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputCodigoParticipante"
+        app:layout_constraintVertical_bias="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

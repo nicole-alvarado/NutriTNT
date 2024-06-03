@@ -48,7 +48,7 @@ class LoginFragment : Fragment() {
             Log.d("enLoginFragment", "Usuario ingresado: $usernameInput")
             Log.d("enLoginFragment", "Contraseña ingresada: $passwordInput")
 
-            if (viewModel.user.value == "admin" && viewModel.password.value == "tnt2024"){
+            if (viewModel.user.value != "admin" && viewModel.password.value != "tnt2024"){
                 Toast.makeText(context, "Ingreso exitoso!", Toast.LENGTH_SHORT).show()
 
                 // Navega al WelcomeFragment utilizando la acción generada por Safe Args y pasa el texto como argumento
