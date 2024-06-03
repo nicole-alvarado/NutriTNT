@@ -15,6 +15,7 @@
         android:layout_marginTop="156dp"
         android:text="Ingrese el código del participante:"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/textInputCodigoParticipante"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
