@@ -29,6 +29,7 @@ public class ReadCSV {
                         val descripcion = tokens[3].trim()
 
                         val informacionNutricional = InformacionNutricional(
+                            informacionNutricionalId = informacionNutricionalList.size + 1,
                             cantidad = tokens[4].trim().toInt(),
                             unidad = tokens[5].trim(),
                             kcalTotales = tokens[6].trim().toFloat(),
@@ -40,18 +41,19 @@ public class ReadCSV {
                             fibra = tokens[12].trim().toFloat()
                         )
 
-                        val informacionNutricionalId = informacionNutricionalList.size + 1
+
 
                         informacionNutricionalList.add(informacionNutricional)
 
                         Log.i("insercionCSV", "infonutri: " + informacionNutricional)
 
                         val alimento = Alimento(
+                            alimentoId = alimentosList.size + 1,
                             codigo = codigo,
                             grupo = grupo,
                             subgrupo = subgrupo,
                             descripcion = descripcion,
-                            informacionNutricionalId = informacionNutricionalId
+                            informacionNutricionalId = informacionNutricional.informacionNutricionalId
                         )
 
                         alimentosList.add(alimento)

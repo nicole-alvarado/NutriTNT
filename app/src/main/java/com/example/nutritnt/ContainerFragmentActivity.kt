@@ -36,8 +36,11 @@ class ContainerFragmentActivity :  AppCompatActivity() {
            // val encuestaAlimentoDAO = database.encuestaAlimentoDao()
 
             encuestaAlimentoViewModel = ViewModelProvider(this).get(EncuestaAlimentoViewModel::class.java)
-
+                var x = 0F
             CoroutineScope(Dispatchers.Main).launch {
+                Log.i("xvalue", "Entro en el scrope:" + x)
+                x+=1F
+
                 val encuestasGeneral = DatosDatabase.encuestas
                 //val alimentos = DatosDatabase.alimentos
                 val alimentosList = mutableListOf<Alimento>()
@@ -48,7 +51,7 @@ class ContainerFragmentActivity :  AppCompatActivity() {
                 val encuestasAlimento = DatosDatabase.datosConsumoYogur
                 val encuestadores = DatosDatabase.encuestadores
                 val zonas = DatosDatabase.zonas
-
+                Log.i("xvalue", "va a entrar en el insert:" + x + " tamaño de alimentosList " + alimentosList.size)
                 encuestaAlimentoViewModel.safeInsertMultiple(encuestasGeneral, alimentosList, encuestasAlimento, encuestadores, zonas, informacionNutricionalList).let { exitoso ->
                         if (exitoso) {
                             Log.i("Insercion", "insercion Exitosa")
