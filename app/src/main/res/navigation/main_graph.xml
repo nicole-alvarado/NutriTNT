@@ -64,6 +64,9 @@
         <action
             android:id="@+id/action_newEncuestaFragment_to_listEncuestasAlimentosFragment"
             app:destination="@id/listEncuestasAlimentosFragment" />
+        <argument
+            android:name="codigoParticipante"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/estadisticaFragment"
@@ -82,5 +85,9 @@
         android:id="@+id/nuevaEncuestaFragment"
         android:name="com.example.nutritnt.ui.encuesta.NuevaEncuestaFragment"
         android:label="fragment_nueva_encuesta"
-        tools:layout="@layout/fragment_nueva_encuesta" />
+        tools:layout="@layout/fragment_nueva_encuesta" >
+        <action
+            android:id="@+id/action_nuevaEncuestaFragment_to_newEncuestaFragment"
+            app:destination="@id/newEncuestaFragment" />
+    </fragment>
 </navigation>

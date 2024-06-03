@@ -9,6 +9,7 @@ import com.example.nutritnt.database.EncuestaRoomDatabase
 import com.example.nutritnt.database.RepositorioDeEncuestas
 import com.example.nutritnt.database.entities.Encuesta
 import androidx.lifecycle.viewModelScope
+import com.example.nutritnt.database.entities.Alimento
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 class EncuestaViewModel (application: Application) : AndroidViewModel(application){
@@ -43,4 +44,9 @@ class EncuestaViewModel (application: Application) : AndroidViewModel(applicatio
     suspend fun obtenerZonasDistintas(): List<String> {
         return repositorio.getZonas()
     }
+
+    suspend fun getEncuestaByCodigoParticipante(codigo: String): LiveData<Encuesta> {
+        return repositorio.getEncuestaByCodigoParticipante(codigo)
+    }
+
 }

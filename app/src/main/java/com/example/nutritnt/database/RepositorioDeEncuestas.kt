@@ -23,4 +23,8 @@ class RepositorioDeEncuestas (private val encuestaDAO: EncuestaDAO) {
     suspend fun getZonas(): List<String> {
         return encuestaDAO.getAllZonas()
     }
+
+    suspend fun getEncuestaByCodigoParticipante(codigo: String): LiveData<Encuesta>{
+        return encuestaDAO.getEncuestaByCodigoParticipante(codigo)
+    }
 }

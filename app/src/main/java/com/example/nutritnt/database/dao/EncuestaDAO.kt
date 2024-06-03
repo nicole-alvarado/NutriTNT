@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.nutritnt.database.entities.Encuesta
+import com.example.nutritnt.database.entities.Encuesta_Alimento
 
 @Dao
 interface EncuestaDAO {
@@ -18,6 +19,7 @@ interface EncuestaDAO {
     // se nos notifica cada vez que algun dato haya cambiado.
     @Query("SELECT * from tabla_encuesta ORDER BY encuestaId ASC")
     fun getEncuestas(): LiveData<List<Encuesta>>
+
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertar(encuesta: Encuesta)
@@ -33,4 +35,12 @@ interface EncuestaDAO {
 
     @Update
     suspend fun actualizar(encuesta: Encuesta)
+
+    @Query("""
+        SELECT e.* 
+        FROM tabla_encuesta e
+        WHERE e.codigoParticipante = :codigo
+    """)
+    fun getEncuestaByCodigoParticipante(codigo: String): LiveData<Encuesta>
+
 }

@@ -10,25 +10,34 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.nutritnt.R
+import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.database.entities.Encuesta_Alimento
 import com.example.nutritnt.databinding.FragmentNewEncuestaAlimentoBinding
 import com.example.nutritnt.viewmodel.EncuestaAlimentoViewModel
+import com.example.nutritnt.viewmodel.EncuestaViewModel
+import kotlinx.coroutines.launch
 
 class NewEncuestaAlimentoFragment : Fragment() {
 
     private lateinit var binding: FragmentNewEncuestaAlimentoBinding
-    private val viewModelEncuestaAlimento: EncuestaAlimentoViewModel by viewModels()
+    private val encuestaAlimentoViewModel: EncuestaAlimentoViewModel by viewModels()
+    private val encuestaViewModel: EncuestaViewModel by viewModels()
+
+    // Inicializar la variable para manejar los argumentos utilizando navArgs()
+    private val args: NewEncuestaAlimentoFragmentArgs by navArgs()
 
     private lateinit var editText: EditText
     private lateinit var minusButton: Button
     private lateinit var plusButton: Button
     private var valueFrecuency: Int = 0
 
+    private lateinit var encuesta: Encuesta
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,6 +63,17 @@ class NewEncuestaAlimentoFragment : Fragment() {
             increment()
         }
 
+        // Obtener el código del participante pasado como argumento desde el fragmento anterior
+        val codigoParticipante = args.codigoParticipante
+        Log.i("Argumentos", codigoParticipante)
+
+        // Lanzar una coroutine para llamar a la función suspendida
+        viewLifecycleOwner.lifecycleScope.launch {
+            encuestaViewModel.getEncuestaByCodigoParticipante(codigoParticipante).observe(viewLifecycleOwner) { encuesta ->
+                this@NewEncuestaAlimentoFragment.encuesta = encuesta
+            }
+        }
+
         binding.buttonRegistrar.setOnClickListener {
             // Obtener los valores seleccionados de los Spinners y el texto ingresado en el EditText
             val selectedPortion = extractNumber(binding.spinnerPortion.selectedItem.toString())
@@ -67,22 +87,23 @@ class NewEncuestaAlimentoFragment : Fragment() {
                 portion = selectedPortion.toString(),
                 period = selectedPeriod,
                 frecuency = frecuency,
-                encuestaId = 2, // ID temporal, debemos asignarle el id correcto de una encuesta
+                encuestaId = encuesta.encuestaId, // ID temporal, debemos asignarle el id correcto de una encuesta
                 alimentoId = 1,
                 estado = "Finalizada"
-
             )
 
             // Insertar nueva encuesta de alimento en la base de datos a través del ViewModel
-            viewModelEncuestaAlimento.insert(nuevaEncuestaAlimento)
+            encuestaAlimentoViewModel.insert(nuevaEncuestaAlimento)
+
+            // Actualizar el estado de la encuesta
+            encuesta.estado = "FINALIZADA"
+            encuestaViewModel.update(encuesta)
+
             findNavController().navigate(R.id.action_newEncuestaFragment_to_listEncuestasAlimentosFragment)
-
-
         }
 
         return view
     }
-
 
     // Configurar un Spinner con un ArrayAdapter y un listener de selección de item
     private fun setupSpinner(spinner: Spinner, arrayResource: Int) {
@@ -108,7 +129,6 @@ class NewEncuestaAlimentoFragment : Fragment() {
         }
     }
 
-
     private fun increment() {
         valueFrecuency++
         editText.setText(valueFrecuency.toString())
@@ -127,5 +147,4 @@ class NewEncuestaAlimentoFragment : Fragment() {
         val matchResult = regex.find(input)
         return matchResult?.value?.toIntOrNull() ?: 0 // Devolver el valor encontrado como entero o 0 si no se encontraron números
     }
-
 }

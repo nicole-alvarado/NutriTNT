@@ -1,11 +1,14 @@
 package com.example.nutritnt.ui.encuesta
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.databinding.FragmentNuevaEncuestaBinding
 import com.example.nutritnt.viewmodel.EncuestaViewModel
@@ -18,6 +21,7 @@ class NuevaEncuestaFragment : Fragment() {
 
     private lateinit var binding: FragmentNuevaEncuestaBinding
     private val encuestaViewModel: EncuestaViewModel by viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +48,10 @@ class NuevaEncuestaFragment : Fragment() {
 
             // Insertar nueva encuesta en la base de datos a través del ViewModel
             encuestaViewModel.insert(nuevaEncuesta)
+
+            // Navega al NewEncuestaFragment (encuesta alimento) utilizando la acción generada por Safe Args y pasa codigoParticipante como argumento
+            findNavController().navigate(NuevaEncuestaFragmentDirections.actionNuevaEncuestaFragmentToNewEncuestaFragment(codigoParticipante))
+
         }
         // Inflate the layout for this fragment
         return view
