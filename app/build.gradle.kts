@@ -60,9 +60,12 @@ dependencies {
 
     //FIREBASE - es un control de versiones que permite utilizar las ultimas versiones de las librerias
     implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
-
+    //Firebase
     implementation(libs.firebaseAuth)
     implementation(libs.firebaseCloudFirestore)
+
+    //openStreetMap
+    implementation("org.osmdroid:osmdroid-android:6.1.18")
 
 
     implementation("androidx.room:room-runtime:$room_version")

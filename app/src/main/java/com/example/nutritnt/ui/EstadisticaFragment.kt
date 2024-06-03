@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.nutritnt.data.DatosConsumoGrasas
 import com.example.nutritnt.database.relations.EncuestaAlimento_AlimentoInformacionNutricional
 import com.example.nutritnt.databinding.FragmentEstadisticaBinding
@@ -63,6 +64,11 @@ class EstadisticaFragment : Fragment() {
         loadBarChartData();
 
         //actualizarGrafico("dia")
+
+        binding.buttonmap.setOnClickListener{
+            findNavController().navigate(com.example.nutritnt.R.id.action_estadisticaFragment_to_estadisticaMapFragment)
+
+        }
 
         val spinner: Spinner = binding.spinnerPeriod
         val periods= listOf("Dia", "Semana", "Mes", "Año") // Ejemplo de lista de opciones para el selector

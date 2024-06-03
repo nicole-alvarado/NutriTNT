@@ -71,7 +71,11 @@
     <fragment
         android:id="@+id/estadisticaFragment"
         android:name="com.example.nutritnt.model.EstadisticaFragment"
-        android:label="EstadisticaFragment" />
+        android:label="EstadisticaFragment" >
+        <action
+            android:id="@+id/action_estadisticaFragment_to_estadisticaMapFragment"
+            app:destination="@id/estadisticaMapFragment" />
+    </fragment>
     <fragment
         android:id="@+id/listEncuestasAlimentosFragment"
         android:name="com.example.nutritnt.listado.ListEncuestasAlimentosFragment"
@@ -90,4 +94,8 @@
             android:id="@+id/action_nuevaEncuestaFragment_to_newEncuestaFragment"
             app:destination="@id/newEncuestaFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/estadisticaMapFragment"
+        android:name="com.example.nutritnt.ui.EstadisticaMapFragment"
+        android:label="EstadisticaMapFragment" />
 </navigation>
