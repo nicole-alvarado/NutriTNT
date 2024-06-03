@@ -1,10 +1,12 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.googleService)
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.devtools.ksp")
     id("kotlin-android")
     id("kotlin-kapt")
+    alias(libs.plugins.googleAndroidLibrariesMapsplatformSecretsGradlePlugin)
 
 }
 
@@ -49,11 +51,18 @@ android {
 dependencies {
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.ui.tooling.preview.android)
+    implementation(libs.play.services.maps)
     val fragment_version = "1.7.0"
     val nav_version = "2.7.7"
     val lifecycle_version = "2.7.0"
     val arch_version = "2.2.0"
     val room_version = "2.6.1"
+
+    //FIREBASE - es un control de versiones que permite utilizar las ultimas versiones de las librerias
+    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
+
+    implementation(libs.firebaseAuth)
+    implementation(libs.firebaseCloudFirestore)
 
 
     implementation("androidx.room:room-runtime:$room_version")
