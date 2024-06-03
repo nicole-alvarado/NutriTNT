@@ -5,7 +5,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.nutritnt.database.entities.Encuesta
+import com.example.nutritnt.database.entities.Encuesta_Alimento
 
 @Dao
 interface EncuestaDAO {
@@ -18,6 +20,7 @@ interface EncuestaDAO {
     @Query("SELECT * from tabla_encuesta ORDER BY encuestaId ASC")
     fun getEncuestas(): LiveData<List<Encuesta>>
 
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertar(encuesta: Encuesta)
 
@@ -29,4 +32,15 @@ interface EncuestaDAO {
 
     @Query("SELECT COUNT(encuestaId) from tabla_encuesta")
     suspend fun cantidadDeEncuestas(): Int
+
+    @Update
+    suspend fun actualizar(encuesta: Encuesta)
+
+    @Query("""
+        SELECT e.* 
+        FROM tabla_encuesta e
+        WHERE e.codigoParticipante = :codigo
+    """)
+    fun getEncuestaByCodigoParticipante(codigo: String): LiveData<Encuesta>
+
 }
