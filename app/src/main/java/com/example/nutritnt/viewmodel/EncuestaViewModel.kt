@@ -1,12 +1,15 @@
 package com.example.nutritnt.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.nutritnt.database.EncuestaRoomDatabase
 import com.example.nutritnt.database.RepositorioDeEncuestas
 import com.example.nutritnt.database.entities.Encuesta
 import androidx.lifecycle.viewModelScope
+import com.example.nutritnt.database.entities.Alimento
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 class EncuestaViewModel (application: Application) : AndroidViewModel(application){
@@ -17,6 +20,8 @@ class EncuestaViewModel (application: Application) : AndroidViewModel(applicatio
     // y solo actualizar la UI cuando los datos cambien.
     // - El Repositorio está totalmente separado de la UI mediante el ViewModel.
     val todasLasEncuestas: LiveData<List<Encuesta>>
+    private val _zonas = MutableLiveData<List<String>>()
+    val zonas: LiveData<List<String>> = _zonas
 
     init {
         val encuestasDao = EncuestaRoomDatabase
@@ -32,4 +37,16 @@ class EncuestaViewModel (application: Application) : AndroidViewModel(applicatio
     fun insert(encuesta: Encuesta) = viewModelScope.launch(Dispatchers.IO) {
         repositorio.insertar(encuesta)
     }
+
+    fun update(encuesta: Encuesta) = viewModelScope.launch(Dispatchers.IO){
+        repositorio.actualizar(encuesta)
+    }
+    suspend fun obtenerZonasDistintas(): List<String> {
+        return repositorio.getZonas()
+    }
+
+    suspend fun getEncuestaByCodigoParticipante(codigo: String): LiveData<Encuesta> {
+        return repositorio.getEncuestaByCodigoParticipante(codigo)
+    }
+
 }

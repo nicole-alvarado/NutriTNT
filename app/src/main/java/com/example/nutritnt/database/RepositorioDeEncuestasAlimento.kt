@@ -5,6 +5,7 @@ import com.example.nutritnt.database.dao.Encuesta_AlimentoDAO
 import com.example.nutritnt.database.entities.Alimento
 import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.database.entities.Encuesta_Alimento
+import com.example.nutritnt.database.relations.EncuestaAlimento_AlimentoInformacionNutricional
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -24,6 +25,16 @@ class RepositorioDeEncuestasAlimento(private val encuestaAlimentoDAO : Encuesta_
         return withContext(Dispatchers.IO) {
             encuestaAlimentoDAO.getEncuestaAlimentosByZonaAndAlimento(zona, alimentoId)
         }
+    }
+
+    suspend fun getEncuestaAlimentosByZona(zona: String): List<Encuesta_Alimento> {
+        return withContext(Dispatchers.IO) {
+            encuestaAlimentoDAO.getEncuestaAlimentosByZona(zona)
+        }
+    }
+
+    suspend fun getEncuestasAlimentosConInfo(zona: String): List<EncuestaAlimento_AlimentoInformacionNutricional> {
+        return encuestaAlimentoDAO.getEncuestasAlimentosConInfo(zona)
     }
 
 

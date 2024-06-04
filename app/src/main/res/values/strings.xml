@@ -19,5 +19,6 @@
         <item>Mes</item>
         <item>Año</item>
     </string-array>
+    <string name="title_activity_estadistica_maps">EstadisticaMapsActivity</string>
 
 </resources>

@@ -46,15 +46,15 @@
         <action
             android:id="@+id/action_welcomeFragment_to_listEncuestasFragment"
             app:destination="@id/listEncuestasFragment" />
-        <argument
-            android:name="name"
-            app:argType="string" />
         <action
             android:id="@+id/action_welcomeFragment_to_newEncuestaFragment"
             app:destination="@id/newEncuestaFragment" />
         <action
             android:id="@+id/action_welcomeFragment_to_estadisticaFragment"
             app:destination="@id/estadisticaFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_nuevaEncuestaFragment"
+            app:destination="@id/nuevaEncuestaFragment" />
     </fragment>
     <fragment
         android:id="@+id/newEncuestaFragment"
@@ -64,11 +64,18 @@
         <action
             android:id="@+id/action_newEncuestaFragment_to_listEncuestasAlimentosFragment"
             app:destination="@id/listEncuestasAlimentosFragment" />
+        <argument
+            android:name="codigoParticipante"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/estadisticaFragment"
         android:name="com.example.nutritnt.model.EstadisticaFragment"
-        android:label="EstadisticaFragment" />
+        android:label="EstadisticaFragment" >
+        <action
+            android:id="@+id/action_estadisticaFragment_to_estadisticaMapFragment"
+            app:destination="@id/estadisticaMapFragment" />
+    </fragment>
     <fragment
         android:id="@+id/listEncuestasAlimentosFragment"
         android:name="com.example.nutritnt.listado.ListEncuestasAlimentosFragment"
@@ -78,4 +85,17 @@
             android:id="@+id/action_listEncuestasAlimentosFragment_to_welcomeFragment"
             app:destination="@id/welcomeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/nuevaEncuestaFragment"
+        android:name="com.example.nutritnt.ui.encuesta.NuevaEncuestaFragment"
+        android:label="fragment_nueva_encuesta"
+        tools:layout="@layout/fragment_nueva_encuesta" >
+        <action
+            android:id="@+id/action_nuevaEncuestaFragment_to_newEncuestaFragment"
+            app:destination="@id/newEncuestaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/estadisticaMapFragment"
+        android:name="com.example.nutritnt.ui.EstadisticaMapFragment"
+        android:label="EstadisticaMapFragment" />
 </navigation>

@@ -8,6 +8,7 @@ import com.example.nutritnt.database.EncuestaRoomDatabase
 import com.example.nutritnt.database.RepositorioDeAlimentos
 import com.example.nutritnt.database.entities.Alimento
 import com.example.nutritnt.database.entities.Encuesta_Alimento
+import com.example.nutritnt.database.relations.AlimentoInformacionNutricional
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -23,6 +24,8 @@ class AlimentoViewModel (application: Application) : AndroidViewModel(applicatio
     // y solo actualizar la UI cuando los datos cambien.
     // - El Repositorio está totalmente separado de la UI mediante el ViewModel.
     val todosLosAlimentos: LiveData<List<Alimento>>
+    var alimentosConInfoNutricional: List<AlimentoInformacionNutricional> = emptyList()
+
 
     init {
         val alimentosDao = EncuestaRoomDatabase
@@ -41,6 +44,13 @@ class AlimentoViewModel (application: Application) : AndroidViewModel(applicatio
 
     fun fetchAlimentoByEncuestaAlimento(encuestaAlimentoId: Int): LiveData<Alimento> {
         return repositorio.getAlimentoByEncuestaAlimentoId(encuestaAlimentoId)
+    }
+
+
+    fun cargarAlimentosConInformacionNutricional() {
+        viewModelScope.launch {
+            alimentosConInfoNutricional = repositorio.obtenerAlimentosConInformacionNutricional()
+        }
     }
 
 }

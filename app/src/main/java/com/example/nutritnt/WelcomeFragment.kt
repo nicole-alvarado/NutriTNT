@@ -1,31 +1,26 @@
 package com.example.nutritnt
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.example.nutritnt.databinding.FragmentWelcomeBinding
+
 
 class WelcomeFragment : Fragment() {
 
         private lateinit var binding: FragmentWelcomeBinding
-        // Inicializar la variable para manejar los argumentos utilizando navArgs()
-        val args:WelcomeFragmentArgs by navArgs()
+    // Inicializar la variable para manejar los argumentos utilizando navArgs()
+        //val args:WelcomeFragmentArgs by navArgs()
 
     // Método que se llama cuando la vista ya ha sido creada
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Obtener el nombre pasado como argumento desde el fragmento anterior
-        val name = args.name
+        //val name = args.name
         // Asignar el nombre al TextView en el diseño del fragmento
      //   binding.textBienvenida.text = name
     }
@@ -50,7 +45,9 @@ class WelcomeFragment : Fragment() {
 
             binding.buttonNewEncuesta.setOnClickListener{
                 Log.d("enWelcomeFragment","Boton encuesta prueba")
-                findNavController().navigate(R.id.action_welcomeFragment_to_newEncuestaFragment)
+
+                //findNavController().navigate(R.id.action_welcomeFragment_to_newEncuestaFragment)
+                findNavController().navigate(R.id.action_welcomeFragment_to_nuevaEncuestaFragment)
             }
 
             binding.buttonEstadisticas.setOnClickListener{
@@ -59,4 +56,5 @@ class WelcomeFragment : Fragment() {
 
             return view
         }
+
     }

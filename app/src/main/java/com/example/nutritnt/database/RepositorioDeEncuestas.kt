@@ -15,4 +15,16 @@ class RepositorioDeEncuestas (private val encuestaDAO: EncuestaDAO) {
     suspend fun insertar(encuesta: Encuesta){
         encuestaDAO.insertar(encuesta)
     }
+
+    suspend fun actualizar(encuesta: Encuesta){
+        encuestaDAO.actualizar(encuesta)
+    }
+
+    suspend fun getZonas(): List<String> {
+        return encuestaDAO.getAllZonas()
+    }
+
+    suspend fun getEncuestaByCodigoParticipante(codigo: String): LiveData<Encuesta>{
+        return encuestaDAO.getEncuestaByCodigoParticipante(codigo)
+    }
 }
