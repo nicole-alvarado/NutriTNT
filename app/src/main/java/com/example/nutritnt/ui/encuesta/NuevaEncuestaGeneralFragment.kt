@@ -31,7 +31,7 @@ class NuevaEncuestaGeneralFragment : Fragment() {
 
         binding.buttonComenzarCopiaEncuesta.setOnClickListener{
 
-            findNavController().navigate(NuevaEncuestaFragmentDirections.actionNuevaEncuestaFragmentToCopiaNuevaEncuestaAlimentoFragment())
+            findNavController().navigate(NuevaEncuestaGeneralFragmentDirections.actionNuevaEncuestaFragmentToCopiaNuevaEncuestaAlimentoFragment())
 
 
         }
