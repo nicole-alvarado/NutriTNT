@@ -17,20 +17,20 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.nutritnt.R
 import com.example.nutritnt.database.entities.Encuesta
-import com.example.nutritnt.database.entities.Encuesta_Alimento
-import com.example.nutritnt.databinding.FragmentNewEncuestaAlimentoBinding
+import com.example.nutritnt.database.entities.EncuestaAlimento
+import com.example.nutritnt.databinding.FragmentNuevaEncuestaAlimentoBinding
 import com.example.nutritnt.viewmodel.EncuestaAlimentoViewModel
 import com.example.nutritnt.viewmodel.EncuestaViewModel
 import kotlinx.coroutines.launch
 
-class NewEncuestaAlimentoFragment : Fragment() {
+class NuevaEncuestaAlimentoFragment : Fragment() {
 
-    private lateinit var binding: FragmentNewEncuestaAlimentoBinding
+    private lateinit var binding: FragmentNuevaEncuestaAlimentoBinding
     private val encuestaAlimentoViewModel: EncuestaAlimentoViewModel by viewModels()
     private val encuestaViewModel: EncuestaViewModel by viewModels()
 
     // Inicializar la variable para manejar los argumentos utilizando navArgs()
-    private val args: NewEncuestaAlimentoFragmentArgs by navArgs()
+    private val args: NuevaEncuestaAlimentoFragmentArgs by navArgs()
 
     private lateinit var editText: EditText
     private lateinit var minusButton: Button
@@ -42,7 +42,7 @@ class NewEncuestaAlimentoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentNewEncuestaAlimentoBinding.inflate(layoutInflater)
+        binding = FragmentNuevaEncuestaAlimentoBinding.inflate(layoutInflater)
         val view = binding.root
 
         // Configurar los Spinners
@@ -70,7 +70,7 @@ class NewEncuestaAlimentoFragment : Fragment() {
         // Lanzar una coroutine para llamar a la función suspendida
         viewLifecycleOwner.lifecycleScope.launch {
             encuestaViewModel.getEncuestaByCodigoParticipante(codigoParticipante).observe(viewLifecycleOwner) { encuesta ->
-                this@NewEncuestaAlimentoFragment.encuesta = encuesta
+                this@NuevaEncuestaAlimentoFragment.encuesta = encuesta
             }
         }
 
@@ -82,8 +82,8 @@ class NewEncuestaAlimentoFragment : Fragment() {
 
             Log.d("Botones", "Botón registrar clickeado")
 
-            // Crear objeto Encuesta_Alimento con los valores seleccionados
-            val nuevaEncuestaAlimento = Encuesta_Alimento(
+            // Crear objeto EncuestaAlimento con los valores seleccionados
+            val nuevaEncuestaAlimento = EncuestaAlimento(
                 portion = selectedPortion.toString(),
                 period = selectedPeriod,
                 frecuency = frecuency,

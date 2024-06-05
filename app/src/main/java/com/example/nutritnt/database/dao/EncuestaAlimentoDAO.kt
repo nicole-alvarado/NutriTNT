@@ -6,17 +6,17 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import com.example.nutritnt.database.entities.Encuesta_Alimento
+import com.example.nutritnt.database.entities.EncuestaAlimento
 import com.example.nutritnt.database.relations.EncuestaAlimento_AlimentoInformacionNutricional
 
 @Dao
-interface Encuesta_AlimentoDAO {
+interface EncuestaAlimentoDAO {
 
     @Query("SELECT * from tabla_encuesta_alimento ORDER BY encuestaAlimentoId ASC")
-    fun getEncuestasAlimento(): LiveData<List<Encuesta_Alimento>>
+    fun getEncuestasAlimento(): LiveData<List<EncuestaAlimento>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertar(encuesta_alimento: Encuesta_Alimento)
+    suspend fun insertar(encuesta_alimento: EncuestaAlimento)
 
     @Query("DELETE FROM tabla_encuesta_alimento")
     suspend fun borrarTodos()
@@ -30,7 +30,7 @@ interface Encuesta_AlimentoDAO {
         INNER JOIN tabla_encuesta eg ON ea.encuestaId = eg.encuestaId
         WHERE eg.zona = :zona AND ea.alimentoId = :alimentoId
     """)
-    fun getEncuestaAlimentosByZonaAndAlimento(zona: String, alimentoId: Int): List<Encuesta_Alimento>
+    fun getEncuestaAlimentosByZonaAndAlimento(zona: String, alimentoId: Int): List<EncuestaAlimento>
 
 
     @Query("""
@@ -39,7 +39,7 @@ interface Encuesta_AlimentoDAO {
         INNER JOIN tabla_encuesta eg ON ea.encuestaId = eg.encuestaId
         WHERE eg.zona = :zona
     """)
-    fun getEncuestaAlimentosByZona(zona: String): List<Encuesta_Alimento>
+    fun getEncuestaAlimentosByZona(zona: String): List<EncuestaAlimento>
 
     @Transaction
     @Query("""

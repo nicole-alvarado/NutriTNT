@@ -7,14 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.nutritnt.database.EncuestaRoomDatabase
 import com.example.nutritnt.database.RepositorioDeAlimentos
 import com.example.nutritnt.database.entities.Alimento
-import com.example.nutritnt.database.entities.Encuesta_Alimento
 import com.example.nutritnt.database.relations.AlimentoInformacionNutricional
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class AlimentoViewModel (application: Application) : AndroidViewModel(application){
 

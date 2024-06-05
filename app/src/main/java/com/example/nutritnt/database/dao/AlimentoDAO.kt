@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import com.example.nutritnt.database.entities.Alimento
-import com.example.nutritnt.database.entities.Encuesta_Alimento
 import com.example.nutritnt.database.relations.AlimentoInformacionNutricional
 
 @Dao

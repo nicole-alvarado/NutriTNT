@@ -2,7 +2,7 @@ package com.example.nutritnt.data
 
 import com.example.nutritnt.database.entities.Alimento
 import com.example.nutritnt.database.entities.Encuesta
-import com.example.nutritnt.database.entities.Encuesta_Alimento
+import com.example.nutritnt.database.entities.EncuestaAlimento
 import com.example.nutritnt.database.entities.Encuestador
 import com.example.nutritnt.database.entities.InformacionNutricional
 import com.example.nutritnt.database.entities.Zona
@@ -11,18 +11,18 @@ class DatosDatabase {
 
     companion object{
         val datosConsumoYogur = listOf(
-            Encuesta_Alimento(1,  "100",  "semana",  1, 1,1,"Finalizada"),
-            Encuesta_Alimento( 2,  "200",  "semana",  1, 2,1,"Finalizada"),
-            Encuesta_Alimento( 3,  "275",  "mes",  2, 3,1,"Finalizada"),
-            Encuesta_Alimento( 4,  "100",  "dia",  4, 4,1,"Finalizada"),
-            Encuesta_Alimento( 5,  "200",  "semana",  2, 5,1,"Finalizada"),
-            Encuesta_Alimento( 6,  "275",  "dia",  1, 6,1,"Finalizada"),
-            Encuesta_Alimento( 7,  "100",  "mes",  3, 7,1,"Finalizada"),
-            Encuesta_Alimento( 8,  "200",  "dia",  2, 8,1,"Finalizada"),
-            Encuesta_Alimento( 9,  "275",  "semana",  4, 9,1,"Finalizada"),
-            Encuesta_Alimento( 10,  "100",  "mes",  1, 10,1,"Finalizada"),
-            Encuesta_Alimento( 11,  "200",  "dia",  3, 11,1,"Finalizada"),
-            Encuesta_Alimento( 12,  "275",  "semana",  2, 12,1,"Finalizada"),
+            EncuestaAlimento(1,  "100",  "semana",  1, 1,1,"Finalizada"),
+            EncuestaAlimento( 2,  "200",  "semana",  1, 2,1,"Finalizada"),
+            EncuestaAlimento( 3,  "275",  "mes",  2, 3,1,"Finalizada"),
+            EncuestaAlimento( 4,  "100",  "dia",  4, 4,1,"Finalizada"),
+            EncuestaAlimento( 5,  "200",  "semana",  2, 5,1,"Finalizada"),
+            EncuestaAlimento( 6,  "275",  "dia",  1, 6,1,"Finalizada"),
+            EncuestaAlimento( 7,  "100",  "mes",  3, 7,1,"Finalizada"),
+            EncuestaAlimento( 8,  "200",  "dia",  2, 8,1,"Finalizada"),
+            EncuestaAlimento( 9,  "275",  "semana",  4, 9,1,"Finalizada"),
+            EncuestaAlimento( 10,  "100",  "mes",  1, 10,1,"Finalizada"),
+            EncuestaAlimento( 11,  "200",  "dia",  3, 11,1,"Finalizada"),
+            EncuestaAlimento( 12,  "275",  "semana",  2, 12,1,"Finalizada"),
         )
 
         val encuestas = listOf(

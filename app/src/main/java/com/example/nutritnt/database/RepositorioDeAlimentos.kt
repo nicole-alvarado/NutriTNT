@@ -2,13 +2,8 @@ package com.example.nutritnt.database
 
 import androidx.lifecycle.LiveData
 import com.example.nutritnt.database.dao.AlimentoDAO
-import com.example.nutritnt.database.dao.EncuestaDAO
 import com.example.nutritnt.database.entities.Alimento
-import com.example.nutritnt.database.entities.Encuesta
-import com.example.nutritnt.database.entities.Encuesta_Alimento
 import com.example.nutritnt.database.relations.AlimentoInformacionNutricional
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 class RepositorioDeAlimentos  (private val alimentoDAO: AlimentoDAO) {
     // LiveData observada va a notificar a sus observadores cuando los datos cambien.

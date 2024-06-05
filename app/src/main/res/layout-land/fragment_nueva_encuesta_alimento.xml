@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/newEncuesta"
+    android:id="@+id/nuevaEncuestaAlimento"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_new_encuesta"
-    tools:context=".ui.NewEncuestaAlimentoFragment">
+    tools:context=".ui.NuevaEncuestaAlimentoFragment">
 
     <TextView
         android:id="@+id/textViewAlimento"
@@ -39,74 +40,79 @@
         app:layout_constraintStart_toStartOf="parent"
         />
 
-    <TextView
-        android:id="@+id/textViewPortion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="68dp"
-        android:text="Porción:"
-        android:textSize="16sp"
+    <LinearLayout
+        android:id="@+id/linearLayoutLeft"
+        android:layout_width="369dp"
+        android:layout_height="77dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@id/linearLayoutRight"
+        app:layout_constraintHorizontal_bias="0.101"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewAlimento" />
+        app:layout_constraintTop_toBottomOf="@id/textViewNameAlimento">
 
-    <Spinner
-        android:id="@+id/spinner_portion"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/spinner_arrow"
+        <TextView
+            android:id="@+id/textViewPortion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Porción:"
+            android:textSize="16sp" />
+
+        <Spinner
+            android:id="@+id/spinner_portion"
+            android:layout_width="250dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/spinner_arrow" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutRight"
+        android:layout_width="324dp"
+        android:layout_height="77dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewNameAlimento">
 
-        app:layout_constraintTop_toBottomOf="@id/textViewPortion" />
+        <TextView
+            android:id="@+id/textViewPeriod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Período:"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/textViewPeriod"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="68dp"
-        android:text="Período:"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinner_portion" />
+        <Spinner
+            android:id="@+id/spinner_period"
+            android:layout_width="250dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/spinner_arrow" />
+    </LinearLayout>
 
-    <Spinner
-        android:id="@+id/spinner_period"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/spinner_arrow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewPeriod" />
 
     <TextView
         android:id="@+id/textViewFrecuency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="68dp"
-        android:text="Frecuencia:"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="22dp"
+        android:text="Veces:"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinner_period" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutLeft" />
 
     <include
         android:id="@+id/horizontal_button_picker"
         layout="@layout/horizontal_button_picker"
-        android:layout_width="209dp"
-        android:layout_height="50dp"
+        android:layout_width="200dp"
+        android:layout_height="87dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewFrecuency" />
 
@@ -114,7 +120,7 @@
         android:id="@+id/buttonRegistrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="0dp"
         android:layout_marginBottom="16dp"
         android:text="Registrar"
         app:layout_constraintEnd_toEndOf="parent"
