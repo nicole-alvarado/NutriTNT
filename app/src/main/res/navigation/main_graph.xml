@@ -93,9 +93,17 @@
         <action
             android:id="@+id/action_nuevaEncuestaFragment_to_newEncuestaFragment"
             app:destination="@id/newEncuestaFragment" />
+        <action
+            android:id="@+id/action_nuevaEncuestaFragment_to_copiaNuevaEncuestaAlimentoFragment"
+            app:destination="@id/copiaNuevaEncuestaAlimentoFragment" />
     </fragment>
     <fragment
         android:id="@+id/estadisticaMapFragment"
         android:name="com.example.nutritnt.ui.EstadisticaMapFragment"
         android:label="EstadisticaMapFragment" />
+    <fragment
+        android:id="@+id/copiaNuevaEncuestaAlimentoFragment"
+        android:name="com.example.nutritnt.ui.prueba.CopiaNuevaEncuestaAlimentoFragment"
+        android:label="fragment_copia_nueva_encuesta_alimento"
+        tools:layout="@layout/fragment_copia_nueva_encuesta_alimento" />
 </navigation>

@@ -30,6 +30,14 @@ class NuevaEncuestaFragment : Fragment() {
         binding = FragmentNuevaEncuestaBinding.inflate(layoutInflater)
         val view = binding.root
 
+
+        binding.buttonComenzarCopiaEncuesta.setOnClickListener{
+
+            findNavController().navigate(NuevaEncuestaFragmentDirections.actionNuevaEncuestaFragmentToCopiaNuevaEncuestaAlimentoFragment())
+
+
+        }
+
         binding.buttonComenzarEncuesta.setOnClickListener{
             val nombreRandom = generateRandomNombre()
             val fecha = obtenerFechaActual()

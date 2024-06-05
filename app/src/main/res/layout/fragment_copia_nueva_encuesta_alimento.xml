@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+    android:background="@drawable/background_new_encuesta"
+        tools:context=".ui.prueba.CopiaNuevaEncuestaAlimentoFragment">
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/alimento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alimento: Yogur Bebible Entero"
+            android:textSize="18sp"
+            android:layout_margin="16dp"/>
+
+        <!-- Porción -->
+        <TextView
+            android:id="@+id/porcion_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Porción:"
+            android:textSize="16sp"
+            android:layout_margin="16dp"/>
+
+        <!-- Image selector for porciones -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+
+            <FrameLayout
+                android:id="@+id/frame_cuchara_pequena"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/default_background">
+
+
+
+                <ImageView
+                    android:id="@+id/cuchara_pequena"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:contentDescription="Portion pequeña"
+                    android:layout_margin="8dp"
+                    android:clickable="true"
+                    android:focusable="true"/>
+
+            </FrameLayout>
+            <TextView
+                    android:id="@+id/text_potion_pequena"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="24sp"/>
+
+                </LinearLayout>
+
+
+
+            <!-- android:src="@drawable/cuchara_grande" -->
+            <!--  android:src="@drawable/cuchara_pequena" -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+            <FrameLayout
+                android:id="@+id/frame_cuchara_grande"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/default_background">
+
+
+
+                <ImageView
+                android:id="@+id/cuchara_grande"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:contentDescription="portion grande"
+                android:layout_margin="8dp"
+                android:clickable="true"
+                android:focusable="true"/>
+            </FrameLayout>
+
+                <TextView
+                    android:id="@+id/text_portion_grande"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="24sp"/>
+
+                </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+        <!-- Periodo -->
+        <TextView
+            android:id="@+id/periodo_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Periodo:"
+            android:textSize="16sp"
+            android:layout_margin="16dp"/>
+
+
+
+    <Spinner
+        android:id="@+id/spinner_period"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/spinner_arrow"
+         />
+
+
+    <!-- Frecuencia -->
+        <TextView
+            android:id="@+id/textViewFrecuency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Frecuencia:"
+            android:textSize="16sp"
+            android:layout_margin="16dp"/>
+
+    <include
+        android:id="@+id/horizontal_button_picker"
+        layout="@layout/horizontal_button_picker"
+        android:layout_width="209dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+         />
+
+        <!-- Registrar Button -->
+        <Button
+            android:id="@+id/buttonRegistrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Registrar"
+            android:layout_margin="16dp"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+
