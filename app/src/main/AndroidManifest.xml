@@ -37,7 +37,7 @@
             android:exported="false"
             android:label="@string/title_activity_estadistica_maps" />
         <activity
-            android:name=".ContainerFragmentActivity"
+            android:name=".MainActivity"
             android:configChanges=""
             android:exported="true">
             <intent-filter>

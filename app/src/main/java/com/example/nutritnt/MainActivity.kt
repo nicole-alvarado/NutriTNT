@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.example.nutritnt.data.DatosDatabase
 import com.example.nutritnt.data.ReadCSV
 import com.example.nutritnt.database.entities.Alimento
@@ -15,18 +14,16 @@ import com.example.nutritnt.viewmodel.EncuestaAlimentoViewModel
 import kotlinx.coroutines.CoroutineScope
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
-class ContainerFragmentActivity :  AppCompatActivity() {
+class MainActivity :  AppCompatActivity() {
 
     private lateinit var encuestaAlimentoViewModel: EncuestaAlimentoViewModel
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
 
-            setContentView(R.layout.activity_container_fragment)
+            setContentView(R.layout.activity_main)
 
             // Inicialización de la base de datos y carga de datos de ejemplo
             //val database = EncuestaRoomDatabase.obtenerDatabase(applicationContext)
@@ -46,7 +43,7 @@ class ContainerFragmentActivity :  AppCompatActivity() {
                 val alimentosList = mutableListOf<Alimento>()
                 val informacionNutricionalList = mutableListOf<InformacionNutricional>()
 
-                ReadCSV.readFromCSV(this@ContainerFragmentActivity, alimentosList, informacionNutricionalList)
+                ReadCSV.readFromCSV(this@MainActivity, alimentosList, informacionNutricionalList)
 
                 val encuestasAlimento = DatosDatabase.datosConsumoYogur
                 val encuestadores = DatosDatabase.encuestadores
