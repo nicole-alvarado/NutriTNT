@@ -6,29 +6,25 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.Transaction
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.nutritnt.database.dao.AlimentoDAO
 import com.example.nutritnt.database.dao.EncuestaDAO
-import com.example.nutritnt.database.dao.Encuesta_AlimentoDAO
+import com.example.nutritnt.database.dao.EncuestaAlimentoDAO
 import com.example.nutritnt.database.dao.EncuestadorDAO
 import com.example.nutritnt.database.dao.InformacionNutricionalDAO
 import com.example.nutritnt.database.dao.ZonaDAO
 import com.example.nutritnt.database.entities.Alimento
 import com.example.nutritnt.database.entities.Encuesta
-import com.example.nutritnt.database.entities.Encuesta_Alimento
+import com.example.nutritnt.database.entities.EncuestaAlimento
 import com.example.nutritnt.database.entities.Encuestador
 import com.example.nutritnt.database.entities.InformacionNutricional
 import com.example.nutritnt.database.entities.Zona
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.random.Random
 
-@Database(entities = [Encuesta::class, Encuesta_Alimento::class, Alimento::class, Encuestador::class, Zona::class, InformacionNutricional::class], version = 6, exportSchema = false)
+@Database(entities = [Encuesta::class, EncuestaAlimento::class, Alimento::class, Encuestador::class, Zona::class, InformacionNutricional::class], version = 6, exportSchema = false)
 abstract class EncuestaRoomDatabase : RoomDatabase() {
 
-    abstract fun encuestaAlimentoDao(): Encuesta_AlimentoDAO
+    abstract fun encuestaAlimentoDao(): EncuestaAlimentoDAO
     abstract fun encuestaDao(): EncuestaDAO
     abstract fun alimentoDao(): AlimentoDAO
     abstract fun encuestadorDao(): EncuestadorDAO
@@ -61,12 +57,12 @@ abstract class EncuestaRoomDatabase : RoomDatabase() {
         open suspend fun safeInsertMultiple(
             encuestasGeneral: List<Encuesta>,
             alimentos: List<Alimento>,
-            encuestasAlimento: List<Encuesta_Alimento>,
+            encuestasAlimento: List<EncuestaAlimento>,
             encuestadores: List<Encuestador>,
             zonas: List<Zona>,
             listaInformacionNutricional: List<InformacionNutricional>,
             encuestaDAO: EncuestaDAO,
-            encuestaAlimentoDAO: Encuesta_AlimentoDAO,
+            encuestaAlimentoDAO: EncuestaAlimentoDAO,
             alimentoDAO: AlimentoDAO,
             encuestadorDAO: EncuestadorDAO,
             zonaDAO: ZonaDAO,
@@ -115,7 +111,7 @@ abstract class EncuestaRoomDatabase : RoomDatabase() {
 //            return "ID-${Random.nextInt(1000)}"
 //        }
 
-//            suspend fun cargarBaseDeDatos(encuestaDAO: EncuestaDAO, encuestaAlimentoDAO: Encuesta_AlimentoDAO, alimentoDAO: AlimentoDAO) {
+//            suspend fun cargarBaseDeDatos(encuestaDAO: EncuestaDAO, encuestaAlimentoDAO: EncuestaAlimentoDAO, alimentoDAO: AlimentoDAO) {
 //                Log.i("EncuestaRoomDatabase", "Cargar Base de Datos iniciado")
 //                if (encuestaDAO.cantidadDeEncuestas() == 0) {
 //                    Log.i("EncuestaRoomDatabase", "Base de datos vacía, cargando datos de ejemplo...")
@@ -151,8 +147,8 @@ abstract class EncuestaRoomDatabase : RoomDatabase() {
 //                // Uncomment and adjust this section if necessary
 //                // if (encuestaAlimentoDAO.cantidadDeEncuestasAlimento() == 0) {
 //                //     val encuestaAlimentos = listOf(
-//                //         Encuesta_Alimento(1, "1 taza", "Día", 2, 1, 1),
-//                //         Encuesta_Alimento(2, "1/2 taza", "Semana", 3, 2, 1)
+//                //         EncuestaAlimento(1, "1 taza", "Día", 2, 1, 1),
+//                //         EncuestaAlimento(2, "1/2 taza", "Semana", 3, 2, 1)
 //                //     )
 //                //     encuestaAlimentos.forEach { encuestaAlimentoDAO.insertar(it) }
 //                //     Log.i("EncuestaRoomDatabase", "Datos de Encuesta_Alimentos insertados")

@@ -3,11 +3,11 @@ package com.example.nutritnt.adapter
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nutritnt.database.entities.Encuesta
-import com.example.nutritnt.databinding.ItemEncuestaBinding
+import com.example.nutritnt.databinding.ItemEncuestaGeneralBinding
 
 class EncuestaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-    val binding = ItemEncuestaBinding.bind(view)
+    val binding = ItemEncuestaGeneralBinding.bind(view)
 
     // Esta función se va a llamar por cada item del listado de encuestas
     fun render(encuestaModel: Encuesta){

@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nutritnt.R
-import com.example.nutritnt.database.entities.Encuesta_Alimento
+import com.example.nutritnt.database.entities.EncuestaAlimento
 import com.example.nutritnt.viewmodel.AlimentoViewModel
 
 class EncuestaAlimentoAdapter(private val alimentoViewModel: AlimentoViewModel) : RecyclerView.Adapter<EncuestaAlimentoViewHolder>() {
 
-    private var encuestas_alimentos = emptyList<Encuesta_Alimento>() // Copia cache de las encuestas
+    private var encuestas_alimentos = emptyList<EncuestaAlimento>() // Copia cache de las encuestas
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EncuestaAlimentoViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -27,7 +27,7 @@ class EncuestaAlimentoAdapter(private val alimentoViewModel: AlimentoViewModel) 
     }
 
     // Actualizar la lista de encuestas_alimentos y notificar al adapter de los cambios
-    internal fun setEncuestasAlimentos(encuestas_alimentos: List<Encuesta_Alimento>) {
+    internal fun setEncuestasAlimentos(encuestas_alimentos: List<EncuestaAlimento>) {
         this.encuestas_alimentos = encuestas_alimentos
         notifyDataSetChanged()
     }

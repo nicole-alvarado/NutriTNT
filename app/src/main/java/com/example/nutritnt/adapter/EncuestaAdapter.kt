@@ -12,7 +12,7 @@ class EncuestaAdapter() : RecyclerView.Adapter<EncuestaViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EncuestaViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return EncuestaViewHolder(layoutInflater.inflate(R.layout.item_encuesta, parent, false))
+        return EncuestaViewHolder(layoutInflater.inflate(R.layout.item_encuesta_general, parent, false))
     }
 
     // Pasa por cada uno de los items y va a llamar al render pasandole ese item

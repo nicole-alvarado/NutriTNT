@@ -17,7 +17,7 @@ import androidx.room.PrimaryKey
             childColumns = ["alimentoId"],
             onDelete = ForeignKey.CASCADE)])
 
-data class Encuesta_Alimento(
+data class EncuestaAlimento(
     @PrimaryKey(autoGenerate = true)
     var encuestaAlimentoId: Int = 0,
 

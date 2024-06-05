@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.nutritnt.database.entities.Encuesta
-import com.example.nutritnt.database.entities.Encuesta_Alimento
 
 @Dao
 interface EncuestaDAO {

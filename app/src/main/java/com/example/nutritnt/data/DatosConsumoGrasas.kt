@@ -1,14 +1,7 @@
 package com.example.nutritnt.data
 
-import android.app.Application
 import android.util.Log
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import com.example.nutritnt.database.entities.Encuesta_Alimento
 import com.example.nutritnt.database.relations.EncuestaAlimento_AlimentoInformacionNutricional
-
-import com.example.nutritnt.viewmodel.EncuestaAlimentoViewModel
-import com.example.nutritnt.viewmodel.EncuestaViewModel
 
 
 public class DatosConsumoGrasas {
