@@ -15,19 +15,15 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.example.nutritnt.R
 import com.example.nutritnt.data.DatosDatabase
 import com.example.nutritnt.database.entities.Encuesta
-import com.example.nutritnt.database.entities.Encuesta_Alimento
+import com.example.nutritnt.database.entities.EncuestaAlimento
 import com.example.nutritnt.databinding.FragmentCopiaNuevaEncuestaAlimentoBinding
-import com.example.nutritnt.databinding.FragmentNewEncuestaAlimentoBinding
-import com.example.nutritnt.ui.NewEncuestaAlimentoFragmentArgs
 import com.example.nutritnt.viewmodel.EncuestaAlimentoViewModel
 import com.example.nutritnt.viewmodel.EncuestaViewModel
-import kotlinx.coroutines.launch
+
 
 
 class CopiaNuevaEncuestaAlimentoFragment : Fragment() {
@@ -130,7 +126,7 @@ class CopiaNuevaEncuestaAlimentoFragment : Fragment() {
             Log.d("Botones", "Botón registrar clickeado")
 
             // Crear objeto Encuesta_Alimento con los valores seleccionados
-            val nuevaEncuestaAlimento = Encuesta_Alimento(
+            val nuevaEncuestaAlimento = EncuestaAlimento(
                 portion = "",//selectedPortion.toString(),
                 period = selectedPeriod,
                 frecuency = frecuency,
