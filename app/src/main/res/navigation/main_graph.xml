@@ -68,8 +68,8 @@
             android:id="@+id/action_newEncuestaFragment_to_listEncuestasAlimentosFragment"
             app:destination="@id/listEncuestasAlimentosFragment" />
         <argument
-            android:name="codigoParticipante"
-            app:argType="string" />
+            android:name="encuestaAlimentoId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/estadisticaFragment"
@@ -90,6 +90,9 @@
         <argument
             android:name="encuestaId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_listEncuestasAlimentosFragment_to_newEncuestaFragment"
+            app:destination="@id/newEncuestaFragment" />
     </fragment>
     <fragment
         android:id="@+id/nuevaEncuestaFragment"
@@ -97,11 +100,11 @@
         android:label="fragment_nueva_encuesta"
         tools:layout="@layout/fragment_nueva_encuesta_general" >
         <action
-            android:id="@+id/action_nuevaEncuestaFragment_to_newEncuestaFragment"
-            app:destination="@id/newEncuestaFragment" />
-        <action
             android:id="@+id/action_nuevaEncuestaFragment_to_copiaNuevaEncuestaAlimentoFragment"
             app:destination="@id/copiaNuevaEncuestaAlimentoFragment" />
+        <action
+            android:id="@+id/action_nuevaEncuestaFragment_to_listEncuestasAlimentosFragment"
+            app:destination="@id/listEncuestasAlimentosFragment" />
     </fragment>
     <fragment
         android:id="@+id/estadisticaMapFragment"

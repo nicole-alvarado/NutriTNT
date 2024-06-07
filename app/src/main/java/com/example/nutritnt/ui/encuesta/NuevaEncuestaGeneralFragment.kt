@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.nutritnt.R
 import com.example.nutritnt.database.entities.Alimento
 import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.database.entities.EncuestaAlimento
@@ -91,7 +92,8 @@ class NuevaEncuestaGeneralFragment : Fragment() {
                         }
                         Log.i("Muricion", "Encuestas alimentos cargadas")
 
-                        findNavController().navigate(NuevaEncuestaGeneralFragmentDirections.actionNuevaEncuestaFragmentToNewEncuestaFragment(codigoParticipante))
+                        findNavController().navigate(NuevaEncuestaGeneralFragmentDirections.actionNuevaEncuestaFragmentToListEncuestasAlimentosFragment(encuesta.encuestaId))
+                        //findNavController().navigate(NuevaEncuestaGeneralFragmentDirections.actionNuevaEncuestaFragmentToNewEncuestaFragment(codigoParticipante))
                     } else {
                         Log.e("Error", "Encuesta no encontrada")
                     }

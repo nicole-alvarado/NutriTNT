@@ -68,4 +68,12 @@ interface EncuestaAlimentoDAO {
         WHERE ea.encuestaId = :id
     """)
     fun getEncuestasAlimentosByEncuestaId(id: Int): LiveData<List<EncuestaAlimento>>
+
+    @Query("""
+        SELECT ea.* 
+        FROM tabla_encuesta_alimento ea
+        WHERE ea.encuestaAlimentoId = :id
+    """)
+    fun getEncuestaAlimentoById(id: Int): LiveData<EncuestaAlimento>
+
 }

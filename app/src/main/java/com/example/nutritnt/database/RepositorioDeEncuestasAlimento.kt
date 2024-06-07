@@ -47,4 +47,8 @@ class RepositorioDeEncuestasAlimento(private val encuestaAlimentoDAO : EncuestaA
     fun getEncuestasAlimentosByEncuestaId(id: Int): LiveData<List<EncuestaAlimento>>{
         return encuestaAlimentoDAO.getEncuestasAlimentosByEncuestaId(id)
     }
+
+    fun getEncuestaAlimentoById(id: Int): LiveData<EncuestaAlimento>{
+        return encuestaAlimentoDAO.getEncuestaAlimentoById(id)
+    }
 }

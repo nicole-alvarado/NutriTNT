@@ -66,20 +66,25 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         }
 
         // Obtener el código del participante pasado como argumento desde el fragmento anterior
-        val codigoParticipante = args.codigoParticipante
-        Log.i("Muricion Codigo", codigoParticipante)
+        val id = args.encuestaAlimentoId
+        Log.i("nik", "Encuesta alimento por args: "+id.toString())
 
-        // Observar los datos de Encuesta y EncuestaAlimento
-        encuestaViewModel.getEncuestaByCodigoParticipante(codigoParticipante).observe(viewLifecycleOwner, Observer { encuesta ->
-            this.encuesta = encuesta
-            Log.i("Muricion Encuesta", encuesta.encuestaId.toString())
-
-            // Una vez la encuesta está cargada y segura de que encuestaId está disponible, procedemos a cargar los EncuestaAlimento
-            encuestaAlimentoViewModel.getEncuestaAlimentoByEncuestaAndAlimento(encuesta.encuestaId, 1).observe(viewLifecycleOwner, Observer { encuestaAlimento ->
-                this.encuestaAlimento = encuestaAlimento
-                Log.i("Muricion Encuesta Alimento", encuestaAlimento.encuestaAlimentoId.toString())
-            })
+        encuestaAlimentoViewModel.getEncuestaAlimentoById(id).observe(viewLifecycleOwner, Observer{
+            this.encuestaAlimento = it
+            Log.i("nik ", "Encuesta alimento obtenida!"+encuestaAlimento.encuestaAlimentoId.toString())
         })
+
+//        // Observar los datos de Encuesta y EncuestaAlimento
+//        encuestaViewModel.getEncuestaByCodigoParticipante(codigoParticipante).observe(viewLifecycleOwner, Observer { encuesta ->
+//            this.encuesta = encuesta
+//            Log.i("Muricion Encuesta", encuesta.encuestaId.toString())
+//
+//            // Una vez la encuesta está cargada y segura de que encuestaId está disponible, procedemos a cargar los EncuestaAlimento
+//            encuestaAlimentoViewModel.getEncuestaAlimentoByEncuestaAndAlimento(encuesta.encuestaId, 1).observe(viewLifecycleOwner, Observer { encuestaAlimento ->
+//                this.encuestaAlimento = encuestaAlimento
+//                Log.i("Muricion Encuesta Alimento", encuestaAlimento.encuestaAlimentoId.toString())
+//            })
+//        })
 
         binding.buttonRegistrar.setOnClickListener {
             // Obtener los valores seleccionados de los Spinners y el texto ingresado en el EditText
@@ -87,7 +92,7 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
             val selectedPeriod = binding.spinnerPeriod.selectedItem.toString()
             val frecuency = editText.text.toString().toIntOrNull() ?: 0
 
-            Log.d("Muricion", "Botón registrar clickeado")
+            Log.d("nik", "Botón registrar clickeado")
 
             // Actualizar encuesta alimento
             encuestaAlimento.portion = selectedPortion.toString()
@@ -96,10 +101,10 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
             encuestaAlimento.estado = "COMPLETADA"
 
             encuestaAlimentoViewModel.update(encuestaAlimento)
-            Log.d("Muricion", "Encuesta actualizada!")
+            Log.d("nik", "Encuesta actualizada!")
 
             //findNavController().navigate(R.id.action_newEncuestaFragment_to_listEncuestasAlimentosFragment)
-            findNavController().navigate(NuevaEncuestaAlimentoFragmentDirections.actionNewEncuestaFragmentToListEncuestasAlimentosFragment(encuesta.encuestaId))
+            findNavController().navigate(NuevaEncuestaAlimentoFragmentDirections.actionNewEncuestaFragmentToListEncuestasAlimentosFragment(encuestaAlimento.encuestaId))
         }
 
         return view

@@ -66,19 +66,16 @@ class ListadoEncuestasAlimentosFragment : Fragment() {
         // Obtener el ID de la encuesta general a través de los argumentos
         Log.i("Muricion Encuesta General para listado", args.encuestaId.toString())
         val encuestaGeneralId = args.encuestaId
+        Log.i("nik ", "Encuesta general id: "+encuestaGeneralId.toString())
 
         // Observar los cambios en los datos de encuestas alimentos filtrndas por ID y actualizar el adaptador cuando los datos cambien
         encuestaAlimentoViewModel.getEncuestasAlimentosByEncuestaId(encuestaGeneralId).observe(viewLifecycleOwner, Observer { encuestas_alimentos ->
             encuestas_alimentos?.let {
                 adapter.setEncuestasAlimentos(it)
-                Log.i("Muricion - Encuesta alimento de la encuesta ", encuestaGeneralId.toString())
+                Log.i("nik ", "Cargadas encuestas alimentos")
             }
         })
 
-        // Observar los cambios en los datos de encuestas y actualizar el adaptador cuando los datos cambien
-//        encuestaAlimentoViewModel.todasLasEncuestasAlimento.observe(viewLifecycleOwner, Observer { encuestas_alimentos ->
-//            encuestas_alimentos?.let { adapter.setEncuestasAlimentos(it) }
-//        })
     }
 
     private fun initRecyclerView() {
@@ -86,7 +83,10 @@ class ListadoEncuestasAlimentosFragment : Fragment() {
         val recyclerView = binding.recyclerViewEncuestaAlimento
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         // Inicializar el adaptador
-        adapter = EncuestaAlimentoAdapter(alimentoViewModel)
+        adapter = EncuestaAlimentoAdapter(alimentoViewModel){ encuestaAlimentoId ->
+            val action = ListadoEncuestasAlimentosFragmentDirections.actionListEncuestasAlimentosFragmentToNewEncuestaFragment(encuestaAlimentoId)
+            findNavController().navigate(action)
+        }
         recyclerView.adapter = adapter
 
 
