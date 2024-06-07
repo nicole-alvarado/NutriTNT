@@ -8,6 +8,7 @@ import com.example.nutritnt.database.entities.Encuesta
 
 class EncuestaAdapter(private val navigateToDetail: (Int) -> Unit) : RecyclerView.Adapter<EncuestaViewHolder>(){
     private var encuestas = emptyList<Encuesta>() // Copia cache de las encuestas
+    private var ultimaEncuestaId: Int? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EncuestaViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -17,7 +18,9 @@ class EncuestaAdapter(private val navigateToDetail: (Int) -> Unit) : RecyclerVie
     // Pasa por cada uno de los items y va a llamar al render pasandole ese item
     override fun onBindViewHolder(holder: EncuestaViewHolder, position: Int) {
         val item = encuestas[position]
-        holder.render(item)
+        val isUltimaEncuesta = item.encuestaId == ultimaEncuestaId
+        holder.render(item, isUltimaEncuesta)
+    //holder.render(item)
     }
 
     override fun getItemCount(): Int {
@@ -27,6 +30,7 @@ class EncuestaAdapter(private val navigateToDetail: (Int) -> Unit) : RecyclerVie
     // Actualizar la lista de encuestas y notificar al adapter de los cambios
     internal fun setEncuestas(encuestas: List<Encuesta>) {
         this.encuestas = encuestas
+        ultimaEncuestaId = encuestas.maxByOrNull { it.encuestaId }?.encuestaId
         notifyDataSetChanged()
     }
 

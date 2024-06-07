@@ -49,4 +49,6 @@ class EncuestaViewModel (application: Application) : AndroidViewModel(applicatio
         return repositorio.getEncuestaByCodigoParticipante(codigo)
     }
 
+
+
 }
