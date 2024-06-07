@@ -98,24 +98,8 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
             encuestaAlimentoViewModel.update(encuestaAlimento)
             Log.d("Muricion", "Encuesta actualizada!")
 
-//            // Crear objeto EncuestaAlimento con los valores seleccionados
-//            val nuevaEncuestaAlimento = EncuestaAlimento(
-//                portion = selectedPortion.toString(),
-//                period = selectedPeriod,
-//                frecuency = frecuency,
-//                encuestaId = encuesta.encuestaId, // ID temporal, debemos asignarle el id correcto de una encuesta
-//                alimentoId = 1,
-//                estado = "Finalizada"
-//            )
-
-            // Insertar nueva encuesta de alimento en la base de datos a través del ViewModel
-//            encuestaAlimentoViewModel.insert(nuevaEncuestaAlimento)
-
-            // Actualizar el estado de la encuesta
-            //encuesta.estado = "FINALIZADA"
-            //encuestaViewModel.update(encuesta)
-
-            findNavController().navigate(R.id.action_newEncuestaFragment_to_listEncuestasAlimentosFragment)
+            //findNavController().navigate(R.id.action_newEncuestaFragment_to_listEncuestasAlimentosFragment)
+            findNavController().navigate(NuevaEncuestaAlimentoFragmentDirections.actionNewEncuestaFragmentToListEncuestasAlimentosFragment(encuesta.encuestaId))
         }
 
         return view

@@ -84,6 +84,9 @@
         <action
             android:id="@+id/action_listEncuestasAlimentosFragment_to_welcomeFragment"
             app:destination="@id/welcomeFragment" />
+        <argument
+            android:name="encuestaId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/nuevaEncuestaFragment"
