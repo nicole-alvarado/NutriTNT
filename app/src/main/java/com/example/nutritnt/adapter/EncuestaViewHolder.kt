@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.databinding.ItemEncuestaGeneralBinding
 
-class EncuestaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class EncuestaViewHolder(view: View, private val navigateToDetail: (Int) -> Unit) : RecyclerView.ViewHolder(view) {
 
     val binding = ItemEncuestaGeneralBinding.bind(view)
 
@@ -16,5 +16,10 @@ class EncuestaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         binding.tvZona.text = encuestaModel.zona
         binding.tvEstado.text = encuestaModel.estado
 
+        val encuestaGeneralId = encuestaModel.encuestaId
+
+        itemView.setOnClickListener{
+            navigateToDetail(encuestaGeneralId)
+        }
     }
 }

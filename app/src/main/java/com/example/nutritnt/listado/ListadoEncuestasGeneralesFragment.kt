@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nutritnt.adapter.EncuestaAdapter
 import com.example.nutritnt.databinding.FragmentListadoEncuestasGeneralesBinding
@@ -61,7 +62,10 @@ class ListadoEncuestasGeneralesFragment : Fragment() {
         val recyclerView = binding.recyclerViewEncuesta
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         // Inicializar el adaptador
-        adapter = EncuestaAdapter()
+        adapter = EncuestaAdapter { encuestaId ->
+            val action = ListadoEncuestasGeneralesFragmentDirections.actionListEncuestasFragmentToListEncuestasAlimentosFragment(encuestaId)
+            findNavController().navigate(action)
+        }
         recyclerView.adapter = adapter
 
 

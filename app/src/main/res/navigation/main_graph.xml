@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_listEncuestasFragment_to_detailEncuestaFragment"
             app:destination="@id/detailEncuestaFragment" />
+        <action
+            android:id="@+id/action_listEncuestasFragment_to_listEncuestasAlimentosFragment"
+            app:destination="@id/listEncuestasAlimentosFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailEncuestaFragment"
