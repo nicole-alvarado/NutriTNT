@@ -20,6 +20,10 @@ class RepositorioDeEncuestasAlimento(private val encuestaAlimentoDAO : EncuestaA
         encuestaAlimentoDAO.insertar(encuestaAlimento)
     }
 
+    suspend fun actualizar(encuestaAlimento: EncuestaAlimento){
+        encuestaAlimentoDAO.actualizar(encuestaAlimento)
+    }
+
     suspend fun getEncuestaAlimentosByZonaAndAlimento(zona: String, alimentoId: Int): List<EncuestaAlimento> {
         return withContext(Dispatchers.IO) {
             encuestaAlimentoDAO.getEncuestaAlimentosByZonaAndAlimento(zona, alimentoId)

@@ -87,24 +87,33 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
             val selectedPeriod = binding.spinnerPeriod.selectedItem.toString()
             val frecuency = editText.text.toString().toIntOrNull() ?: 0
 
-            Log.d("Botones", "Botón registrar clickeado")
+            Log.d("Muricion", "Botón registrar clickeado")
 
-            // Crear objeto EncuestaAlimento con los valores seleccionados
-            val nuevaEncuestaAlimento = EncuestaAlimento(
-                portion = selectedPortion.toString(),
-                period = selectedPeriod,
-                frecuency = frecuency,
-                encuestaId = encuesta.encuestaId, // ID temporal, debemos asignarle el id correcto de una encuesta
-                alimentoId = 1,
-                estado = "Finalizada"
-            )
+            // Actualizar encuesta alimento
+            encuestaAlimento.portion = selectedPortion.toString()
+            encuestaAlimento.period = selectedPeriod
+            encuestaAlimento.frecuency = frecuency
+            encuestaAlimento.estado = "COMPLETADA"
+
+            encuestaAlimentoViewModel.update(encuestaAlimento)
+            Log.d("Muricion", "Encuesta actualizada!")
+
+//            // Crear objeto EncuestaAlimento con los valores seleccionados
+//            val nuevaEncuestaAlimento = EncuestaAlimento(
+//                portion = selectedPortion.toString(),
+//                period = selectedPeriod,
+//                frecuency = frecuency,
+//                encuestaId = encuesta.encuestaId, // ID temporal, debemos asignarle el id correcto de una encuesta
+//                alimentoId = 1,
+//                estado = "Finalizada"
+//            )
 
             // Insertar nueva encuesta de alimento en la base de datos a través del ViewModel
-            encuestaAlimentoViewModel.insert(nuevaEncuestaAlimento)
+//            encuestaAlimentoViewModel.insert(nuevaEncuestaAlimento)
 
             // Actualizar el estado de la encuesta
-            encuesta.estado = "FINALIZADA"
-            encuestaViewModel.update(encuesta)
+            //encuesta.estado = "FINALIZADA"
+            //encuestaViewModel.update(encuesta)
 
             findNavController().navigate(R.id.action_newEncuestaFragment_to_listEncuestasAlimentosFragment)
         }

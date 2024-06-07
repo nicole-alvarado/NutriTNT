@@ -49,6 +49,10 @@ class EncuestaAlimentoViewModel(application: Application) : AndroidViewModel(app
         repositorio.insertar(encuestaAlimento)
     }
 
+    fun update(encuestaAlimento: EncuestaAlimento) = viewModelScope.launch(Dispatchers.IO){
+        repositorio.actualizar(encuestaAlimento)
+    }
+
     /*
     fun getEncuestaAlimentosByZonaAndAlimento(alimentoId: Int): LiveData<List<EncuestaAlimento>> {
         return liveData {
