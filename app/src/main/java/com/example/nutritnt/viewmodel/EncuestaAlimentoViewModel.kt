@@ -86,7 +86,9 @@ class EncuestaAlimentoViewModel(application: Application) : AndroidViewModel(app
         }
     }
 
-
+    fun getEncuestaAlimentoByEncuestaAndAlimento(encuestaId: Int, alimentoId: Int): LiveData<EncuestaAlimento>{
+        return repositorio.getEncuestaAlimentoByEncuestaAndAlimento(encuestaId, alimentoId)
+    }
 
     suspend fun safeInsertMultiple(
         encuestasGeneral: List<Encuesta>,

@@ -68,14 +68,14 @@ class NuevaEncuestaGeneralFragment : Fragment() {
                 // Insertar la nueva encuesta y obtener el ID generado
                 encuestaViewModel.insert(nuevaEncuesta)
 
-                // Observar el `LiveData` después de la inserción
+                // Observar el LiveData después de la inserción
                 encuestaViewModel.getEncuestaByCodigoParticipante(codigoParticipante).observe(viewLifecycleOwner, Observer { encuesta ->
                     if (encuesta != null) {
                         this@NuevaEncuestaGeneralFragment.encuesta = encuesta
-                        Log.i("Muricion Encuesta", encuesta.encuestaId.toString())
+                        //Log.i("Muricion Encuesta", encuesta.encuestaId.toString())
 
                         val encuestasAlimentosList = alimentosList.map { alimento ->
-                            Log.i("Muricion Alimentos", alimento.descripcion)
+                            //Log.i("Muricion Alimentos", alimento.descripcion)
                             EncuestaAlimento(
                                 portion = "",
                                 period = "",

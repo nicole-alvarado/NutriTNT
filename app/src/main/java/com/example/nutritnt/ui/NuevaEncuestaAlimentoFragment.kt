@@ -39,6 +39,7 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     private var valueFrecuency: Int = 0
 
     private lateinit var encuesta: Encuesta
+    private lateinit var encuestaAlimento: EncuestaAlimento
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -68,16 +69,16 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         val codigoParticipante = args.codigoParticipante
         Log.i("Muricion Codigo", codigoParticipante)
 
-        // Lanzar una coroutine para llamar a la función suspendida
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            encuestaViewModel.getEncuestaByCodigoParticipante(codigoParticipante).observe(viewLifecycleOwner) { encuesta ->
-//                this@NuevaEncuestaAlimentoFragment.encuesta = encuesta
-//            }
-//        }
-
         // Observar los datos de Encuesta y EncuestaAlimento
         encuestaViewModel.getEncuestaByCodigoParticipante(codigoParticipante).observe(viewLifecycleOwner, Observer { encuesta ->
             this.encuesta = encuesta
+            Log.i("Muricion Encuesta", encuesta.encuestaId.toString())
+
+            // Una vez la encuesta está cargada y segura de que encuestaId está disponible, procedemos a cargar los EncuestaAlimento
+            encuestaAlimentoViewModel.getEncuestaAlimentoByEncuestaAndAlimento(encuesta.encuestaId, 1).observe(viewLifecycleOwner, Observer { encuestaAlimento ->
+                this.encuestaAlimento = encuestaAlimento
+                Log.i("Muricion Encuesta Alimento", encuestaAlimento.encuestaAlimentoId.toString())
+            })
         })
 
         binding.buttonRegistrar.setOnClickListener {

@@ -2,6 +2,7 @@ package com.example.nutritnt.database
 
 import androidx.lifecycle.LiveData
 import com.example.nutritnt.database.dao.EncuestaAlimentoDAO
+import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.database.entities.EncuestaAlimento
 import com.example.nutritnt.database.relations.EncuestaAlimento_AlimentoInformacionNutricional
 import kotlinx.coroutines.Dispatchers
@@ -35,7 +36,9 @@ class RepositorioDeEncuestasAlimento(private val encuestaAlimentoDAO : EncuestaA
         return encuestaAlimentoDAO.getEncuestasAlimentosConInfo(zona)
     }
 
-
+    fun getEncuestaAlimentoByEncuestaAndAlimento(encuestaId: Int, alimentoId: Int): LiveData<EncuestaAlimento>{
+        return encuestaAlimentoDAO.getEncuestaAlimentoByEncuestaAndAlimento(encuestaId, alimentoId)
+    }
 
 
 
