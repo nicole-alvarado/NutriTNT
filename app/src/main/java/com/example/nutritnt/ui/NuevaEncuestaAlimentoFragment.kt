@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -65,14 +66,19 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
 
         // Obtener el código del participante pasado como argumento desde el fragmento anterior
         val codigoParticipante = args.codigoParticipante
-        Log.i("Argumentos", codigoParticipante)
+        Log.i("Muricion Codigo", codigoParticipante)
 
         // Lanzar una coroutine para llamar a la función suspendida
-        viewLifecycleOwner.lifecycleScope.launch {
-            encuestaViewModel.getEncuestaByCodigoParticipante(codigoParticipante).observe(viewLifecycleOwner) { encuesta ->
-                this@NuevaEncuestaAlimentoFragment.encuesta = encuesta
-            }
-        }
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            encuestaViewModel.getEncuestaByCodigoParticipante(codigoParticipante).observe(viewLifecycleOwner) { encuesta ->
+//                this@NuevaEncuestaAlimentoFragment.encuesta = encuesta
+//            }
+//        }
+
+        // Observar los datos de Encuesta y EncuestaAlimento
+        encuestaViewModel.getEncuestaByCodigoParticipante(codigoParticipante).observe(viewLifecycleOwner, Observer { encuesta ->
+            this.encuesta = encuesta
+        })
 
         binding.buttonRegistrar.setOnClickListener {
             // Obtener los valores seleccionados de los Spinners y el texto ingresado en el EditText
