@@ -56,7 +56,7 @@ class NuevaEncuestaGeneralFragment : Fragment() {
             encuestaViewModel.insert(nuevaEncuesta)
 
             // Navega al NuevaEncuestaFragment (encuesta alimento) utilizando la acción generada por Safe Args y pasa codigoParticipante como argumento
-            findNavController().navigate(NuevaEncuestaGeneralFragmentDirections.actionNuevaEncuestaFragmentToNewEncuestaFragment(codigoParticipante))
+            findNavController().navigate(NuevaEncuestaGeneralFragmentDirections.actionNuevaEncuestaFragmentToUbicacionConsumidorFragment())
 
         }
         // Inflate the layout for this fragment
