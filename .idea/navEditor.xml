@@ -53,6 +53,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="estadisticaIndividualFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="113" />
+                            <option name="y" value="-275" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="estadisticaMapFragment">
                     <value>
                       <LayoutPositions>
@@ -76,6 +88,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_listEncuestasAlimentosFragment_to_newEncuestaFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_listEncuestasAlimentosFragment_to_welcomeFragment">
                               <value>
                                 <LayoutPositions />
@@ -98,6 +115,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_listEncuestasFragment_to_detailEncuestaFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_listEncuestasFragment_to_listEncuestasAlimentosFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -165,7 +187,7 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_nuevaEncuestaFragment_to_newEncuestaFragment">
+                            <entry key="action_nuevaEncuestaFragment_to_listEncuestasAlimentosFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
