@@ -91,11 +91,43 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
         })
 
       //  drawAxes(startPoint)
-       // drawSeparationLines()
-        drawPerpendicularLines()
+        drawSeparationLines()
+       // drawPerpendicularLines()
 
     }
 
+    private fun determineQuadrant(location: LatLng): Int {
+        // Coordenadas de las líneas
+        val horizontalLineStart = LatLng(-42.769412, -65.030643)
+        val horizontalLineEnd = LatLng(-42.787398, -65.083944)
+        val verticalLineStart = LatLng(-42.751162, -65.061959)
+        val verticalLineEnd = LatLng(-42.790792, -65.036940)
+
+        // Obtén los coeficientes de la ecuación de la línea (y = mx + b)
+        val horizontalSlope = (horizontalLineEnd.latitude - horizontalLineStart.latitude) / (horizontalLineEnd.longitude - horizontalLineStart.longitude)
+        val horizontalIntercept = horizontalLineStart.latitude - (horizontalSlope * horizontalLineStart.longitude)
+
+        val verticalSlope = (verticalLineEnd.latitude - verticalLineStart.latitude) / (verticalLineEnd.longitude - verticalLineStart.longitude)
+        val verticalIntercept = verticalLineStart.latitude - (verticalSlope * verticalLineStart.longitude)
+
+        // Coordenada media de latitud entre los puntos de las líneas horizontales
+        val centerLatitude = -42.774875213237536
+        val centerLongitude = -65.0468285009265
+
+        // Compara la posición de la ubicación con las líneas
+        val aboveHorizontalLine = location.latitude > (horizontalSlope * location.longitude + horizontalIntercept)
+        val rightOfVerticalLine = location.longitude > (location.latitude - verticalIntercept) / verticalSlope
+
+        return when {
+            aboveHorizontalLine && rightOfVerticalLine -> 1
+            aboveHorizontalLine && !rightOfVerticalLine -> 2
+            !aboveHorizontalLine && !rightOfVerticalLine -> 3
+            else -> 4
+        }
+    }
+
+
+    /*
     private fun determineQuadrant(location: LatLng): Int {
         //LA INTERSECCION ES EN BOUCHARD Y GALES
         // Definir las coordenadas de intersección
@@ -110,7 +142,7 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
             else -> 4
         }
     }
-
+    */
     private fun drawPerpendicularLines() {
         // Coordenadas de los extremos de las líneas
         val point1 = LatLng(-42.769412, -65.030643) // Punto 1
@@ -135,8 +167,6 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
 
         Log.i("centerlat", "latitud " + centerLatitude)
         Log.i("centerlat", "longitud " + centerLongitude)
-
-        googleMap.addMarker(MarkerOptions().position(LatLng(centerLatitude, centerLongitude)).draggable(true))
 
 
         // Definir puntos para las líneas
