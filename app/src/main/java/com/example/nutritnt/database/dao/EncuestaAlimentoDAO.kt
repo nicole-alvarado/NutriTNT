@@ -6,6 +6,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.Update
+import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.database.entities.EncuestaAlimento
 import com.example.nutritnt.database.relations.EncuestaAlimento_AlimentoInformacionNutricional
 
@@ -17,6 +19,9 @@ interface EncuestaAlimentoDAO {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertar(encuesta_alimento: EncuestaAlimento)
+
+    @Update
+    suspend fun actualizar(encuestaAlimento: EncuestaAlimento)
 
     @Query("DELETE FROM tabla_encuesta_alimento")
     suspend fun borrarTodos()
@@ -50,6 +55,25 @@ interface EncuestaAlimentoDAO {
     """)
     suspend fun getEncuestasAlimentosConInfo(zona: String): List<EncuestaAlimento_AlimentoInformacionNutricional>
 
+    @Query("""
+        SELECT ea.* 
+        FROM tabla_encuesta_alimento ea
+        WHERE ea.encuestaId = :encuestaId AND ea.alimentoId = :alimentoId
+    """)
+    fun getEncuestaAlimentoByEncuestaAndAlimento(encuestaId: Int, alimentoId: Int): LiveData<EncuestaAlimento>
 
+    @Query("""
+        SELECT ea.*
+        FROM tabla_encuesta_alimento ea
+        WHERE ea.encuestaId = :id
+    """)
+    fun getEncuestasAlimentosByEncuestaId(id: Int): LiveData<List<EncuestaAlimento>>
+
+    @Query("""
+        SELECT ea.* 
+        FROM tabla_encuesta_alimento ea
+        WHERE ea.encuestaAlimentoId = :id
+    """)
+    fun getEncuestaAlimentoById(id: Int): LiveData<EncuestaAlimento>
 
 }

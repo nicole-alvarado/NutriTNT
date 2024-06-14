@@ -2,6 +2,7 @@ package com.example.nutritnt.database
 
 import androidx.lifecycle.LiveData
 import com.example.nutritnt.database.dao.EncuestaAlimentoDAO
+import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.database.entities.EncuestaAlimento
 import com.example.nutritnt.database.relations.EncuestaAlimento_AlimentoInformacionNutricional
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +18,10 @@ class RepositorioDeEncuestasAlimento(private val encuestaAlimentoDAO : EncuestaA
     // en el hilo principal, bloqueando la interfaz de usuario.
     suspend fun insertar(encuestaAlimento: EncuestaAlimento){
         encuestaAlimentoDAO.insertar(encuestaAlimento)
+    }
+
+    suspend fun actualizar(encuestaAlimento: EncuestaAlimento){
+        encuestaAlimentoDAO.actualizar(encuestaAlimento)
     }
 
     suspend fun getEncuestaAlimentosByZonaAndAlimento(zona: String, alimentoId: Int): List<EncuestaAlimento> {
@@ -35,8 +40,15 @@ class RepositorioDeEncuestasAlimento(private val encuestaAlimentoDAO : EncuestaA
         return encuestaAlimentoDAO.getEncuestasAlimentosConInfo(zona)
     }
 
+    fun getEncuestaAlimentoByEncuestaAndAlimento(encuestaId: Int, alimentoId: Int): LiveData<EncuestaAlimento>{
+        return encuestaAlimentoDAO.getEncuestaAlimentoByEncuestaAndAlimento(encuestaId, alimentoId)
+    }
 
+    fun getEncuestasAlimentosByEncuestaId(id: Int): LiveData<List<EncuestaAlimento>>{
+        return encuestaAlimentoDAO.getEncuestasAlimentosByEncuestaId(id)
+    }
 
-
-
+    fun getEncuestaAlimentoById(id: Int): LiveData<EncuestaAlimento>{
+        return encuestaAlimentoDAO.getEncuestaAlimentoById(id)
+    }
 }

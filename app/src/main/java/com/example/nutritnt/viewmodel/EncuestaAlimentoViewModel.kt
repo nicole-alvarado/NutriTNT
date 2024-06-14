@@ -49,6 +49,10 @@ class EncuestaAlimentoViewModel(application: Application) : AndroidViewModel(app
         repositorio.insertar(encuestaAlimento)
     }
 
+    fun update(encuestaAlimento: EncuestaAlimento) = viewModelScope.launch(Dispatchers.IO){
+        repositorio.actualizar(encuestaAlimento)
+    }
+
     /*
     fun getEncuestaAlimentosByZonaAndAlimento(alimentoId: Int): LiveData<List<EncuestaAlimento>> {
         return liveData {
@@ -86,7 +90,17 @@ class EncuestaAlimentoViewModel(application: Application) : AndroidViewModel(app
         }
     }
 
+    fun getEncuestaAlimentoByEncuestaAndAlimento(encuestaId: Int, alimentoId: Int): LiveData<EncuestaAlimento>{
+        return repositorio.getEncuestaAlimentoByEncuestaAndAlimento(encuestaId, alimentoId)
+    }
 
+    fun getEncuestasAlimentosByEncuestaId(id: Int): LiveData<List<EncuestaAlimento>>{
+        return repositorio.getEncuestasAlimentosByEncuestaId(id)
+    }
+
+    fun getEncuestaAlimentoById(id: Int): LiveData<EncuestaAlimento>{
+        return repositorio.getEncuestaAlimentoById(id)
+    }
 
     suspend fun safeInsertMultiple(
         encuestasGeneral: List<Encuesta>,

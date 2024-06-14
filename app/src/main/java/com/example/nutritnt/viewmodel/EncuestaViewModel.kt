@@ -45,8 +45,10 @@ class EncuestaViewModel (application: Application) : AndroidViewModel(applicatio
         return repositorio.getZonas()
     }
 
-    suspend fun getEncuestaByCodigoParticipante(codigo: String): LiveData<Encuesta> {
+    fun getEncuestaByCodigoParticipante(codigo: String): LiveData<Encuesta> {
         return repositorio.getEncuestaByCodigoParticipante(codigo)
     }
+
+
 
 }

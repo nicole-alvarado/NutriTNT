@@ -2,6 +2,7 @@ package com.example.nutritnt.listado
 
 import android.app.Application
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nutritnt.R
 import com.example.nutritnt.adapter.EncuestaAlimentoAdapter
@@ -25,6 +27,9 @@ class ListadoEncuestasAlimentosFragment : Fragment() {
     private lateinit var adapter: EncuestaAlimentoAdapter
     private val alimentoViewModel: AlimentoViewModel by viewModels()
 
+    // Inicializar la variable para manejar los argumentos utilizando navArgs()
+    private val args: ListadoEncuestasAlimentosFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,7 +40,6 @@ class ListadoEncuestasAlimentosFragment : Fragment() {
         val view = binding.root
 
         binding.buttonInicio.setOnClickListener(){
-            //findNavController().navigate(ListEncuestasAlimentosFragmentDirections.actionListEncuestasAlimentosFragmentToWelcomeFragment("Bienvenido/a"))
             findNavController().navigate(R.id.action_listEncuestasAlimentosFragment_to_welcomeFragment)
         }
 
@@ -59,9 +63,17 @@ class ListadoEncuestasAlimentosFragment : Fragment() {
             requireContext().applicationContext as Application
         )).get(EncuestaAlimentoViewModel::class.java)
 
-        // Observar los cambios en los datos de encuestas y actualizar el adaptador cuando los datos cambien
-        encuestaAlimentoViewModel.todasLasEncuestasAlimento.observe(viewLifecycleOwner, Observer { encuestas_alimentos ->
-            encuestas_alimentos?.let { adapter.setEncuestasAlimentos(it) }
+        // Obtener el ID de la encuesta general a través de los argumentos
+        Log.i("Muricion Encuesta General para listado", args.encuestaId.toString())
+        val encuestaGeneralId = args.encuestaId
+        Log.i("nik ", "Encuesta general id: "+encuestaGeneralId.toString())
+
+        // Observar los cambios en los datos de encuestas alimentos filtrndas por ID y actualizar el adaptador cuando los datos cambien
+        encuestaAlimentoViewModel.getEncuestasAlimentosByEncuestaId(encuestaGeneralId).observe(viewLifecycleOwner, Observer { encuestas_alimentos ->
+            encuestas_alimentos?.let {
+                adapter.setEncuestasAlimentos(it)
+                Log.i("nik ", "Cargadas encuestas alimentos")
+            }
         })
 
     }
@@ -71,7 +83,10 @@ class ListadoEncuestasAlimentosFragment : Fragment() {
         val recyclerView = binding.recyclerViewEncuestaAlimento
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         // Inicializar el adaptador
-        adapter = EncuestaAlimentoAdapter(alimentoViewModel)
+        adapter = EncuestaAlimentoAdapter(alimentoViewModel){ encuestaAlimentoId ->
+            val action = ListadoEncuestasAlimentosFragmentDirections.actionListEncuestasAlimentosFragmentToNewEncuestaFragment(encuestaAlimentoId)
+            findNavController().navigate(action)
+        }
         recyclerView.adapter = adapter
 
 

@@ -7,13 +7,13 @@ import com.example.nutritnt.R
 import com.example.nutritnt.database.entities.EncuestaAlimento
 import com.example.nutritnt.viewmodel.AlimentoViewModel
 
-class EncuestaAlimentoAdapter(private val alimentoViewModel: AlimentoViewModel) : RecyclerView.Adapter<EncuestaAlimentoViewHolder>() {
+class EncuestaAlimentoAdapter(private val alimentoViewModel: AlimentoViewModel, private val navigateToDetail: (Int) -> Unit) : RecyclerView.Adapter<EncuestaAlimentoViewHolder>() {
 
     private var encuestas_alimentos = emptyList<EncuestaAlimento>() // Copia cache de las encuestas
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EncuestaAlimentoViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return EncuestaAlimentoViewHolder(layoutInflater.inflate(R.layout.item_encuesta_alimento, parent, false),alimentoViewModel)
+        return EncuestaAlimentoViewHolder(layoutInflater.inflate(R.layout.item_encuesta_alimento, parent, false),alimentoViewModel,navigateToDetail)
 
     }
 

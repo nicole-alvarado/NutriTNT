@@ -9,7 +9,7 @@ import com.example.nutritnt.databinding.ItemEncuestaAlimentoBinding
 import com.example.nutritnt.viewmodel.AlimentoViewModel
 
 
-class EncuestaAlimentoViewHolder(view:View, private val alimentoViewModel: AlimentoViewModel): RecyclerView.ViewHolder(view){
+class EncuestaAlimentoViewHolder(view:View, private val alimentoViewModel: AlimentoViewModel, private val navigateToDetail: (Int) -> Unit): RecyclerView.ViewHolder(view){
     val binding = ItemEncuestaAlimentoBinding.bind(view)
 
     // Esta función se va a llamar por cada item del listado de encuestas
@@ -23,7 +23,10 @@ class EncuestaAlimentoViewHolder(view:View, private val alimentoViewModel: Alime
             Log.i("Alimentoooo", alimento?.descripcion ?: "Descripción no disponible")
         }
         binding.tvEstado.text = encuestaAlimentoModel.estado
-//        binding.tvAlimento.text = encuestaAlimentoModel.alimentoId.toString()
+
+        itemView.setOnClickListener{
+            navigateToDetail(encuestaAlimentoModel.encuestaAlimentoId)
+        }
 
     }
 }
