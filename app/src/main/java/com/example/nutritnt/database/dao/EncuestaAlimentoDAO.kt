@@ -10,6 +10,7 @@ import androidx.room.Update
 import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.database.entities.EncuestaAlimento
 import com.example.nutritnt.database.relations.EncuestaAlimento_AlimentoInformacionNutricional
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface EncuestaAlimentoDAO {
@@ -75,5 +76,24 @@ interface EncuestaAlimentoDAO {
         WHERE ea.encuestaAlimentoId = :id
     """)
     fun getEncuestaAlimentoById(id: Int): LiveData<EncuestaAlimento>
+
+    @Query("""
+        SELECT ea.* 
+        FROM tabla_encuesta_alimento ea
+        INNER JOIN tabla_encuesta e ON e.encuestaId = ea.encuestaId
+        WHERE e.codigoParticipante = :codigoParticipante
+    """)
+    suspend fun getEncuestaAlimentosByCodigoParticipante(codigoParticipante: String): List<EncuestaAlimento>
+
+    @Query("""
+        SELECT ea.*, a.*, i.*
+        FROM tabla_encuesta_alimento ea
+        INNER JOIN tabla_alimento a ON a.alimentoId = ea.alimentoId
+        INNER JOIN tabla_informacion_nutricional i ON i.informacionNutricionalId = a.informacionNutricionalId
+        INNER JOIN tabla_encuesta e ON e.encuestaId = ea.encuestaId
+        WHERE e.codigoParticipante = :codigoParticipante
+    """)
+    fun getEncuestaAlimentosWithAlimentoAndInfoByCodigoParticipante(codigoParticipante: String): Flow<List<EncuestaAlimento_AlimentoInformacionNutricional>>
+
 
 }

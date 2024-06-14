@@ -6,6 +6,7 @@ import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.database.entities.EncuestaAlimento
 import com.example.nutritnt.database.relations.EncuestaAlimento_AlimentoInformacionNutricional
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
 class RepositorioDeEncuestasAlimento(private val encuestaAlimentoDAO : EncuestaAlimentoDAO) {
@@ -50,5 +51,13 @@ class RepositorioDeEncuestasAlimento(private val encuestaAlimentoDAO : EncuestaA
 
     fun getEncuestaAlimentoById(id: Int): LiveData<EncuestaAlimento>{
         return encuestaAlimentoDAO.getEncuestaAlimentoById(id)
+    }
+
+    suspend fun getEncuestaAlimentosByCodigoParticipante(codigoParticipante: String): List<EncuestaAlimento> {
+        return encuestaAlimentoDAO.getEncuestaAlimentosByCodigoParticipante(codigoParticipante)
+    }
+
+    fun getEncuestaAlimentosWithAlimentoAndInfo(codigoParticipante: String): Flow<List<EncuestaAlimento_AlimentoInformacionNutricional>> {
+        return encuestaAlimentoDAO.getEncuestaAlimentosWithAlimentoAndInfoByCodigoParticipante(codigoParticipante)
     }
 }

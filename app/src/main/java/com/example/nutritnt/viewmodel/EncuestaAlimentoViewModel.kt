@@ -16,6 +16,10 @@ import com.example.nutritnt.database.entities.Zona
 import com.example.nutritnt.database.relations.EncuestaAlimento_AlimentoInformacionNutricional
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
@@ -32,6 +36,12 @@ class EncuestaAlimentoViewModel(application: Application) : AndroidViewModel(app
 
     private val _encuestasAlimentosConInfo = MutableLiveData<Map<String, List<EncuestaAlimento_AlimentoInformacionNutricional>>>()
     val encuestasAlimentosConInfo: LiveData<Map<String, List<EncuestaAlimento_AlimentoInformacionNutricional>>> get() = _encuestasAlimentosConInfo
+
+    private val _encuestaAlimentos = MutableStateFlow<List<EncuestaAlimento>>(emptyList())
+    val encuestaAlimentos: StateFlow<List<EncuestaAlimento>> get() = _encuestaAlimentos.asStateFlow()
+
+    private val _encuestaAlimentosWithAlimentoAndInfo = MutableStateFlow<List<EncuestaAlimento_AlimentoInformacionNutricional>>(emptyList())
+    val encuestaAlimentosWithAlimentoAndInfo: StateFlow<List<EncuestaAlimento_AlimentoInformacionNutricional>> = _encuestaAlimentosWithAlimentoAndInfo
 
 
     init {
@@ -90,6 +100,13 @@ class EncuestaAlimentoViewModel(application: Application) : AndroidViewModel(app
         }
     }
 
+    fun fetchEncuestaAlimentosWithAlimentoAndInfo(codigoParticipante: String) {
+        viewModelScope.launch {
+            repositorio.getEncuestaAlimentosWithAlimentoAndInfo(codigoParticipante)
+                .collectLatest { _encuestaAlimentosWithAlimentoAndInfo.value = it }
+        }
+    }
+
     fun getEncuestaAlimentoByEncuestaAndAlimento(encuestaId: Int, alimentoId: Int): LiveData<EncuestaAlimento>{
         return repositorio.getEncuestaAlimentoByEncuestaAndAlimento(encuestaId, alimentoId)
     }
@@ -101,6 +118,15 @@ class EncuestaAlimentoViewModel(application: Application) : AndroidViewModel(app
     fun getEncuestaAlimentoById(id: Int): LiveData<EncuestaAlimento>{
         return repositorio.getEncuestaAlimentoById(id)
     }
+
+    fun fetchEncuestaAlimentosByCodigoParticipante(codigoParticipante: String) {
+        viewModelScope.launch {
+            val alimentos = repositorio.getEncuestaAlimentosByCodigoParticipante(codigoParticipante)
+            _encuestaAlimentos.value = alimentos
+        }
+    }
+
+
 
     suspend fun safeInsertMultiple(
         encuestasGeneral: List<Encuesta>,
