@@ -50,6 +50,8 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         editText = view.findViewById(R.id.editText)
         minusButton = view.findViewById(R.id.minusButton)
         plusButton = view.findViewById(R.id.plusButton)
+        val botonAnterior = binding.buttonAnterior
+        val botonSiguiente = binding.buttonSiguiente
 
         // Configurar los botones de incremento y decremento
         minusButton.setOnClickListener { decrement() }
