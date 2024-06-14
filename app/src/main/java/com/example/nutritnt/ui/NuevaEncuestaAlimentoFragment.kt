@@ -18,6 +18,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.nutritnt.R
+import com.example.nutritnt.data.DatosDatabase
 import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.database.entities.EncuestaAlimento
 import com.example.nutritnt.databinding.FragmentNuevaEncuestaAlimentoBinding
@@ -50,13 +51,6 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         binding = FragmentNuevaEncuestaAlimentoBinding.inflate(layoutInflater)
         val view = binding.root
 
-        // Nombre del alimento
-
-
-        // Configurar los Spinners
-        setupSpinner(binding.spinnerPortion, R.array.Portion)
-        setupSpinner(binding.spinnerPeriod, R.array.Period)
-
         // Obtener referencias a las vistas de los botones y el EditText
         editText = view.findViewById(R.id.editText)
         minusButton = view.findViewById(R.id.minusButton)
@@ -84,7 +78,15 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
                 // Actualizar la vista con los datos del alimento
                 binding.textViewNameAlimento.text = alimento?.descripcion ?: "Descripción no disponible"
                 Log.i("Alimentoooo", alimento?.descripcion ?: "Descripción no disponible")
+
+                // Obtener las porciones correspondientes al alimento desde DatosDatabase
+                val portions = DatosDatabase.portions.find { alimento.alimentoId == alimento?.alimentoId }?.portions ?: emptyList()
+                setupSpinner(binding.spinnerPortion, portions, encuestaAlimento.portion)
             }
+
+            // Configurar el spinner para el periodo usando el valor almacenado en encuestaAlimento
+            setupSpinner(binding.spinnerPeriod, resources.getStringArray(R.array.Period).toList(), encuestaAlimento.period)
+            editText.setText(encuestaAlimento.frecuency.toString())
 
         })
 
@@ -112,21 +114,27 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         return view
     }
 
-    // Configurar un Spinner con un ArrayAdapter y un listener de selección de item
-    private fun setupSpinner(spinner: Spinner, arrayResource: Int) {
+    // Configurar un Spinner con un ArrayAdapter, un listener de selección de item y seleccionar el valor predeterminado
+    private fun setupSpinner(spinner: Spinner, items: List<String>, defaultValue: String? = null) {
         val adapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
-            resources.getStringArray(arrayResource)
+            items
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
+
+        if (defaultValue != null && defaultValue.isNotEmpty()) {
+            val defaultPosition = items.indexOf(defaultValue)
+            if (defaultPosition >= 0) {
+                spinner.setSelection(defaultPosition)
+            }
+        }
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 if (view != null) {
                     val selectedOption = parent.getItemAtPosition(position).toString()
-                    //Toast.makeText(requireContext(), getString(R.string.selected_item) + " " + selectedOption, Toast.LENGTH_SHORT).show()
                 }
             }
 
