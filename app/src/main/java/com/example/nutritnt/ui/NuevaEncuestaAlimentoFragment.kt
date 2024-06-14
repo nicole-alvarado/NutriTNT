@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -20,6 +21,7 @@ import com.example.nutritnt.R
 import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.database.entities.EncuestaAlimento
 import com.example.nutritnt.databinding.FragmentNuevaEncuestaAlimentoBinding
+import com.example.nutritnt.viewmodel.AlimentoViewModel
 import com.example.nutritnt.viewmodel.EncuestaAlimentoViewModel
 import com.example.nutritnt.viewmodel.EncuestaViewModel
 import kotlinx.coroutines.launch
@@ -29,6 +31,7 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     private lateinit var binding: FragmentNuevaEncuestaAlimentoBinding
     private val encuestaAlimentoViewModel: EncuestaAlimentoViewModel by viewModels()
     private val encuestaViewModel: EncuestaViewModel by viewModels()
+    private val alimentoViewModel: AlimentoViewModel by viewModels()
 
     // Inicializar la variable para manejar los argumentos utilizando navArgs()
     private val args: NuevaEncuestaAlimentoFragmentArgs by navArgs()
@@ -46,6 +49,9 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     ): View? {
         binding = FragmentNuevaEncuestaAlimentoBinding.inflate(layoutInflater)
         val view = binding.root
+
+        // Nombre del alimento
+
 
         // Configurar los Spinners
         setupSpinner(binding.spinnerPortion, R.array.Portion)
@@ -72,19 +78,15 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         encuestaAlimentoViewModel.getEncuestaAlimentoById(id).observe(viewLifecycleOwner, Observer{
             this.encuestaAlimento = it
             Log.i("nik ", "Encuesta alimento obtenida!"+encuestaAlimento.encuestaAlimentoId.toString())
-        })
 
-//        // Observar los datos de Encuesta y EncuestaAlimento
-//        encuestaViewModel.getEncuestaByCodigoParticipante(codigoParticipante).observe(viewLifecycleOwner, Observer { encuesta ->
-//            this.encuesta = encuesta
-//            Log.i("Muricion Encuesta", encuesta.encuestaId.toString())
-//
-//            // Una vez la encuesta está cargada y segura de que encuestaId está disponible, procedemos a cargar los EncuestaAlimento
-//            encuestaAlimentoViewModel.getEncuestaAlimentoByEncuestaAndAlimento(encuesta.encuestaId, 1).observe(viewLifecycleOwner, Observer { encuestaAlimento ->
-//                this.encuestaAlimento = encuestaAlimento
-//                Log.i("Muricion Encuesta Alimento", encuestaAlimento.encuestaAlimentoId.toString())
-//            })
-//        })
+            // Observar el LiveData para obtener los datos del alimento asociado a la encuesta de alimento
+            alimentoViewModel.fetchAlimentoByEncuestaAlimento(encuestaAlimento.encuestaAlimentoId).observe(viewLifecycleOwner) { alimento ->
+                // Actualizar la vista con los datos del alimento
+                binding.textViewNameAlimento.text = alimento?.descripcion ?: "Descripción no disponible"
+                Log.i("Alimentoooo", alimento?.descripcion ?: "Descripción no disponible")
+            }
+
+        })
 
         binding.buttonRegistrar.setOnClickListener {
             // Obtener los valores seleccionados de los Spinners y el texto ingresado en el EditText
