@@ -9,10 +9,17 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.nutritnt.R
 import com.example.nutritnt.data.DatosDatabase
+import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.databinding.FragmentNuevaEncuestaAlimentoBinding
 import com.example.nutritnt.databinding.FragmentUbicacionConsumidorBinding
+import com.example.nutritnt.viewmodel.EncuestaViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -21,7 +28,9 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
-
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
@@ -29,6 +38,17 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
     private lateinit var googleMap: GoogleMap
     private var marker: Marker? = null
     private lateinit var binding: FragmentUbicacionConsumidorBinding
+    private lateinit var codigo: String
+    private val encuestaViewModel : EncuestaViewModel by viewModels()
+    private lateinit var encuestaGeneral: Encuesta
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Obtener el argumento pasado desde FragmentA
+        arguments?.let {
+            codigo = UbicacionConsumidorFragmentArgs.fromBundle(it).codigo
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +60,14 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
         val mapFragment = childFragmentManager.findFragmentById(R.id.mapView) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+
+        encuestaViewModel.getEncuestaByCodigoParticipante(codigo).observe(viewLifecycleOwner, Observer<Encuesta> { encuesta ->
+            // Manipular la encuesta recibida aquí
+            encuesta.let {
+                encuestaGeneral = encuesta
+            }
+        })
+
         val myButton: Button = binding.sigButton
         myButton.setOnClickListener {
             marker?.let {
@@ -49,7 +77,14 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
 
                 val pos = determineQuadrant(position)
 
-                Toast.makeText(context, "Lat: $latitude, Lon: $longitude, position: $pos", Toast.LENGTH_LONG).show()
+                encuestaGeneral.latitud = latitude.toString()
+                encuestaGeneral.longitud = longitude.toString()
+                encuestaGeneral.zona = pos.toString()
+
+                actualizarYNavegar(encuestaGeneral)
+
+                Log.i("zonaEncuesta", "id: ${encuestaGeneral.encuestaId} zona ${encuestaGeneral.zona} lat: ${encuestaGeneral.latitud} long: ${encuestaGeneral.longitud} ")
+
             }
         }
 
@@ -58,18 +93,42 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
         return view
     }
 
+    private fun actualizarYNavegar(encuesta: Encuesta) {
+
+        // Llamar a la función update del ViewModel en una corrutina
+        lifecycleScope.launch {
+            val actualizacionExitosa =  encuestaViewModel.update(encuestaGeneral)
+
+            // Verificar si la actualización fue exitosa antes de navegar
+            if (actualizacionExitosa) {
+                // Realizar la navegación usando el componente de navegación
+                findNavController().navigate(UbicacionConsumidorFragmentDirections.actionUbicacionConsumidorFragmentToNewEncuestaFragment(encuestaGeneral.encuestaId))
+            } else {
+                // Manejar el caso donde la actualización falló, si es necesario
+                Toast.makeText(requireContext(), "Error al actualizar", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
+
+
 
         // Habilitar controles de zoom
         googleMap.uiSettings.isZoomControlsEnabled = true
 
-        // Ubicación inicial (París)
-        val startPoint = LatLng(-42.775082, -65.047036)
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPoint, 15f))
+        if (marker == null) {
+            // Ubicación inicial
+           val startPoint = LatLng(-42.775082, -65.047036)
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPoint, 15f))
+            // Añadir un marcador inicial
+            marker = googleMap.addMarker(MarkerOptions().position(startPoint).draggable(true))
+        } else {
+            val startPoint = LatLng(marker!!.position.latitude, marker!!.position.longitude)
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPoint, 15f))
+        }
 
-        // Añadir un marcador inicial
-        marker = googleMap.addMarker(MarkerOptions().position(startPoint).draggable(true))
 
         googleMap.setOnMarkerDragListener(object : GoogleMap.OnMarkerDragListener {
             override fun onMarkerDragStart(marker: Marker) {
@@ -81,18 +140,14 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
             }
 
             override fun onMarkerDragEnd(marker: Marker) {
-                val position = marker.position
-                val latitude = position.latitude
-                val longitude = position.longitude
                 // Hacer algo con la nueva posición del marcador
-                Toast.makeText(context, "Marker moved to Lat: $latitude, Lon: $longitude", Toast.LENGTH_SHORT).show()
 
             }
         })
 
-      //  drawAxes(startPoint)
-        drawSeparationLines()
-       // drawPerpendicularLines()
+
+     //   drawSeparationLines()
+
 
     }
 
@@ -110,9 +165,6 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
         val verticalSlope = (verticalLineEnd.latitude - verticalLineStart.latitude) / (verticalLineEnd.longitude - verticalLineStart.longitude)
         val verticalIntercept = verticalLineStart.latitude - (verticalSlope * verticalLineStart.longitude)
 
-        // Coordenada media de latitud entre los puntos de las líneas horizontales
-        val centerLatitude = -42.774875213237536
-        val centerLongitude = -65.0468285009265
 
         // Compara la posición de la ubicación con las líneas
         val aboveHorizontalLine = location.latitude > (horizontalSlope * location.longitude + horizontalIntercept)
@@ -127,37 +179,6 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
     }
 
 
-    /*
-    private fun determineQuadrant(location: LatLng): Int {
-        //LA INTERSECCION ES EN BOUCHARD Y GALES
-        // Definir las coordenadas de intersección
-        val centerLatitude = -42.774875213237536
-        // Coordenada media de latitud entre los puntos de las líneas horizontales
-        val centerLongitude =  -65.0468285009265
-
-        return when {
-            location.latitude >= centerLatitude && location.longitude >= centerLongitude -> 1
-            location.latitude >= centerLatitude && location.longitude < centerLongitude -> 2
-            location.latitude < centerLatitude && location.longitude < centerLongitude -> 3
-            else -> 4
-        }
-    }
-    */
-    private fun drawPerpendicularLines() {
-        // Coordenadas de los extremos de las líneas
-        val point1 = LatLng(-42.769412, -65.030643) // Punto 1
-        val point2 = LatLng(-42.751162, -65.061959) // Punto 2
-
-        // Calcular coordenadas de los puntos de intersección
-        val intersectionPoint1 = LatLng(point1.latitude, point2.longitude)
-        val intersectionPoint2 = LatLng(point2.latitude, point1.longitude)
-
-        // Dibujar las líneas en el mapa
-        googleMap.addPolyline(PolylineOptions().add(point1, intersectionPoint1).color(Color.RED)) // Línea 1
-        googleMap.addPolyline(PolylineOptions().add(point2, intersectionPoint1).color(Color.RED)) // Línea 2
-        googleMap.addPolyline(PolylineOptions().add(point1, intersectionPoint2).color(Color.BLUE)) // Línea 3
-        googleMap.addPolyline(PolylineOptions().add(point2, intersectionPoint2).color(Color.BLUE)) // Línea 4
-    }
 
 
     private fun drawSeparationLines() {

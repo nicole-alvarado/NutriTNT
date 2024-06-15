@@ -100,9 +100,6 @@
         android:label="fragment_nueva_encuesta"
         tools:layout="@layout/fragment_nueva_encuesta_general" >
         <action
-            android:id="@+id/action_nuevaEncuestaFragment_to_newEncuestaFragment"
-            app:destination="@id/newEncuestaFragment" />
-        <action
             android:id="@+id/action_nuevaEncuestaFragment_to_copiaNuevaEncuestaAlimentoFragment"
             app:destination="@id/copiaNuevaEncuestaAlimentoFragment" />
         <action
@@ -125,6 +122,9 @@
         android:id="@+id/ubicacionConsumidorFragment"
         android:name="com.example.nutritnt.ui.UbicacionConsumidorFragment"
         android:label="UbicacionConsumidorFragment" >
+        <argument
+            android:name="codigo"
+            app:argType="string" />
         <action
             android:id="@+id/action_ubicacionConsumidorFragment_to_newEncuestaFragment"
             app:destination="@id/newEncuestaFragment" />

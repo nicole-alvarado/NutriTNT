@@ -73,7 +73,7 @@ class NuevaEncuestaGeneralFragment : Fragment() {
                 encuestaViewModel.insert(nuevaEncuesta)
 
             // Navega al NuevaEncuestaFragment (encuesta alimento) utilizando la acción generada por Safe Args y pasa codigoParticipante como argumento
-            findNavController().navigate(NuevaEncuestaGeneralFragmentDirections.actionNuevaEncuestaFragmentToUbicacionConsumidorFragment())
+           // findNavController().navigate(NuevaEncuestaGeneralFragmentDirections.actionNuevaEncuestaFragmentToUbicacionConsumidorFragment())
                 // Observar el LiveData después de la inserción
                 encuestaViewModel.getEncuestaByCodigoParticipante(codigoParticipante).observe(viewLifecycleOwner, Observer { encuesta ->
                     if (encuesta != null) {
@@ -96,8 +96,8 @@ class NuevaEncuestaGeneralFragment : Fragment() {
                             encuestaAlimentoViewModel.insert(encuestaAlimento)
                         }
                         Log.i("Muricion", "Encuestas alimentos cargadas")
-
-                        findNavController().navigate(NuevaEncuestaGeneralFragmentDirections.actionNuevaEncuestaFragmentToListEncuestasAlimentosFragment(encuesta.encuestaId))
+                        findNavController().navigate(NuevaEncuestaGeneralFragmentDirections.actionNuevaEncuestaFragmentToUbicacionConsumidorFragment(codigoParticipante))
+                       // findNavController().navigate(NuevaEncuestaGeneralFragmentDirections.actionNuevaEncuestaFragmentToListEncuestasAlimentosFragment(encuesta.encuestaId))
                         //findNavController().navigate(NuevaEncuestaGeneralFragmentDirections.actionNuevaEncuestaFragmentToNewEncuestaFragment(codigoParticipante))
                     } else {
                         Log.e("Error", "Encuesta no encontrada")
