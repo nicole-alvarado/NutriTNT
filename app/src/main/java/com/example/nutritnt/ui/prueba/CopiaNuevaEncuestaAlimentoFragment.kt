@@ -140,7 +140,7 @@ class CopiaNuevaEncuestaAlimentoFragment : Fragment() {
 
             // Actualizar el estado de la encuesta
             encuesta.estado = "FINALIZADA"
-            encuestaViewModel.update(encuesta)
+          //  encuestaViewModel.update(encuesta)
 
             findNavController().navigate(R.id.action_newEncuestaFragment_to_listEncuestasAlimentosFragment)
         }

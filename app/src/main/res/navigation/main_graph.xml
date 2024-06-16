@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_loginFragment_to_welcomeFragment"
             app:destination="@id/welcomeFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_estadisticaIndividualFragment"
-            app:destination="@id/estadisticaIndividualFragment" />
     </fragment>
     <fragment
         android:id="@+id/listEncuestasFragment"
@@ -106,21 +103,34 @@
             android:id="@+id/action_nuevaEncuestaFragment_to_copiaNuevaEncuestaAlimentoFragment"
             app:destination="@id/copiaNuevaEncuestaAlimentoFragment" />
         <action
+            android:id="@+id/action_nuevaEncuestaFragment_to_ubicacionConsumidorFragment"
+            app:destination="@id/ubicacionConsumidorFragment" />
+        <action
             android:id="@+id/action_nuevaEncuestaFragment_to_listEncuestasAlimentosFragment"
             app:destination="@id/listEncuestasAlimentosFragment" />
     </fragment>
     <fragment
         android:id="@+id/estadisticaMapFragment"
         android:name="com.example.nutritnt.ui.EstadisticaMapFragment"
-        android:label="EstadisticaMapFragment" />
+        android:label="EstadisticaMapFragment" >
+        <action
+            android:id="@+id/action_estadisticaMapFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/copiaNuevaEncuestaAlimentoFragment"
         android:name="com.example.nutritnt.ui.prueba.CopiaNuevaEncuestaAlimentoFragment"
         android:label="fragment_copia_nueva_encuesta_alimento"
         tools:layout="@layout/fragment_copia_nueva_encuesta_alimento" />
     <fragment
-        android:id="@+id/estadisticaIndividualFragment"
-        android:name="com.example.nutritnt.ui.EstadisticaIndividualFragment"
-        android:label="fragment_estadistica_individual"
-        tools:layout="@layout/fragment_estadistica_individual" />
+        android:id="@+id/ubicacionConsumidorFragment"
+        android:name="com.example.nutritnt.ui.UbicacionConsumidorFragment"
+        android:label="UbicacionConsumidorFragment" >
+        <argument
+            android:name="codigo"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_ubicacionConsumidorFragment_to_newEncuestaFragment"
+            app:destination="@id/newEncuestaFragment" />
+    </fragment>
 </navigation>

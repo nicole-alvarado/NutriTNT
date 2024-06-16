@@ -53,18 +53,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="estadisticaIndividualFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="113" />
-                            <option name="y" value="-275" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="estadisticaMapFragment">
                     <value>
                       <LayoutPositions>
@@ -88,11 +76,6 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_listEncuestasAlimentosFragment_to_newEncuestaFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                             <entry key="action_listEncuestasAlimentosFragment_to_welcomeFragment">
                               <value>
                                 <LayoutPositions />
@@ -115,11 +98,6 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_listEncuestasFragment_to_detailEncuestaFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_listEncuestasFragment_to_listEncuestasAlimentosFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -176,8 +154,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="123" />
-                            <option name="y" value="488" />
+                            <option name="x" value="-93" />
+                            <option name="y" value="568" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -187,12 +165,19 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_nuevaEncuestaFragment_to_listEncuestasAlimentosFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="ubicacionConsumidorFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="219" />
+                            <option name="y" value="549" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
