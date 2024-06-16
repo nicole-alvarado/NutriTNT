@@ -47,43 +47,32 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflar el layout del fragmento utilizando ViewBinding
-        binding = FragmentNuevaEncuestaAlimentoBinding.inflate(layoutInflater)
+        binding = FragmentNuevaEncuestaAlimentoBinding.inflate(inflater, container, false)
         val view = binding.root
 
         editText = view.findViewById(R.id.editText)
         minusButton = view.findViewById(R.id.minusButton)
         plusButton = view.findViewById(R.id.plusButton)
 
-        // Configurar los botones de incremento y decremento
         minusButton.setOnClickListener { decrement() }
         plusButton.setOnClickListener { increment() }
 
-        // Obtener el id de la encuestaAlimento pasado al fragmento
-        val encuestaAlimentoId = args.encuestaAlimentoId
-
-        // Obtener todas las encuestas de alimentos
         encuestaAlimentoViewModel.getEncuestasAlimentosByEncuestaId(args.encuestaGeneralId).observe(viewLifecycleOwner, Observer { encuestas ->
-            if (!isDataLoaded) { // Solo cargar los datos la primera vez
+            Log.i("Porfas", "En el Observable...")
+            if (!isDataLoaded) {
                 todasLasEncuestas = encuestas
-                Log.i("Porfas","En el observable")
-                // Encontrar el índice de la encuesta actual
-                currentIndex = todasLasEncuestas.indexOfFirst { it.encuestaAlimentoId == encuestaAlimentoId }
+                currentIndex = todasLasEncuestas.indexOfFirst { it.encuestaAlimentoId == args.encuestaGeneralId }
                 if (currentIndex != -1) {
                     currentEncuesta = todasLasEncuestas[currentIndex]
-                    encuestaAlimento = currentEncuesta // Inicializar encuestaAlimento
-                    // Actualizar la UI con la encuesta actual
+                    encuestaAlimento = currentEncuesta
                     updateUIWithEncuestaAlimento(currentEncuesta)
                 }
-                isDataLoaded = true // Marcar que los datos han sido cargados
+                isDataLoaded = true
             }
         })
 
-        // Configurar los botones "Anterior" y "Siguiente"
-        binding.buttonAnterior?.setOnClickListener { showPreviousEncuesta() }
-        binding.buttonSiguiente?.setOnClickListener { showNextEncuesta() }
-
-        // Botón para guardar la encuestaAlimento y navegar al listado de encuestas alimentos
+        binding.buttonAnterior?.setOnClickListener { showPreviousEncuestaAlimento() }
+        binding.buttonSiguiente?.setOnClickListener { showNextEncuestaAlimento() }
         binding.buttonRegistrar.setOnClickListener {
             saveEncuestaAlimento()
             findNavController().navigate(NuevaEncuestaAlimentoFragmentDirections.actionNewEncuestaFragmentToListEncuestasAlimentosFragment(encuestaAlimento.encuestaId))
@@ -92,42 +81,39 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         return view
     }
 
-    // Mostrar la encuesta de alimentos anterior
-    private fun showPreviousEncuesta() {
+    private fun showPreviousEncuestaAlimento() {
         if (currentIndex > 0) {
             currentIndex--
             currentEncuesta = todasLasEncuestas[currentIndex]
-            encuestaAlimento = currentEncuesta // Actualizar encuestaAlimento
-            // Actualizar la UI con la encuesta anterior
+            encuestaAlimento = currentEncuesta
             updateUIWithEncuestaAlimento(currentEncuesta)
         }
     }
 
-    // Mostrar la siguiente encuesta de alimentos
-    private fun showNextEncuesta() {
+    private fun showNextEncuestaAlimento() {
         if (currentIndex < todasLasEncuestas.size - 1) {
             currentIndex++
             currentEncuesta = todasLasEncuestas[currentIndex]
-            encuestaAlimento = currentEncuesta // Actualizar encuestaAlimento
-            // Actualizar la UI con la siguiente encuesta
+            encuestaAlimento = currentEncuesta
             updateUIWithEncuestaAlimento(currentEncuesta)
         }
     }
 
-    // Actualizar la interfaz con los datos de la encuestaAlimento.
     private fun updateUIWithEncuestaAlimento(encuestaAlimento: EncuestaAlimento) {
-        // Observar los cambios en el alimento relacionado con la encuesta
-        alimentoViewModel.fetchAlimentoByEncuestaAlimento(encuestaAlimento.encuestaAlimentoId).observe(viewLifecycleOwner) { alimento ->
+        Log.i("Porfas", encuestaAlimento.encuestaAlimentoId.toString())
+        alimentoViewModel.fetchAlimentoByEncuestaAlimento(encuestaAlimento.encuestaAlimentoId).observe(viewLifecycleOwner, Observer { alimento ->
             binding.textViewNameAlimento.text = alimento?.descripcion ?: "Descripción no disponible"
             val portions = DatosDatabase.portions.find { it.alimentoID == alimento?.alimentoId }?.portions ?: emptyList()
             setupSpinner(binding.spinnerPortion, portions, encuestaAlimento.portion)
-        }
+        })
 
-        // Configurar los spinners y establecer los valores por defecto
         setupSpinner(binding.spinnerPeriod, resources.getStringArray(R.array.Period).toList(), encuestaAlimento.period)
         editText.setText(encuestaAlimento.frecuency.toString())
 
-        // Observadores para actualizar la base de datos cuando cambian los valores
+        setupListeners()
+    }
+
+    private fun setupListeners() {
         binding.spinnerPortion.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 val selectedPortion = binding.spinnerPortion.selectedItem.toString()
@@ -135,7 +121,6 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
                     currentEncuesta.portion = selectedPortion
                     encuestaAlimentoViewModel.update(currentEncuesta)
                 }
-                Log.i("pruebas", currentEncuesta.toString())
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -168,7 +153,6 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         })
     }
 
-    // Guardar los datos de la encuesta de alimentos en la base de datos.
     private fun saveEncuestaAlimento() {
         if (::currentEncuesta.isInitialized) {
             val selectedPortion = binding.spinnerPortion.selectedItem.toString()
@@ -186,7 +170,6 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         }
     }
 
-    // Configura un spinner con los elementos proporcionados y establece un valor por defecto si es necesario.
     private fun setupSpinner(spinner: Spinner, items: List<String>, defaultValue: String? = null) {
         val adapter = ArrayAdapter(
             requireContext(),
@@ -204,13 +187,11 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         }
     }
 
-    // Incrementa el valor de la frecuencia y actualiza el campo de texto.
     private fun increment() {
         valueFrecuency++
         editText.setText(valueFrecuency.toString())
     }
 
-    // Decrementa el valor de la frecuencia y actualiza el campo de texto.
     private fun decrement() {
         if (valueFrecuency > 0) {
             valueFrecuency--
