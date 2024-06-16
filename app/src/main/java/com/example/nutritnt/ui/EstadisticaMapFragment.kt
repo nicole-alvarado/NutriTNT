@@ -40,7 +40,6 @@ class EstadisticaMapFragment : Fragment(), OnMapReadyCallback {
     private var marker: com.google.android.gms.maps.model.Marker? = null
     private lateinit var binding: FragmentEstadisticaMapBinding
     private val encuestaViewModel : EncuestaViewModel by viewModels()
-    private lateinit var encuestas: List<Encuesta> // Lista de encuestas
     private lateinit var legendContainer: LinearLayout
 
     override fun onCreateView(
