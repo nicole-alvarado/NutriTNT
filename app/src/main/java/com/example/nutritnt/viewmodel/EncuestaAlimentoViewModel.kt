@@ -40,8 +40,8 @@ class EncuestaAlimentoViewModel(application: Application) : AndroidViewModel(app
     private val _encuestaAlimentos = MutableStateFlow<List<EncuestaAlimento>>(emptyList())
     val encuestaAlimentos: StateFlow<List<EncuestaAlimento>> get() = _encuestaAlimentos.asStateFlow()
 
-    private val _encuestaAlimentosWithAlimentoAndInfo = MutableStateFlow<List<EncuestaAlimento_AlimentoInformacionNutricional>>(emptyList())
-    val encuestaAlimentosWithAlimentoAndInfo: StateFlow<List<EncuestaAlimento_AlimentoInformacionNutricional>> = _encuestaAlimentosWithAlimentoAndInfo
+    private val _encuestaAlimentosWithAlimentoAndInfo = MutableLiveData<List<EncuestaAlimento_AlimentoInformacionNutricional>>(emptyList())
+    val encuestaAlimentosWithAlimentoAndInfo: LiveData<List<EncuestaAlimento_AlimentoInformacionNutricional>> = _encuestaAlimentosWithAlimentoAndInfo
 
 
     init {
@@ -103,7 +103,9 @@ class EncuestaAlimentoViewModel(application: Application) : AndroidViewModel(app
     fun fetchEncuestaAlimentosWithAlimentoAndInfo(codigoParticipante: String) {
         viewModelScope.launch {
             repositorio.getEncuestaAlimentosWithAlimentoAndInfo(codigoParticipante)
-                .collectLatest { _encuestaAlimentosWithAlimentoAndInfo.value = it }
+                .collectLatest {
+                    _encuestaAlimentosWithAlimentoAndInfo.value = it
+                }
         }
     }
 

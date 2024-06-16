@@ -3,12 +3,69 @@ package com.example.nutritnt.data
 import android.util.Log
 import com.example.nutritnt.database.relations.EncuestaAlimento_AlimentoInformacionNutricional
 
+data class Consumo (var descripcion: String, var porcentaje: Float, var gramos: Float)
 
-public class DatosConsumoGrasas {
+public class DatosConsumo {
 
 
 
     companion object {
+
+        fun calcularValoresNutricionales(encuestasAlimentos: List<EncuestaAlimento_AlimentoInformacionNutricional>, periodo: String): List<Consumo> {
+
+            var totalCalorias = 0f
+            var totalGrasas = 0f
+            var totalProteinas = 0f
+            var totalCarbohidratos = 0f
+            var totalFibras = 0f
+            var totalAlcohol = 0f
+            var totalColesterol = 0f
+
+            for (alimentoConInfo in encuestasAlimentos) {
+                val cantidad = alimentoConInfo.encuestaAlimento.portion.toInt() * alimentoConInfo.encuestaAlimento.frecuency
+                val info = alimentoConInfo.alimentoInformacionNutricional.informacionNutricional
+
+                totalCalorias += info.kcalTotales * (cantidad / 100)
+                totalGrasas += info.grasasTotales * (cantidad / 100)
+                totalProteinas += info.proteinas * (cantidad / 100)
+                totalCarbohidratos += info.carbohidratos * (cantidad / 100)
+                totalFibras += info.fibra * (cantidad / 100)
+                totalAlcohol += info.alcohol * (cantidad / 100)
+                totalColesterol += info.colesterol * (cantidad / 100)
+            }
+
+            val total = totalCalorias + totalGrasas + totalProteinas + totalCarbohidratos + totalFibras + totalAlcohol + totalColesterol
+
+            val porcentajeCalorias = if (total > 0) (totalCalorias / total) * 100 else 0f
+            val porcentajeGrasas = if (total > 0) (totalGrasas / total) * 100 else 0f
+            val porcentajeProteinas = if (total > 0) (totalProteinas / total) * 100 else 0f
+            val porcentajeCarbohidratos = if (total > 0) (totalCarbohidratos / total) * 100 else 0f
+            val porcentajeFibras = if (total > 0) (totalFibras / total) * 100 else 0f
+            val porcentajeAlcohol = if (total > 0) (totalAlcohol / total) * 100 else 0f
+            val porcentajeColesterol = if (total > 0) (totalColesterol / total) * 100 else 0f
+
+            var consumo = listOf(
+                Consumo("calorias", porcentajeCalorias, totalCalorias),
+                Consumo("grasas", porcentajeGrasas, totalGrasas),
+                Consumo("proteinas", porcentajeProteinas, totalProteinas),
+                Consumo("carbohidratos", porcentajeCarbohidratos, totalCarbohidratos),
+                Consumo("fibras", porcentajeFibras, totalFibras),
+                Consumo("alcohol", porcentajeAlcohol, totalAlcohol),
+                Consumo("colesterol", porcentajeColesterol, totalColesterol)
+            )
+
+            var newListConsumo: MutableList<Consumo> = ArrayList<Consumo>()
+            var contador = 0
+
+            for(c in consumo) {
+                if (c.porcentaje != 0f) {
+                    newListConsumo.add(c)
+                }
+            }
+
+            return newListConsumo
+
+        }
 
 
         fun obtenerDatosPorPeriodo(listaEncuestaAlimento: List<EncuestaAlimento_AlimentoInformacionNutricional> , periodoBuscado: String): Float {

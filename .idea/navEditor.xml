@@ -53,6 +53,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="estadisticaIndividualFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="70" />
+                            <option name="y" value="-290" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="estadisticaMapFragment">
                     <value>
                       <LayoutPositions>
@@ -61,6 +73,15 @@
                             <option name="x" value="978" />
                             <option name="y" value="268" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_estadisticaMapFragment_to_welcomeFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -76,6 +97,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_listEncuestasAlimentosFragment_to_newEncuestaFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_listEncuestasAlimentosFragment_to_welcomeFragment">
                               <value>
                                 <LayoutPositions />
@@ -98,6 +124,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_listEncuestasFragment_to_detailEncuestaFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_listEncuestasFragment_to_listEncuestasAlimentosFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -165,6 +196,16 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_nuevaEncuestaFragment_to_listEncuestasAlimentosFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_nuevaEncuestaFragment_to_ubicacionConsumidorFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>
@@ -178,6 +219,15 @@
                             <option name="x" value="219" />
                             <option name="y" value="549" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_ubicacionConsumidorFragment_to_newEncuestaFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>

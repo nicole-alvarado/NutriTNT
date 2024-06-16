@@ -16,7 +16,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.nutritnt.data.DatosConsumoGrasas
+import com.example.nutritnt.data.DatosConsumo
 import com.example.nutritnt.database.relations.EncuestaAlimento_AlimentoInformacionNutricional
 import com.example.nutritnt.databinding.FragmentEstadisticaBinding
 import com.example.nutritnt.viewmodel.AlimentoViewModel
@@ -122,7 +122,7 @@ class EstadisticaFragment : Fragment() {
                         Log.i("xmlEstadisticas", listadoZonas.toString())
                         listadoZonas.forEach { zona ->
                             val encuestas = dataMap[zona] ?: emptyList()
-                            val totalPorZona: Float = DatosConsumoGrasas.obtenerDatosPorPeriodo(encuestas, periodo)
+                            val totalPorZona: Float = DatosConsumo.obtenerDatosPorPeriodo(encuestas, periodo)
                                 .toFloat()
 
                             Log.i(
