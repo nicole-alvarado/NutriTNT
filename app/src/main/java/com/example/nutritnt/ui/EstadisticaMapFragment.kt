@@ -170,7 +170,7 @@ class EstadisticaMapFragment : Fragment(), OnMapReadyCallback {
 
         // Dibujar líneas en el mapa
         googleMap.addPolyline(PolylineOptions().addAll(horizontalLine).color(Color.RED))
-        googleMap.addPolyline(PolylineOptions().addAll(verticalLine).color(Color.BLUE))
+        googleMap.addPolyline(PolylineOptions().addAll(verticalLine).color(Color.RED))
     }
 
 
