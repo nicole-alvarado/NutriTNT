@@ -112,7 +112,11 @@
     <fragment
         android:id="@+id/estadisticaMapFragment"
         android:name="com.example.nutritnt.ui.EstadisticaMapFragment"
-        android:label="EstadisticaMapFragment" />
+        android:label="EstadisticaMapFragment" >
+        <action
+            android:id="@+id/action_estadisticaMapFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/copiaNuevaEncuestaAlimentoFragment"
         android:name="com.example.nutritnt.ui.prueba.CopiaNuevaEncuestaAlimentoFragment"

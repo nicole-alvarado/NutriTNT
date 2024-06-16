@@ -79,7 +79,7 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
 
                 encuestaGeneral.latitud = latitude.toString()
                 encuestaGeneral.longitud = longitude.toString()
-                encuestaGeneral.zona = pos.toString()
+                encuestaGeneral.zona = "Zona $pos"
 
                 actualizarYNavegar(encuestaGeneral)
 
@@ -97,7 +97,7 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
 
         // Llamar a la función update del ViewModel en una corrutina
         lifecycleScope.launch {
-            val actualizacionExitosa =  encuestaViewModel.update(encuestaGeneral)
+            val actualizacionExitosa =  encuestaViewModel.update(encuesta)
 
             // Verificar si la actualización fue exitosa antes de navegar
             if (actualizacionExitosa) {
