@@ -1,121 +1,179 @@
 package com.example.nutritnt.ui
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.nutritnt.R
+import com.example.nutritnt.database.entities.Encuesta
+import com.example.nutritnt.databinding.FragmentEstadisticaMapBinding
+import com.example.nutritnt.databinding.FragmentUbicacionConsumidorBinding
+import com.example.nutritnt.viewmodel.EncuestaViewModel
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolylineOptions
 import org.osmdroid.config.Configuration.*
-
 import org.osmdroid.views.MapView
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.Polyline
 
 
-class EstadisticaMapFragment : Fragment() {
+class EstadisticaMapFragment : Fragment(), OnMapReadyCallback {
 
-    private lateinit var mapView: MapView
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-      //  Configuration.getInstance().userAgentValue = BuildConfig
-        getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context))
-    }
+    private lateinit var googleMap: GoogleMap
+    private var marker: com.google.android.gms.maps.model.Marker? = null
+    private lateinit var binding: FragmentEstadisticaMapBinding
+    private val encuestaViewModel : EncuestaViewModel by viewModels()
+    private lateinit var encuestas: List<Encuesta> // Lista de encuestas
+    private lateinit var legendContainer: LinearLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_estadistica_map, container, false)
-        mapView = view.findViewById(R.id.map)
-        mapView.setBuiltInZoomControls(true)
-        mapView.setMultiTouchControls(true)
-        mapView.controller.setZoom(15.0)
-        val startPoint = GeoPoint(-42.7802058, -65.0369597) // Coordenadas de ejemplo
-        mapView.controller.setCenter(startPoint)
+        binding = FragmentEstadisticaMapBinding.inflate(layoutInflater)
+        val view = binding.root
 
-        drawSeparationLines()
+        val mapFragment = childFragmentManager.findFragmentById(R.id.mapView) as SupportMapFragment
+        mapFragment.getMapAsync(this)
 
-        val locations = listOf(
-            GeoPoint(-42.780000, -65.050000),
-            GeoPoint(-42.760000, -65.070000),
-            GeoPoint(-42.775000, -65.040000),
-            GeoPoint(-42.770000, -65.060000)
-        )
+        legendContainer = binding.leyendEstadisticaMapContainer
 
-        // Clasificar las ubicaciones en cuadrantes y agregar marcadores
-        addMarkers(locations)
+        binding.buttonInicio.setOnClickListener(){
+            findNavController().navigate(R.id.action_estadisticaMapFragment_to_welcomeFragment)
+        }
 
 
         return view
     }
 
-    private fun addMarkers(locations: List<GeoPoint>) {
-        for (location in locations) {
-            val quadrant = determineQuadrant(location)
-            val marker = Marker(mapView)
-            marker.position = location
-            marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-            marker.title = "Cuadrante $quadrant"
-            mapView.overlays.add(marker)
+    override fun onMapReady(map: GoogleMap) {
+        googleMap = map
+
+        // Habilitar controles de zoom
+        googleMap.uiSettings.isZoomControlsEnabled = true
+
+        val startPoint = LatLng(-42.775082, -65.047036)
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPoint, 15f))
+
+        // Observa los datos de encuestas
+        encuestaViewModel.todasLasEncuestas.observe(viewLifecycleOwner) { encuestas ->
+            agregarMarcadores(encuestas)
+            mostrarLeyenda(encuestas)
         }
-        mapView.invalidate() // Refrescar el mapa
+
+
+
+
+
+
+
     }
 
-    private fun determineQuadrant(location: GeoPoint): Int {
-        // Definir las coordenadas de intersección
-        val centerLatitude = -42.7782905  // Coordenada media de latitud entre los puntos de las líneas horizontales
-        val centerLongitude = -65.057755  // Coordenada media de longitud entre los puntos de las líneas verticales
+    private fun agregarMarcadores(encuestas: List<Encuesta>) {
+        googleMap.clear() // Limpia marcadores anteriores
 
-        return when {
-            location.latitude >= centerLatitude && location.longitude >= centerLongitude -> 1
-            location.latitude >= centerLatitude && location.longitude < centerLongitude -> 2
-            location.latitude < centerLatitude && location.longitude < centerLongitude -> 3
-            else -> 4
+        drawSeparationLines()
+
+        for (encuesta in encuestas) {
+            Log.i("encuestaMapF", "id: ${encuesta.encuestaId} : lat: ${encuesta.latitud.toDoubleOrNull()} long: ${encuesta.longitud.toDoubleOrNull()}")
+            val location = LatLng(encuesta.latitud.toDouble(), encuesta.longitud.toDouble())
+            val markerOptions = MarkerOptions()
+                .position(location)
+                .title(encuesta.zona)
+                .icon(obtenerIconoParaZona(encuesta.zona))
+
+            googleMap.addMarker(markerOptions)
+        }
+
+    }
+
+    private fun obtenerIconoParaZona(zona: String): BitmapDescriptor {
+        return when (zona) {
+            "Zona 1" -> BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)
+            "Zona 2" -> BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)
+            "Zona 3" -> BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)
+            else -> BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun mostrarLeyenda(encuestas: List<Encuesta>) {
+        // Limpiar el contenedor de leyenda anterior
+        legendContainer.removeAllViews()
+
+        // Contar encuestas por zona
+        val encuestasPorZona = encuestas.groupBy { it.zona }
+        encuestasPorZona.forEach { (zona, encuestas) ->
+            val color = obtenerColorParaZona(zona)
+
+            // Crear la vista de la leyenda
+            val legendItem = layoutInflater.inflate(R.layout.leyend_estadistica_map_container, legendContainer, false)
+
+            val colorBox = legendItem.findViewById<View>(R.id.color_box)
+            val zonaText = legendItem.findViewById<TextView>(R.id.zona_text)
+            val cantidadText = legendItem.findViewById<TextView>(R.id.cantidad_text)
+
+            colorBox.setBackgroundColor(color)
+            zonaText.text = zona
+            cantidadText.text = "cantidad de encuestados: " + encuestas.size
+
+            // Añadir la vista de leyenda al contenedor
+            legendContainer.addView(legendItem)
+        }
+    }
+
+    private fun obtenerColorParaZona(zona: String): Int {
+        return when (zona) {
+            "Zona 1" -> Color.parseColor("#FFA500") // ORANGE
+            "Zona 2" -> Color.parseColor("#FF00FF") // MAGENTA
+            "Zona 3" -> Color.parseColor("#00FFFF") // CYAN
+            else -> Color.parseColor("#30f72d")    // GREEN
         }
     }
 
     private fun drawSeparationLines() {
-        val north = mapView.boundingBox.latNorth
-        val south = mapView.boundingBox.latSouth
-        val east = mapView.boundingBox.lonEast
-        val west = mapView.boundingBox.lonWest
+        val centerLatitude = ((-42.769412) + (-42.787398)) /2
+        val centerLongitude = ((-65.030643) + (-65.083944)) /2
 
-        val centerLatitude = (north + south) / 2
-        val centerLongitude = (east + west) / 2
 
-        // Línea horizontal (latitud media)
-        val horizontalLine = Polyline()
-        horizontalLine.addPoint(GeoPoint(-42.769439, -65.030516))
-        horizontalLine.addPoint(GeoPoint(-42.787142, -65.083988))
-        horizontalLine.color = Color.RED
+        Log.i("centerlat", "latitud " + centerLatitude)
+        Log.i("centerlat", "longitud " + centerLongitude)
 
-        // Línea vertical (longitud media)
-        val verticalLine = Polyline()
-        verticalLine.addPoint(GeoPoint(-42.788024, -65.040644))
-        verticalLine.addPoint(GeoPoint(-42.753702, -65.060509))
-        verticalLine.color = Color.BLUE
 
-        // Agregar las líneas al mapa
-        mapView.overlayManager.add(horizontalLine)
-        mapView.overlayManager.add(verticalLine)
+        // Definir puntos para las líneas
+        val horizontalLine = mutableListOf(
+            LatLng(-42.769412, -65.030643),
+            LatLng(-42.787398, -65.083944)
+        )
 
-        mapView.invalidate() // Refrescar el mapa
+        val verticalLine = mutableListOf(
+            LatLng(-42.751162, -65.061959),
+            LatLng(-42.790792, -65.036940)
+        )
+
+        // Dibujar líneas en el mapa
+        googleMap.addPolyline(PolylineOptions().addAll(horizontalLine).color(Color.RED))
+        googleMap.addPolyline(PolylineOptions().addAll(verticalLine).color(Color.BLUE))
     }
 
-    override fun onResume() {
-        super.onResume()
-        mapView.onResume()
-    }
 
-    override fun onPause() {
-        super.onPause()
-        mapView.onPause()
-    }
 
 
 }
