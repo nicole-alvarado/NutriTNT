@@ -14,6 +14,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.navigateUp
 import com.example.nutritnt.R
 import com.example.nutritnt.data.DatosDatabase
 import com.example.nutritnt.database.entities.Encuesta
@@ -102,7 +103,8 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
             // Verificar si la actualización fue exitosa antes de navegar
             if (actualizacionExitosa) {
                 // Realizar la navegación usando el componente de navegación
-                findNavController().navigate(UbicacionConsumidorFragmentDirections.actionUbicacionConsumidorFragmentToNewEncuestaFragment(1,2))
+                //findNavController().navigate(UbicacionConsumidorFragmentDirections.actionUbicacionConsumidorFragmentToNewEncuestaFragment(encuestaGeneral.encuestaId))
+                findNavController().navigate(UbicacionConsumidorFragmentDirections.actionUbicacionConsumidorFragmentToListEncuestasAlimentosFragment(encuestaGeneral.encuestaId))
             } else {
                 // Manejar el caso donde la actualización falló, si es necesario
                 Toast.makeText(requireContext(), "Error al actualizar", Toast.LENGTH_SHORT).show()

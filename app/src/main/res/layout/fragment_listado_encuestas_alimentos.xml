@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Listado de encuestas del alimento: Yogur bebible"
+        android:text="Alimentos de la encuesta"
         android:gravity="center_horizontal"
         android:textSize="24sp"
         android:textStyle="bold"

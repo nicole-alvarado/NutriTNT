@@ -207,4 +207,6 @@ class CopiaNuevaEncuestaAlimentoFragment : Fragment() {
         val matchResult = regex.find(input)
         return matchResult?.value?.toIntOrNull() ?: 0 // Devolver el valor encontrado como entero o 0 si no se encontraron números
     }
+
+
 }

@@ -132,8 +132,8 @@
             android:name="codigo"
             app:argType="string" />
         <action
-            android:id="@+id/action_ubicacionConsumidorFragment_to_newEncuestaFragment"
-            app:destination="@id/newEncuestaFragment" />
+            android:id="@+id/action_ubicacionConsumidorFragment_to_listEncuestasAlimentosFragment"
+            app:destination="@id/listEncuestasAlimentosFragment" />
     </fragment>
     <fragment
         android:id="@+id/estadisticaIndividualFragment"
