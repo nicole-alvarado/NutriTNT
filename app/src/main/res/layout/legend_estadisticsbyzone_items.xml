@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:layout_width="match_parent"
+    android:orientation="horizontal">
+
+
+    <!-- Contenedor para gramos y porcentaje -->
+    <LinearLayout
+        android:gravity="start"
+        android:layout_gravity="start"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="22dp"
+        android:layout_width="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Texto de gramos -->
+        <TextView
+            android:id="@+id/texto_gramos"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:text="Gramos:"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+        <!-- Texto de porcentaje -->
+        <TextView
+            android:id="@+id/texto_porcentaje"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:text="Porcentaje:"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+    <!-- Contenedor para valores de gramos y porcentaje -->
+    <LinearLayout
+        android:gravity="end"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:orientation="vertical">
+
+        <!-- Valor de gramos -->
+        <TextView
+            android:id="@+id/informacion_gramos"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+        <!-- Valor de porcentaje -->
+        <TextView
+            android:id="@+id/informacion_porcentaje"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+</LinearLayout>
+
+
