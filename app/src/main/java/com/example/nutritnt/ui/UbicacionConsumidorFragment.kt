@@ -102,7 +102,7 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
             // Verificar si la actualización fue exitosa antes de navegar
             if (actualizacionExitosa) {
                 // Realizar la navegación usando el componente de navegación
-                findNavController().navigate(UbicacionConsumidorFragmentDirections.actionUbicacionConsumidorFragmentToNewEncuestaFragment(encuestaGeneral.encuestaId))
+                findNavController().navigate(UbicacionConsumidorFragmentDirections.actionUbicacionConsumidorFragmentToNewEncuestaFragment(1,2))
             } else {
                 // Manejar el caso donde la actualización falló, si es necesario
                 Toast.makeText(requireContext(), "Error al actualizar", Toast.LENGTH_SHORT).show()
