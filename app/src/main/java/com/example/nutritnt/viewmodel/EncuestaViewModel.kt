@@ -55,6 +55,12 @@ class EncuestaViewModel (application: Application) : AndroidViewModel(applicatio
         return repositorio.getEncuestaByCodigoParticipante(codigo)
     }
 
+    suspend fun obtenerIdEncuestaPorCodigo(codigo: String): Int? {
+        return withContext(Dispatchers.IO) {
+            repositorio.obtenerIdEncuestaPorCodigo(codigo)
+        }
+    }
+
 
 
 }

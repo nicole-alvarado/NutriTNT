@@ -21,8 +21,60 @@ public class DatosConsumo {
             var totalAlcohol = 0f
             var totalColesterol = 0f
 
+            Log.i("DatosConsumoFrecuency", periodo)
+
+
+            //se calcula la cantidad consumida / 100 (los 100gr por default de InfoNutricional) y se multiplica por el item
             for (alimentoConInfo in encuestasAlimentos) {
-                val cantidad = alimentoConInfo.encuestaAlimento.portion.toInt() * alimentoConInfo.encuestaAlimento.frecuency
+
+                val frecuenciaAjustada = when (periodo) {
+                    "dia" -> {
+                        when (alimentoConInfo.encuestaAlimento.period) {
+                            "dia" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat()
+                            "semana" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() / 7
+                            "mes" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() / 31
+                            "año" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() / 365
+                            else -> alimentoConInfo.encuestaAlimento.frecuency.toFloat()
+                        }
+                    }
+                    "semana" -> {
+                        when (alimentoConInfo.encuestaAlimento.period) {
+                            "dia" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() * 7
+                            "semana" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat()
+                            "mes" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() / 4  // Suponiendo 4 semanas por mes
+                            "año" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() / 52 // Suponiendo 52 semanas por año
+                            else -> alimentoConInfo.encuestaAlimento.frecuency.toFloat()
+                        }
+                    }
+
+                    "mes" -> {
+                        when (alimentoConInfo.encuestaAlimento.period) {
+                            "dia" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() * 31
+                            "semana" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() * 4  // Suponiendo 4 semanas por mes
+                            "mes" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat()
+                            "año" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() / 12
+                            else -> alimentoConInfo.encuestaAlimento.frecuency.toFloat()
+                        }
+                    }
+
+                    "año" -> {
+                        when (alimentoConInfo.encuestaAlimento.period) {
+                            "dia" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() * 365
+                            "semana" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() * 52 // Suponiendo 52 semanas por año
+                            "mes" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() * 12
+                            "año" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat()
+                            else -> alimentoConInfo.encuestaAlimento.frecuency.toFloat()
+                        }
+                    }
+
+
+                    else -> {alimentoConInfo.encuestaAlimento.frecuency.toFloat()}
+                }
+
+
+
+
+                val cantidad = alimentoConInfo.encuestaAlimento.portion.toInt() * frecuenciaAjustada
                 val info = alimentoConInfo.alimentoInformacionNutricional.informacionNutricional
 
                 totalCalorias += info.kcalTotales * (cantidad / 100)
@@ -34,6 +86,7 @@ public class DatosConsumo {
                 totalColesterol += info.colesterol * (cantidad / 100)
             }
 
+            //El total general de lo consumido
             val total = totalCalorias + totalGrasas + totalProteinas + totalCarbohidratos + totalFibras + totalAlcohol + totalColesterol
 
             val porcentajeCalorias = if (total > 0) (totalCalorias / total) * 100 else 0f
@@ -55,9 +108,10 @@ public class DatosConsumo {
             )
 
             var newListConsumo: MutableList<Consumo> = ArrayList<Consumo>()
-            var contador = 0
 
             for(c in consumo) {
+                Log.i("DatosConsumoFrecuency", c.toString())
+
                 if (c.porcentaje != 0f) {
                     newListConsumo.add(c)
                 }

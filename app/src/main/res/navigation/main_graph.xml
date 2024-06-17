@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_loginFragment_to_welcomeFragment"
             app:destination="@id/welcomeFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_estadisticaIndividualFragment"
-            app:destination="@id/estadisticaIndividualFragment" />
     </fragment>
     <fragment
         android:id="@+id/listEncuestasFragment"
@@ -140,5 +137,12 @@
         android:id="@+id/estadisticaIndividualFragment"
         android:name="com.example.nutritnt.ui.EstadisticaIndividualFragment"
         android:label="fragment_estadistica_individual"
-        tools:layout="@layout/fragment_estadistica_individual" />
+        tools:layout="@layout/fragment_estadistica_individual" >
+        <action
+            android:id="@+id/action_estadisticaIndividualFragment_to_listEncuestasAlimentosFragment"
+            app:destination="@id/listEncuestasAlimentosFragment" />
+        <argument
+            android:name="codigo"
+            app:argType="string" />
+    </fragment>
 </navigation>

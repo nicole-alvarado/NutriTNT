@@ -42,4 +42,7 @@ interface EncuestaDAO {
     """)
     fun getEncuestaByCodigoParticipante(codigo: String): LiveData<Encuesta>
 
+    @Query("SELECT encuestaId FROM tabla_encuesta WHERE codigoParticipante = :codigo")
+    suspend fun getIdByCodigo(codigo: String): Int?
+
 }

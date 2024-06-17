@@ -27,4 +27,8 @@ class RepositorioDeEncuestas (private val encuestaDAO: EncuestaDAO) {
     fun getEncuestaByCodigoParticipante(codigo: String): LiveData<Encuesta>{
         return encuestaDAO.getEncuestaByCodigoParticipante(codigo)
     }
+
+    suspend fun obtenerIdEncuestaPorCodigo(codigo: String): Int? {
+        return encuestaDAO.getIdByCodigo(codigo)
+    }
 }

@@ -34,9 +34,6 @@ class LoginFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.loginViewModel = viewModel
 
-        binding.verEstadistiva?.setOnClickListener(){
-            findNavController().navigate(R.id.action_loginFragment_to_estadisticaIndividualFragment)
-        }
 
         binding.loginButton.text = "Ingresar"
         binding.loginButton.setOnClickListener(){

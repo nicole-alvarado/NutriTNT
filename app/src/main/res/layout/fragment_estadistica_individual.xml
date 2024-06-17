@@ -1,23 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:background="@drawable/background_estadisticas"
     tools:context=".ui.EstadisticaIndividualFragment">
 
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Volver"
+        android:layout_marginTop="16dp"
+         />
+
+    <!-- Título de la estadística -->
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Estadística del consumidor:"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:layout_below="@+id/backButton"/>
+
+    <!-- Título del código de usuario -->
+    <TextView
+        android:id="@+id/titleCodeUserText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:text="holi"
+        android:layout_below="@id/titleText"
+        android:layout_marginTop="10dp"
+        android:gravity="center" />
+
+    <!-- Botón para expandir o contraer la sección -->
+    <Button
+        android:id="@+id/expandButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seleccionar periodo"
+        android:layout_below="@+id/titleCodeUserText"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Sección expandible -->
+
+    <!-- Spinner para seleccionar el periodo -->
+    <LinearLayout
+        android:id="@+id/expandableSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/expandButton"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:padding="16dp">
+
+        <!-- Checkboxes dentro de la sección expandible -->
+        <CheckBox
+            android:id="@+id/checkboxDia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dia" />
+
+        <CheckBox
+            android:id="@+id/checkboxSemana"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Semana" />
+
+        <CheckBox
+            android:id="@+id/checkboxMes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mes" />
+
+        <CheckBox
+            android:id="@+id/checkboxAnio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Año" />
+
+        <!-- Botón para confirmar selección y ocultar la sección -->
+        <Button
+            android:id="@+id/confirmButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confirmar"
+            android:layout_gravity="end"
+            android:layout_marginTop="16dp" />
+
+        <!-- Añade más CheckBoxes según sea necesario -->
+    </LinearLayout>
+
+    <!-- Contenedor del gráfico de pastel -->
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChart"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_below="@id/expandableSection"
+        android:layout_marginTop="16dp" />
 
+
+
+
+    <!-- Contenedor de la leyenda -->
     <LinearLayout
         android:id="@+id/legendContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/pieChart"
         android:orientation="vertical"
-        android:padding="16dp"/>
+        android:padding="16dp"
+        android:layout_below="@id/pieChart"/>
+
 </RelativeLayout>
+
+</androidx.core.widget.NestedScrollView>
