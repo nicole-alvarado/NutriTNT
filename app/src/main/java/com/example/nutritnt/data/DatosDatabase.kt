@@ -88,5 +88,11 @@ class DatosDatabase {
 
             )
 
+        // Método estático para obtener imágenes de porción para un alimento específico
+        fun getPortionImagesForAlimento(alimentoId: Int): List<Int> {
+            val portion = portions.find { it.alimentoID == alimentoId }
+            return portion?.imgsPortions ?: emptyList()
+        }
+
     }
 }

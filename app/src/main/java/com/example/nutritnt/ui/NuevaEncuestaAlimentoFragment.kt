@@ -11,6 +11,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -32,7 +34,6 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     private val alimentoViewModel: AlimentoViewModel by viewModels()
 
     private val args: NuevaEncuestaAlimentoFragmentArgs by navArgs()
-    private var alimentoObserver: Observer<Alimento>? = null
     private lateinit var editText: EditText
     private lateinit var minusButton: Button
     private lateinit var plusButton: Button
@@ -44,6 +45,14 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     private lateinit var todasLasEncuestas: List<EncuestaAlimento>
     private var alimentos: List<Alimento> = emptyList()
     private var isDataLoaded = false // Variable booleana para comprobar si el observable ya se ejecutó
+
+    private lateinit var imageViewPortionSmall: ImageView
+    private lateinit var imageViewPortionLarge: ImageView
+    private lateinit var frameLayoutSmall: FrameLayout
+    private lateinit var frameLayoutLarge: FrameLayout
+    private var selectedPortion: String = ""
+    private var previousSelectedFrame: FrameLayout? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,6 +73,22 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         // Configurar los botones de incremento y decremento
         minusButton.setOnClickListener { decrement() }
         plusButton.setOnClickListener { increment() }
+
+        // Configurar las imágenes de las porciones
+        imageViewPortionSmall = binding.cucharaPequena!!
+        imageViewPortionLarge = binding.cucharaGrande!!
+        frameLayoutSmall = binding.frameCucharaPequena!!
+        frameLayoutLarge = binding.frameCucharaGrande!!
+
+        imageViewPortionSmall.setOnClickListener {
+            selectedPortion = "Cuchara pequeña"
+            highlightSelection(frameLayoutSmall, imageViewPortionSmall)
+        }
+
+        imageViewPortionLarge.setOnClickListener {
+            selectedPortion = "Cuchara grande"
+            highlightSelection(frameLayoutLarge, imageViewPortionLarge)
+        }
 
         // Obtener el id de la encuestaAlimento pasado al fragmento
         val encuestaAlimentoId = args.encuestaAlimentoId
@@ -97,71 +122,38 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
 
     // Mostrar la encuesta de alimentos anterior
     private fun showPreviousEncuesta() {
-        Log.i("alvaraPreviousEncuesta", "CurrentEncuestaId: " + currentEncuesta.encuestaAlimentoId.toString())
-        Log.i("alvaraPreviousEncuesta", "CurrentIndex: " + currentIndex.toString())
         if (currentIndex > 0) {
             currentIndex--
-            Log.i("alvaraPreviousEncuesta", "CurrentIndex después de --: " + currentIndex.toString())
             currentEncuesta = todasLasEncuestas[currentIndex]
-            Log.i("alvaraPreviousEncuesta", "CurrentEncuestaId después de --: " + currentEncuesta.encuestaAlimentoId.toString())
             encuestaAlimento = currentEncuesta // Actualizar encuestaAlimento
-            Log.i("alvaraPreviousEncuesta", "EncuestaAlimentoId: " + encuestaAlimento.encuestaAlimentoId.toString())
-            // Obtener los datos del alimento para la encuesta actual
-//            fetchAlimento(encuestaAlimento.encuestaAlimentoId)
-            // Actualizar la UI con la encuesta anterior
             updateUIWithEncuestaAlimento(encuestaAlimento)
         }
     }
 
     // Mostrar la siguiente encuesta de alimentos
     private fun showNextEncuesta() {
-        Log.i("alvaraNextEncuesta", "CurrentEncuestaId: " + currentEncuesta.encuestaAlimentoId.toString())
-        Log.i("alvaraNextEncuesta", "CurrentIndex: " + currentIndex.toString())
         if (currentIndex < todasLasEncuestas.size - 1) {
             currentIndex++
-            Log.i("alvaraNextEncuesta", "CurrentIndex después de ++: " + currentIndex.toString())
             currentEncuesta = todasLasEncuestas[currentIndex]
-            Log.i("alvaraNextEncuesta", "CurrentEncuestaId después de ++: " + currentEncuesta.encuestaAlimentoId.toString())
             encuestaAlimento = currentEncuesta // Actualizar encuestaAlimento
-            Log.i("alvaraNextEncuesta", "EncuestaAlimentoId: " + encuestaAlimento.encuestaAlimentoId.toString())
-            // Obtener los datos del alimento para la encuesta actual
-//            fetchAlimento(encuestaAlimento.encuestaAlimentoId)
-            // Actualizar la UI con la siguiente encuesta
             updateUIWithEncuestaAlimento(encuestaAlimento)
         }
     }
 
     // Actualizar la interfaz con los datos de la encuestaAlimento.
     private fun updateUIWithEncuestaAlimento(encuestaAlimento: EncuestaAlimento) {
-        Log.i("alvaraUpdateUI", "encuestaAlimentoId: " + encuestaAlimento.encuestaAlimentoId.toString())
-
         val alimento = alimentos.find { it.alimentoId == encuestaAlimento.alimentoId }
-        Log.i("alvaraUpdateUI", "alimento: " + alimento.toString())
         if (alimento != null) {
             binding.textViewNameAlimento.text = alimento.descripcion
-            val portions = DatosDatabase.portions.find { it.alimentoID == alimento.alimentoId }?.portions ?: emptyList()
-            setupSpinner(binding.spinnerPortion, portions, encuestaAlimento.portion)
-        }
-
-        setupSpinner(binding.spinnerPeriod, resources.getStringArray(R.array.Period).toList(), encuestaAlimento.period)
-        editText.setText(encuestaAlimento.frecuency.toString())
-
-        // Configurar los spinners y establecer los valores por defecto
-        setupSpinner(binding.spinnerPeriod, resources.getStringArray(R.array.Period).toList(), encuestaAlimento.period)
-        editText.setText(encuestaAlimento.frecuency.toString())
-
-        // Observadores para actualizar la base de datos cuando cambian los valores
-        binding.spinnerPortion.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                val selectedPortion = binding.spinnerPortion.selectedItem.toString()
-                if (currentEncuesta.portion != selectedPortion) {
-                    currentEncuesta.portion = selectedPortion
-                    encuestaAlimentoViewModel.update(currentEncuesta)
-                }
+            val images = DatosDatabase.getPortionImagesForAlimento(alimento.alimentoId)
+            if (images.size >= 2) {
+                imageViewPortionSmall.setImageResource(images[0])
+                imageViewPortionLarge.setImageResource(images[1])
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
+
+        setupSpinner(binding.spinnerPeriod, resources.getStringArray(R.array.Period).toList(), encuestaAlimento.period)
+        editText.setText(encuestaAlimento.frecuency.toString())
 
         binding.spinnerPeriod.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
@@ -193,15 +185,21 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     // Guardar los datos de la encuesta de alimentos en la base de datos.
     private fun saveEncuestaAlimento() {
         if (::currentEncuesta.isInitialized) {
-            val selectedPortion = binding.spinnerPortion.selectedItem.toString()
-            val selectedPeriod = binding.spinnerPeriod.selectedItem.toString()
-            val frecuency = editText.text.toString().toIntOrNull() ?: 0
+            val images = DatosDatabase.getPortionImagesForAlimento(currentEncuesta.alimentoId)
+            val index = if (selectedPortion == "Cuchara pequeña") 0 else 1 // Asumiendo que las imágenes están en orden de tamaño
 
-            currentEncuesta.portion = selectedPortion
-            currentEncuesta.period = selectedPeriod
-            currentEncuesta.frecuency = frecuency
+            // Obtener la descripción de la porción seleccionada (por ejemplo, "5gr", "15gr")
+            val portionDescription = DatosDatabase.portions.find { it.imgsPortions[index] == images[index] }?.portions?.get(index)
+
+            // Extraer el número de la descripción de la porción
+            val portionNumber = portionDescription?.let { extractNumber(it) }
+
+            currentEncuesta.portion =
+                (portionNumber ?: 0).toString() // Asignar el valor numérico de la porción seleccionada
+
+            currentEncuesta.period = binding.spinnerPeriod.selectedItem.toString()
+            currentEncuesta.frecuency = extractNumber(editText.text.toString()) // Obtener el número de frecuencia desde el EditText
             currentEncuesta.estado = "COMPLETADA"
-
             encuestaAlimentoViewModel.update(currentEncuesta)
         } else {
             Log.e("NuevaEncuestaAlimentoFragment", "La encuesta actual no está inicializada")
@@ -210,7 +208,6 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
 
     // Configura un spinner con los elementos proporcionados y establece un valor por defecto si es necesario.
     private fun setupSpinner(spinner: Spinner, items: List<String>, defaultValue: String? = null) {
-        Log.i("XX", "setupSpinner")
         val adapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
@@ -223,6 +220,16 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
             val defaultPosition = items.indexOf(defaultValue)
             if (defaultPosition >= 0) {
                 spinner.setSelection(defaultPosition)
+            }
+        }
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                // Aquí puedes manejar la lógica de selección del spinner si es necesario
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // No se seleccionó nada en el spinner
             }
         }
     }
@@ -251,5 +258,22 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
 
     private fun updateFrecuencyEditText(frecuency: Int) {
         editText.setText(frecuency.toString())
+    }
+    // Función para resaltar la selección de porción (imagen)
+    private fun highlightSelection(selectedFrame: FrameLayout, selectedImageView: ImageView) {
+        imageViewPortionSmall.alpha = 0.5f
+        imageViewPortionLarge.alpha = 0.5f
+        selectedImageView.alpha = 1.0f
+
+        previousSelectedFrame?.setBackgroundResource(R.drawable.default_background)
+        selectedFrame.setBackgroundResource(R.drawable.border)
+
+        previousSelectedFrame = selectedFrame
+    }
+
+    fun extractNumber(input: String): Int {
+        val regex = Regex("^[0-9]+") // Expresión regular para encontrar solo los números al inicio del texto
+        val matchResult = regex.find(input)
+        return matchResult?.value?.toIntOrNull() ?: 0 // Devolver el valor encontrado como entero o 0 si no se encontraron números
     }
 }
