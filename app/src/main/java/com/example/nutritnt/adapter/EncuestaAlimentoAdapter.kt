@@ -7,7 +7,7 @@ import com.example.nutritnt.R
 import com.example.nutritnt.database.entities.EncuestaAlimento
 import com.example.nutritnt.viewmodel.AlimentoViewModel
 
-class EncuestaAlimentoAdapter(private val alimentoViewModel: AlimentoViewModel, private val navigateToDetail: (Int) -> Unit) : RecyclerView.Adapter<EncuestaAlimentoViewHolder>() {
+class EncuestaAlimentoAdapter(private val alimentoViewModel: AlimentoViewModel, private val navigateToDetail: (Int, Int) -> Unit) : RecyclerView.Adapter<EncuestaAlimentoViewHolder>() {
 
     private var encuestas_alimentos = emptyList<EncuestaAlimento>() // Copia cache de las encuestas
 
