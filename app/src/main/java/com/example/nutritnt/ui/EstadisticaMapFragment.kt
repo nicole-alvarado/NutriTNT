@@ -54,8 +54,8 @@ class EstadisticaMapFragment : Fragment(), OnMapReadyCallback {
 
         legendContainer = binding.leyendEstadisticaMapContainer
 
-        binding.buttonInicio.setOnClickListener(){
-            findNavController().navigate(R.id.action_estadisticaMapFragment_to_welcomeFragment)
+        binding.buttonBackMenu.setOnClickListener{
+            findNavController().navigate(com.example.nutritnt.R.id.action_estadisticaMapFragment_to_menuEstadisticasFragment)
         }
 
 

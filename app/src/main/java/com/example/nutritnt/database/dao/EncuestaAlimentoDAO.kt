@@ -52,7 +52,7 @@ interface EncuestaAlimentoDAO {
         SELECT ea.* 
         FROM tabla_encuesta_alimento ea
         INNER JOIN tabla_encuesta eg ON ea.encuestaId = eg.encuestaId
-        WHERE eg.zona = :zona
+        WHERE eg.zona = :zona AND ea.estado="COMPLETADA"
     """)
     suspend fun getEncuestasAlimentosConInfo(zona: String): List<EncuestaAlimento_AlimentoInformacionNutricional>
 

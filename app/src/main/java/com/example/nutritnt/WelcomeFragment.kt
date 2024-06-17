@@ -51,7 +51,7 @@ class WelcomeFragment : Fragment() {
             }
 
             binding.buttonEstadisticas.setOnClickListener{
-                findNavController().navigate(R.id.action_welcomeFragment_to_estadisticaFragment)
+                findNavController().navigate(R.id.action_welcomeFragment_to_menuEstadisticasFragment)
             }
 
             return view

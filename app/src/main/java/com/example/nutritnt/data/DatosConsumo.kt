@@ -27,9 +27,11 @@ public class DatosConsumo {
             //se calcula la cantidad consumida / 100 (los 100gr por default de InfoNutricional) y se multiplica por el item
             for (alimentoConInfo in encuestasAlimentos) {
 
+                Log.i("alimentoConInfoDC", alimentoConInfo.toString())
+
                 val frecuenciaAjustada = when (periodo) {
                     "dia" -> {
-                        when (alimentoConInfo.encuestaAlimento.period) {
+                        when (alimentoConInfo.encuestaAlimento.period.lowercase()) {
                             "dia" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat()
                             "semana" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() / 7
                             "mes" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() / 31
@@ -38,7 +40,7 @@ public class DatosConsumo {
                         }
                     }
                     "semana" -> {
-                        when (alimentoConInfo.encuestaAlimento.period) {
+                        when (alimentoConInfo.encuestaAlimento.period.lowercase()) {
                             "dia" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() * 7
                             "semana" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat()
                             "mes" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() / 4  // Suponiendo 4 semanas por mes
@@ -48,7 +50,7 @@ public class DatosConsumo {
                     }
 
                     "mes" -> {
-                        when (alimentoConInfo.encuestaAlimento.period) {
+                        when (alimentoConInfo.encuestaAlimento.period.lowercase()) {
                             "dia" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() * 31
                             "semana" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() * 4  // Suponiendo 4 semanas por mes
                             "mes" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat()
@@ -58,7 +60,7 @@ public class DatosConsumo {
                     }
 
                     "año" -> {
-                        when (alimentoConInfo.encuestaAlimento.period) {
+                        when (alimentoConInfo.encuestaAlimento.period.lowercase()) {
                             "dia" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() * 365
                             "semana" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() * 52 // Suponiendo 52 semanas por año
                             "mes" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() * 12
@@ -72,7 +74,7 @@ public class DatosConsumo {
                 }
 
 
-
+                Log.i("DatosConsumoFrecuency", "frec. ajustada $frecuenciaAjustada")
 
                 val cantidad = alimentoConInfo.encuestaAlimento.portion.toInt() * frecuenciaAjustada
                 val info = alimentoConInfo.alimentoInformacionNutricional.informacionNutricional

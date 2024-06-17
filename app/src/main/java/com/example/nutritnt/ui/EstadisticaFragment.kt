@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.nutritnt.data.Consumo
 import com.example.nutritnt.data.DatosConsumo
 import com.example.nutritnt.database.relations.EncuestaAlimento_AlimentoInformacionNutricional
@@ -45,6 +46,9 @@ class EstadisticaFragment : Fragment() {
     private val alimentoViewModel: AlimentoViewModel by viewModels()
     private lateinit var pieChart: PieChart
     private lateinit var binding: FragmentEstadisticaBinding
+    private lateinit var totalPorZona: List<Consumo>
+    private var periodoSelected: String = "dia"
+    private var zonaSelected: String = "Todas"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,117 +65,94 @@ class EstadisticaFragment : Fragment() {
         binding = FragmentEstadisticaBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        // Inicializa las selecciones por defecto
+        periodoSelected = "Dia"
+        zonaSelected = "Todas"
 
-        //actualizarGrafico("dia")
-
-        val entries = mutableListOf<PieEntry>(
-            PieEntry(40f, "Zonita 1"),
-            PieEntry(30f, "Zonita 2"),
-            PieEntry(20f, "Zonita 3"),
-            PieEntry(10f, "Zonita 4"),
-            PieEntry(10f, "Zonita 5"),
-            PieEntry(10f, "Zonita 6"),
-            PieEntry(10f, "Zonita 7")
-        )
-
-        val zonas = listOf("Zona 1", "Zona 2", "Zona 3", "Zona 4")
-      //  llenarGrafico(entries, zonas)
-        createLegend(binding.containerCardView, entries, zonas)
+        // Configura los spinners
+        val zonas = listOf("Todas", "Zona 1", "Zona 2", "Zona 3", "Zona 4")
+        val periods = listOf("Dia", "Semana", "Mes", "Año")
 
         val spinner: Spinner = binding.spinnerPeriod
-        val periods= listOf("Dia", "Semana", "Mes", "Año") // Ejemplo de lista de opciones para el selector
         val adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, periods)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
 
-        // Configurar el listener para el selector
+        val spinnerZonas: Spinner = binding.spinnerZona
+        val adapterZonas = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, zonas)
+        adapterZonas.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerZonas.adapter = adapterZonas
+
+        // Configura los listeners para los spinners
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val periodSelected = periods[position]
-                // llamada a la función para actualizar el gráfico con los datos del periodo seleccionado
-               // actualizarGrafico(periodSelected.lowercase())
+                periodoSelected = periods[position]
+                actualizarGrafico()
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                // No se seleccionó nada
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        spinnerZonas.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                zonaSelected = zonas[position]
+                actualizarGrafico()
             }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        // Configura el observador una vez
+        encuestaAlimentoViewModel.encuestasAlimentosConInfo.observe(viewLifecycleOwner, Observer { dataMap ->
+            dataMap?.let {
+                actualizarDatos(dataMap)
+            }
+        })
+
+        binding.buttonBackMenu.setOnClickListener{
+            findNavController().navigate(com.example.nutritnt.R.id.action_estadisticaFragment_to_menuEstadisticasFragment)
         }
 
         return view
-
     }
 
-    private fun actualizarGrafico(periodo: String){
-
+    // Actualiza el gráfico con los datos actuales
+    private fun actualizarGrafico() {
+        // Llama a la función para actualizar los datos del ViewModel si es necesario
         lifecycleScope.launch {
-            // Recorrer el array de zonas
-            var valorX = 0f
-            var otroValorX = 0f
-            val entries: MutableList<BarEntry> = ArrayList()
-            var totalConsumoGrasas = 0f
-
-
+            // Suponiendo que este método es necesario para cargar los datos
             alimentoViewModel.cargarAlimentosConInformacionNutricional()
 
-            // Acceder a los datos cargados cuando sea necesario
-            val alimentosConInfo = alimentoViewModel.alimentosConInfoNutricional
-
             val listadoZonas = encuestaViewModel.obtenerZonasDistintas()
-
-            var observadorEjecutado = false
-
-            // Llamar al método con la lista de zonas
             encuestaAlimentoViewModel.fetchEncuestasAlimentosConInfo(listadoZonas)
+        }
+    }
 
-            // Observar el LiveData una vez
-            encuestaAlimentoViewModel.encuestasAlimentosConInfo.observe(viewLifecycleOwner, Observer<Map<String, List<EncuestaAlimento_AlimentoInformacionNutricional>>> { dataMap ->
-                if(!observadorEjecutado) {
-                    dataMap?.let {
-                        Log.i("xmlEstadisticas", listadoZonas.toString())
-                        listadoZonas.forEach { zona ->
-                            val encuestas = dataMap[zona] ?: emptyList()
-                            val totalPorZona: Float = DatosConsumo.obtenerDatosPorPeriodo(encuestas, periodo)
-                                .toFloat()
-
-                            Log.i(
-                                "xmlEstadisticas",
-                                "valorX " + valorX + " zona " + zona + "listado" + encuestas.toString() + " total " + totalPorZona
-                            )
-
-                            totalConsumoGrasas += totalPorZona
-
-                            entries.add(BarEntry(valorX, totalPorZona))
-
-
-
-                            valorX += 1f
-                            otroValorX += 10f
-                        }
-                    }
-                }
-                observadorEjecutado = true;
-                Log.i("entries", entries.toString())
-            //    llenarGrafico(entries, listadoZonas)
-             //   "${"%.2f".format(totalConsumoGrasas)} gr".also { binding.textTotalConsumoGrasas.text = it }
-            })
-
-
+    // Actualiza los datos y el gráfico
+    private fun actualizarDatos(dataMap: Map<String, List<EncuestaAlimento_AlimentoInformacionNutricional>>) {
+        val encuestasFiltradas: List<EncuestaAlimento_AlimentoInformacionNutricional> = if (zonaSelected == "Todas") {
+            dataMap.values.flatten()
+        } else {
+            dataMap[zonaSelected] ?: emptyList()
         }
 
+        if (dataMap.isNotEmpty()) {
+            val totalPorZona = DatosConsumo.calcularValoresNutricionales(encuestasFiltradas, periodoSelected.lowercase())
+            createLegend(binding.containerCardView, totalPorZona, zonaSelected)
         }
-
+    }
 
 
     private fun createLegend(
         legendContainer: LinearLayout,
-        entries: MutableList<PieEntry>,
-        zonas: List<String>
+        entries: List<Consumo>,
+        zona: String
     ) {
         legendContainer.removeAllViews() // Limpiar vistas anteriores si es necesario
         val inflater = LayoutInflater.from(legendContainer.context)
 
         // Iterar sobre las zonas para crear una CardView por zona
-        for (zona in zonas) {
+
             // Inflar la CardView principal por cada zona
             val legendZone: View = inflater.inflate(
                 com.example.nutritnt.R.layout.cardview_estadisticas_items,
@@ -201,9 +182,9 @@ class EstadisticaFragment : Fragment() {
                 val infoGramos = legendItem.findViewById<TextView>(com.example.nutritnt.R.id.informacion_gramos)
 
                 // Configurar los datos de la entry en los TextViews
-                labelItem.text = entry.label
-                infoPorcentaje.text = "${4f}%" // Configurar porcentaje
-                infoGramos.text = "${3f}gr" // Configurar gramos
+                labelItem.text = entry.descripcion
+                infoPorcentaje.text = "${entry.porcentaje}%" // Configurar porcentaje
+                infoGramos.text = "${entry.gramos}gr" // Configurar gramos
 
                 // Agregar el item de leyenda al contenedor dentro de la CardView
                 legendItemContainer.addView(legendItem)
@@ -211,7 +192,7 @@ class EstadisticaFragment : Fragment() {
 
             // Agregar la CardView completa (con todas sus entradas de leyenda) a legendContainer
             legendContainer.addView(legendZone)
-        }
+
     }
 
 
