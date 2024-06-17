@@ -13,17 +13,21 @@
         android:id="@+id/text_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Estadisticas"
+        android:text="Estadisticas Generales"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"/>
 
-    <Button
-        android:id="@+id/buttonmap"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/text_periodo"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="mapita"/>
+        android:text="Seleccionar Periodo:"
+        android:textSize="16sp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"/>
 
 
 
@@ -38,28 +42,10 @@
         android:background="@drawable/spinner_arrow"
         />
 
-    <!-- Consumo de grasas totales -->
-    <TextView
-        android:id="@+id/text_consumo_grasas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Consumo de grasas totales \nen el periodo seleccionado:"
-        android:textSize="16sp"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp"/>
-
-    <TextView
-        android:id="@+id/text_total_consumo_grasas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="26sp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp"/>
 
     <!-- Gráfico de barras -->
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/bar_chart"
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pie_chart"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
         android:layout_height="0dp"
