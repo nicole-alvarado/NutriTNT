@@ -6,7 +6,7 @@ import com.example.nutritnt.database.entities.EncuestaAlimento
 import com.example.nutritnt.database.entities.Encuestador
 import com.example.nutritnt.database.entities.Zona
 
-data class Portion(val portions: List<String>, val imgsPortions: List<Int>, val alimentoID: Int)
+data class Portion(val portions: Map<Char, String>, val imgsPortions: List<Int>, val alimentoID: Int)
 
 class DatosDatabase {
 
@@ -54,36 +54,38 @@ class DatosDatabase {
         )
 
         val portions = listOf(
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 1),      //Leche en polvo entera
-            Portion(listOf("100ml","350ml"), listOf(R.drawable.taza100mlq, R.drawable.taza350mlq), 2),      //Leche fluida entera
-            Portion(listOf("100gr","185gr"), listOf(R.drawable.yogur100mgq, R.drawable.yogur185mgq), 3),      //Yogur entero bebible
-            Portion(listOf("15gr","35gr"), listOf(R.drawable.quesopd_op1, R.drawable.quesopd_op2), 4),      //Queso De pasta dura (ej. Sardo, Romano, Provolone, Reggianito, Parmesano)
-            Portion(listOf("15gr","35gr"), listOf(R.drawable.quesosm_op1, R.drawable.quesosm_op2), 5),      //Queso De pasta semidura/azul (ej. Holanda, Gouda, Fontina, Pategras, Dambo)
-            Portion(listOf("20gr","35gr"), listOf(R.drawable.manteca20gr, R.drawable.manteca35gr), 6),      //Manteca
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 7),      //Huevo De gallina entero crudo-hervido- poché
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 8),      //Huevo De gallina entero frito
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 9),      //Carne Vacuna magra (ej. bola de lomo, colita de cuadril, cuadril, nalga, tapa de nalga, paleta, cuadrada, peceto, tortuguita y vacío)
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 10),     //Carne Vacuna cortes grasos (ej. aguja, bife ancho y angosto, cogote, asado, costillar, entraña, osobuco, matambre, palomita)
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 11),     //Carne picada
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 12),     //Salchichas
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 13),     //Salame-salamín-chorizo seco-longaniza
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 14),     //Mortadela
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 15),     //Papas fritas caseras
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 16),     //Pizza
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 17),     //Empanadas de carne fritas
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 18),     //Empanadas de carne
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 19),     //Pastel de papas
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 20),     //Puchero
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 21),     //Banana
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 22),     //Durazno
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 23),     //Manzana
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 24),     //Aguas saborizadas clásicas
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 25),     //Bebidas deportivas y energizantes
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 26),     //Gaseosas clásicas
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 27),     //Vino
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 28),     //Cerveza o aperitivos
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 29),     //Licor
-            Portion(listOf("5gr","15gr"), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 30),     //Bebidas blancas
+            Portion(mapOf('A' to "2gr",'B' to "5gr",'C' to "10gr",'D' to "15gr",'E' to "25gr" ), listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 1),      //Leche en polvo entera
+            Portion(mapOf('A' to "30ml", 'B' to "100ml", 'C' to "150ml", 'D' to "350ml", 'E' to "500ml"), listOf(R.drawable.taza100mlq, R.drawable.taza350mlq), 2),      //Leche fluida entera
+            Portion(mapOf('A' to "30gr", 'B' to "100gr",'C' to "150gr", 'D' to "185gr", 'E' to "250gr"), listOf(R.drawable.yogur100mgq, R.drawable.yogur185mgq), 3),      //Yogur entero bebible
+            Portion(mapOf('A' to "2gr",'B' to "15gr", 'C' to "20gr",'D' to "35gr", 'E' to "50gr"), listOf(R.drawable.quesopd_op1, R.drawable.quesopd_op2), 4),      //Queso De pasta dura (ej. Sardo, Romano, Provolone, Reggianito, Parmesano)
+            Portion(mapOf('A' to "2gr",'B' to "15gr", 'C' to "20gr",'D' to "35gr", 'E' to "50gr"), listOf(R.drawable.quesosm_op1, R.drawable.quesosm_op2), 5),      //Queso De pasta semidura/azul (ej. Holanda, Gouda, Fontina, Pategras, Dambo)
+            Portion(mapOf('A' to "8gr",'B' to "20gr", 'C' to "25gr",'D' to "35gr", 'E' to "50gr"), listOf(R.drawable.manteca20gr, R.drawable.manteca35gr), 6),      //Manteca
+
+            Portion(mapOf('A' to "100gr",'B' to "300gr",'C' to "450gr",'D' to "600gr",'E' to "1200gr" ), listOf(R.drawable.huvoscrudos300gr, R.drawable.huevoscrudos600gr), 7),      //Huevo De gallina entero crudo-hervido- poché
+            Portion(mapOf('A' to "100gr",'B' to "300gr",'C' to "450gr",'D' to "600gr",'E' to "1200gr" ), listOf(R.drawable.huvosfritos300gr, R.drawable.huevosfritas600gr), 8),      //Huevo De gallina entero frito
+            Portion(mapOf('A' to "100gr",'B' to "300gr",'C' to "450gr",'D' to "800gr",'E' to "1200gr"), listOf(R.drawable.carnemagra300gr, R.drawable.carnemagra800gr), 9),      //Carne Vacuna magra (ej. bola de lomo, colita de cuadril, cuadril, nalga, tapa de nalga, paleta, cuadrada, peceto, tortuguita y vacío)
+            Portion(mapOf('A' to "100gr",'B' to "250gr",'C' to "350gr",'D' to "400gr",'E' to "800gr"), listOf(R.drawable.carnegrasa250gr, R.drawable.carnegrasa400gr), 10),     //Carne Vacuna cortes grasos (ej. aguja, bife ancho y angosto, cogote, asado, costillar, entraña, osobuco, matambre, palomita)
+            Portion(mapOf('A' to "100gr",'B' to "150gr",'C' to "350gr",'D' to "400gr",'E' to "900gr"), listOf(R.drawable.carnepicada150gr, R.drawable.carnepicada400gr), 11),     //Carne picada
+            Portion(mapOf('A' to "40gr",'B' to "120gr",'C' to "200gr",'D' to "240gr",'E' to "350gr"), listOf(R.drawable.salchichas120gr, R.drawable.salchichas240gr), 12),     //Salchichas
+            Portion(mapOf('A' to "100gr",'B' to "150gr",'C' to "200gr",'D' to "250gr",'E' to "600gr"), listOf(R.drawable.salame150gr, R.drawable.salame250gr), 13),     //Salame-salamín-chorizo seco-longaniza
+            Portion(mapOf('A' to "100gr",'B' to "150gr",'C' to "200gr",'D' to "250gr",'E' to "600gr"), listOf(R.drawable.mortadela150gr, R.drawable.mortadela250gr), 14),     //Mortadela
+            Portion(mapOf('A' to "100gr",'B' to "150gr",'C' to "250gr",'D' to "350gr",'E' to "600gr"), listOf(R.drawable.papasfritascaseras150gr, R.drawable.papasfritascaseras350gr), 15),     //Papas fritas caseras
+            Portion(mapOf('A' to "100gr",'B' to "250gr",'C' to "400gr",'D' to "500gr",'E' to "800gr"), listOf(R.drawable.pizza250gr, R.drawable.pizza500gr), 16),     //Pizza
+            Portion(mapOf('A' to "100gr",'B' to "300gr",'C' to "450gr",'D' to "600gr",'E' to "1200gr"), listOf(R.drawable.empanadasfritascarne_300gr, R.drawable.empanadasfritascarne_600gr), 17),     //Empanadas de carne fritas
+            Portion(mapOf('A' to "100gr",'B' to "240gr",'C' to "350gr",'D' to "480gr",'E' to "600gr"), listOf(R.drawable.empanadascarne_240gr, R.drawable.empanadascarne_480gr), 18),     //Empanadas de carne
+
+            Portion(mapOf('A' to "100gr",'B' to "300gr",'C' to "450gr",'D' to "600gr",'E' to "1200gr"),listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 19),     //Pastel de papas
+            Portion(mapOf('A' to "100gr",'B' to "300gr",'C' to "450gr",'D' to "600gr",'E' to "1200gr"),listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 20),     //Puchero
+            Portion(mapOf('A' to "100gr",'B' to "300gr",'C' to "450gr",'D' to "600gr",'E' to "1200gr"),listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 21),     //Banana
+            Portion(mapOf('A' to "100gr",'B' to "300gr",'C' to "450gr",'D' to "600gr",'E' to "1200gr"),listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 22),     //Durazno
+            Portion(mapOf('A' to "100gr",'B' to "300gr",'C' to "450gr",'D' to "600gr",'E' to "1200gr"),listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 23),     //Manzana
+            Portion(mapOf('A' to "100gr",'B' to "300gr",'C' to "450gr",'D' to "600gr",'E' to "1200gr"),listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 24),     //Aguas saborizadas clásicas
+            Portion(mapOf('A' to "100gr",'B' to "300gr",'C' to "450gr",'D' to "600gr",'E' to "1200gr"),listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 25),     //Bebidas deportivas y energizantes
+            Portion(mapOf('A' to "100gr",'B' to "300gr",'C' to "450gr",'D' to "600gr",'E' to "1200gr"),listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 26),     //Gaseosas clásicas
+            Portion(mapOf('A' to "100gr",'B' to "300gr",'C' to "450gr",'D' to "600gr",'E' to "1200gr"),listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 27),     //Vino
+            Portion(mapOf('A' to "100gr",'B' to "300gr",'C' to "450gr",'D' to "600gr",'E' to "1200gr"),listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 28),     //Cerveza o aperitivos
+            Portion(mapOf('A' to "100gr",'B' to "300gr",'C' to "450gr",'D' to "600gr",'E' to "1200gr"),listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 29),     //Licor
+            Portion(mapOf('A' to "100gr",'B' to "300gr",'C' to "450gr",'D' to "600gr",'E' to "1200gr"),listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 30),     //Bebidas blancas
 
 
             )

@@ -189,7 +189,7 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
             val index = if (selectedPortion == "Cuchara pequeña") 0 else 1 // Asumiendo que las imágenes están en orden de tamaño
 
             // Obtener la descripción de la porción seleccionada (por ejemplo, "5gr", "15gr")
-            val portionDescription = DatosDatabase.portions.find { it.imgsPortions[index] == images[index] }?.portions?.get(index)
+            val portionDescription = DatosDatabase.portions.find { it.imgsPortions[index] == images[index] }?.portions?.get('A')
 
             // Extraer el número de la descripción de la porción
             val portionNumber = portionDescription?.let { extractNumber(it) }
