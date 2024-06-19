@@ -3,6 +3,7 @@ package com.example.nutritnt.database
 import androidx.lifecycle.LiveData
 import com.example.nutritnt.database.dao.EncuestaDAO
 import com.example.nutritnt.database.entities.Encuesta
+import com.example.nutritnt.database.entities.EncuestaAlimento
 
 class RepositorioDeEncuestas (private val encuestaDAO: EncuestaDAO) {
     // LiveData observada va a notificar a sus observadores cuando los datos cambien.
@@ -30,5 +31,9 @@ class RepositorioDeEncuestas (private val encuestaDAO: EncuestaDAO) {
 
     suspend fun obtenerIdEncuestaPorCodigo(codigo: String): Int? {
         return encuestaDAO.getIdByCodigo(codigo)
+    }
+
+    fun getEncuestaById(id: Int): LiveData<Encuesta>{
+        return encuestaDAO.getEncuestaById(id)
     }
 }

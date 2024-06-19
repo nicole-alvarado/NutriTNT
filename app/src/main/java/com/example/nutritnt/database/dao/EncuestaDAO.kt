@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.example.nutritnt.database.entities.Alimento
 import com.example.nutritnt.database.entities.Encuesta
 
 @Dao
@@ -44,5 +45,12 @@ interface EncuestaDAO {
 
     @Query("SELECT encuestaId FROM tabla_encuesta WHERE codigoParticipante = :codigo")
     suspend fun getIdByCodigo(codigo: String): Int?
+
+    @Query("""
+        SELECT e.*
+        FROM tabla_encuesta e
+        WHERE e.encuestaId = :encuestaGeneralId
+    """)
+    fun getEncuestaById(encuestaGeneralId: Int): LiveData<Encuesta>
 
 }

@@ -95,22 +95,14 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun actualizarYNavegar(encuesta: Encuesta) {
-
         // Llamar a la función update del ViewModel en una corrutina
         lifecycleScope.launch {
-            val actualizacionExitosa =  encuestaViewModel.update(encuesta)
-
-            // Verificar si la actualización fue exitosa antes de navegar
-            if (actualizacionExitosa) {
-                // Realizar la navegación usando el componente de navegación
-                //findNavController().navigate(UbicacionConsumidorFragmentDirections.actionUbicacionConsumidorFragmentToNewEncuestaFragment(encuestaGeneral.encuestaId))
-                findNavController().navigate(UbicacionConsumidorFragmentDirections.actionUbicacionConsumidorFragmentToListEncuestasAlimentosFragment(encuestaGeneral.encuestaId))
-            } else {
-                // Manejar el caso donde la actualización falló, si es necesario
-                Toast.makeText(requireContext(), "Error al actualizar", Toast.LENGTH_SHORT).show()
-            }
+            encuestaViewModel.update(encuesta)
+            // Realizar la navegación usando el componente de navegación
+            findNavController().navigate(UbicacionConsumidorFragmentDirections.actionUbicacionConsumidorFragmentToListEncuestasAlimentosFragment(encuesta.encuestaId))
         }
     }
+
 
     override fun onMapReady(map: GoogleMap) {
         googleMap = map

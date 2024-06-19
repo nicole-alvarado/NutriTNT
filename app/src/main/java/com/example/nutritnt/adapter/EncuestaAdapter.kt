@@ -9,7 +9,6 @@ import com.example.nutritnt.database.entities.Encuesta
 class EncuestaAdapter(private val navigateToDetail: (Int) -> Unit) : RecyclerView.Adapter<EncuestaViewHolder>(){
     private var encuestas = emptyList<Encuesta>() // Copia cache de las encuestas
     private var ultimaEncuestaId: Int? = null
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EncuestaViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return EncuestaViewHolder(layoutInflater.inflate(R.layout.item_encuesta_general, parent, false), navigateToDetail)

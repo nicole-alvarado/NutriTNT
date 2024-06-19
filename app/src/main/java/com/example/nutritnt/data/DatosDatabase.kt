@@ -12,10 +12,10 @@ class DatosDatabase {
 
     companion object{
         val datosConsumoYogur = listOf(
-            EncuestaAlimento(1,  "100",  "semana",  1, 1,1,"Finalizada"),
-            EncuestaAlimento( 2,  "200",  "semana",  1, 2,1,"Finalizada"),
-            EncuestaAlimento( 3,  "275",  "mes",  2, 3,1,"Finalizada"),
-            EncuestaAlimento( 4,  "100",  "dia",  4, 4,1,"Finalizada"),
+            EncuestaAlimento(1,  "100",  "semana",  1, 1,1,"NO COMPLETADA"),
+            EncuestaAlimento( 2,  "200",  "semana",  1, 1,2,"NO COMPLETADA"),
+            EncuestaAlimento( 3,  "275",  "mes",  2, 1,3,"NO COMPLETADA"),
+            EncuestaAlimento( 4,  "100",  "dia",  4, 1,4,"NO COMPLETADA"),
             EncuestaAlimento( 5,  "200",  "semana",  2, 5,1,"Finalizada"),
             EncuestaAlimento( 6,  "275",  "dia",  1, 6,1,"Finalizada"),
             EncuestaAlimento( 7,  "100",  "mes",  3, 7,1,"Finalizada"),

@@ -1,9 +1,12 @@
 package com.example.nutritnt.viewmodel
 
 import android.app.Application
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.nutritnt.database.EncuestaRoomDatabase
 import com.example.nutritnt.database.RepositorioDeEncuestasAlimento
@@ -23,6 +26,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
+import androidx.fragment.app.viewModels
 
 
 class EncuestaAlimentoViewModel(application: Application) : AndroidViewModel(application) {
@@ -42,7 +46,6 @@ class EncuestaAlimentoViewModel(application: Application) : AndroidViewModel(app
 
     private val _encuestaAlimentosWithAlimentoAndInfo = MutableLiveData<List<EncuestaAlimento_AlimentoInformacionNutricional>>(emptyList())
     val encuestaAlimentosWithAlimentoAndInfo: LiveData<List<EncuestaAlimento_AlimentoInformacionNutricional>> = _encuestaAlimentosWithAlimentoAndInfo
-
 
     init {
         val encuestasAlimentoDao = EncuestaRoomDatabase
@@ -127,8 +130,6 @@ class EncuestaAlimentoViewModel(application: Application) : AndroidViewModel(app
             _encuestaAlimentos.value = alimentos
         }
     }
-
-
 
     suspend fun safeInsertMultiple(
         encuestasGeneral: List<Encuesta>,

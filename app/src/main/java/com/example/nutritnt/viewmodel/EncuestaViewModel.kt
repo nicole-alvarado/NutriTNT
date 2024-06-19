@@ -10,6 +10,7 @@ import com.example.nutritnt.database.RepositorioDeEncuestas
 import com.example.nutritnt.database.entities.Encuesta
 import androidx.lifecycle.viewModelScope
 import com.example.nutritnt.database.entities.Alimento
+import com.example.nutritnt.database.entities.EncuestaAlimento
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -40,13 +41,10 @@ class EncuestaViewModel (application: Application) : AndroidViewModel(applicatio
         repositorio.insertar(encuesta)
     }
 
-    suspend fun update(encuesta: Encuesta): Boolean {
-        return withContext(Dispatchers.IO) {
-            repositorio.actualizar(encuesta)
-            // Aquí puedes verificar si la actualización fue exitosa y devolver true/false
-            true // Por ejemplo, siempre asumimos que la actualización fue exitosa
-        }
+    fun update(encuesta: Encuesta) = viewModelScope.launch(Dispatchers.IO) {
+        repositorio.actualizar(encuesta)
     }
+
     suspend fun obtenerZonasDistintas(): List<String> {
         return repositorio.getZonas()
     }
@@ -61,6 +59,9 @@ class EncuestaViewModel (application: Application) : AndroidViewModel(applicatio
         }
     }
 
+    fun getEncuestaById(id: Int): LiveData<Encuesta>{
+        return repositorio.getEncuestaById(id)
+    }
 
 
 }
