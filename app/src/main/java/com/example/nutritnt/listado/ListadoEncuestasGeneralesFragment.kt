@@ -79,7 +79,7 @@ class ListadoEncuestasGeneralesFragment : Fragment() {
         val recyclerView = binding.recyclerViewEncuesta
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = EncuestaAdapter { encuestaId ->
-            val action = ListadoEncuestasGeneralesFragmentDirections.actionListEncuestasFragmentToListEncuestasAlimentosFragment(encuestaId)
+            val action = ListadoEncuestasGeneralesFragmentDirections.actionListEncuestasFragmentToEncuestaGeneralOpcionesFragment(encuestaId)
             findNavController().navigate(action)
         }
         recyclerView.adapter = adapter

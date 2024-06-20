@@ -23,8 +23,8 @@
             android:id="@+id/action_listEncuestasFragment_to_detailEncuestaFragment"
             app:destination="@id/detailEncuestaFragment" />
         <action
-            android:id="@+id/action_listEncuestasFragment_to_listEncuestasAlimentosFragment"
-            app:destination="@id/listEncuestasAlimentosFragment" />
+            android:id="@+id/action_listEncuestasFragment_to_encuestaGeneralOpcionesFragment"
+            app:destination="@id/encuestaGeneralOpcionesFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailEncuestaFragment"
@@ -161,5 +161,17 @@
         <action
             android:id="@+id/action_menuEstadisticasFragment_to_welcomeFragment"
             app:destination="@id/welcomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/encuestaGeneralOpcionesFragment"
+        android:name="com.example.nutritnt.ui.encuesta.EncuestaGeneralOpcionesFragment"
+        android:label="fragment_encuesta_general_opciones"
+        tools:layout="@layout/fragment_encuesta_general_opciones" >
+        <action
+            android:id="@+id/action_encuestaGeneralOpcionesFragment_to_listEncuestasAlimentosFragment"
+            app:destination="@id/listEncuestasAlimentosFragment" />
+        <argument
+            android:name="encuestaId"
+            app:argType="integer" />
     </fragment>
 </navigation>
