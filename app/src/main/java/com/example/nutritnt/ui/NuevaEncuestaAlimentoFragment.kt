@@ -14,6 +14,7 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -129,6 +130,10 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         // Botón para guardar la encuestaAlimento y navegar al listado de encuestas alimentos
         binding.buttonRegistrar.setOnClickListener {
             saveEncuestaAlimento()
+            Toast.makeText(context, "¡Guardado con éxito!", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.buttonVolverListado?.setOnClickListener{
             findNavController().navigate(NuevaEncuestaAlimentoFragmentDirections.actionNewEncuestaFragmentToListEncuestasAlimentosFragment(encuestaAlimento.encuestaId))
         }
     }

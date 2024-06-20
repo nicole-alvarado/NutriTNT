@@ -16,14 +16,14 @@ class DatosDatabase {
             EncuestaAlimento( 2,  "200",  "semana",  1, 1,2,"NO COMPLETADA"),
             EncuestaAlimento( 3,  "275",  "mes",  2, 1,3,"NO COMPLETADA"),
             EncuestaAlimento( 4,  "100",  "dia",  4, 1,4,"NO COMPLETADA"),
-            EncuestaAlimento( 5,  "200",  "semana",  2, 5,1,"Finalizada"),
-            EncuestaAlimento( 6,  "275",  "dia",  1, 6,1,"Finalizada"),
-            EncuestaAlimento( 7,  "100",  "mes",  3, 7,1,"Finalizada"),
-            EncuestaAlimento( 8,  "200",  "dia",  2, 8,1,"Finalizada"),
-            EncuestaAlimento( 9,  "275",  "semana",  4, 9,1,"Finalizada"),
-            EncuestaAlimento( 10,  "100",  "mes",  1, 10,1,"Finalizada"),
-            EncuestaAlimento( 11,  "200",  "dia",  3, 11,1,"Finalizada"),
-            EncuestaAlimento( 12,  "275",  "semana",  2, 12,1,"Finalizada"),
+            EncuestaAlimento( 5,  "200",  "semana",  2, 2,1,"COMPLETADA"),
+            EncuestaAlimento( 6,  "275",  "dia",  1, 2,2,"NO COMPLETADA"),
+            EncuestaAlimento( 7,  "100",  "mes",  3, 2,3,"NO COMPLETADA"),
+            EncuestaAlimento( 8,  "200",  "dia",  2, 4,1,"NO COMPLETADA"),
+            EncuestaAlimento( 9,  "275",  "semana",  4, 4,2,"COMPLETADA"),
+            EncuestaAlimento( 10,  "100",  "mes",  1, 4,3,"NO COMPLETADA"),
+            EncuestaAlimento( 11,  "200",  "dia",  3, 4,4,"NO COMPLETADA"),
+            EncuestaAlimento( 12,  "275",  "semana",  2, 4,5,"COMPLETADA"),
         )
 
         val encuestas = listOf(
