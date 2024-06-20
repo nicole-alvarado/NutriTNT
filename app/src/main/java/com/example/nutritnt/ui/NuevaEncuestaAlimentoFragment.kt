@@ -14,24 +14,31 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.nutritnt.R
 import com.example.nutritnt.data.DatosDatabase
 import com.example.nutritnt.database.entities.Alimento
+import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.database.entities.EncuestaAlimento
 import com.example.nutritnt.databinding.FragmentNuevaEncuestaAlimentoBinding
 import com.example.nutritnt.viewmodel.AlimentoViewModel
 import com.example.nutritnt.viewmodel.EncuestaAlimentoViewModel
+import com.example.nutritnt.viewmodel.EncuestaViewModel
+import kotlinx.coroutines.launch
 
 class NuevaEncuestaAlimentoFragment : Fragment() {
 
     private lateinit var binding: FragmentNuevaEncuestaAlimentoBinding
     private val encuestaAlimentoViewModel: EncuestaAlimentoViewModel by viewModels()
     private val alimentoViewModel: AlimentoViewModel by viewModels()
+    private val encuestaViewModel: EncuestaViewModel by viewModels()
+
 
     private val args: NuevaEncuestaAlimentoFragmentArgs by navArgs()
     private lateinit var editText: EditText
@@ -40,6 +47,7 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     private var valueFrecuency: Int = 0
 
     private lateinit var encuestaAlimento: EncuestaAlimento
+    private lateinit var encuestaGeneral: Encuesta
     private var currentIndex: Int = -1
     private lateinit var currentEncuesta: EncuestaAlimento
     private lateinit var todasLasEncuestas: List<EncuestaAlimento>
@@ -93,6 +101,12 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         // Obtener el id de la encuestaAlimento pasado al fragmento
         val encuestaAlimentoId = args.encuestaAlimentoId
 
+        // Obtener la encuesta general desde un principio
+        encuestaViewModel.getEncuestaById(args.encuestaGeneralId).observe(viewLifecycleOwner, Observer { encuesta ->
+            encuestaGeneral = encuesta
+            Log.i("PruebaVerificar", encuesta.toString())
+        })
+
         alimentoViewModel.todosLosAlimentos.observe(viewLifecycleOwner, Observer { alimentosList ->
             alimentos = alimentosList
             encuestaAlimentoViewModel.getEncuestasAlimentosByEncuestaId(args.encuestaGeneralId).observe(viewLifecycleOwner, Observer { encuestas ->
@@ -116,6 +130,10 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         // Botón para guardar la encuestaAlimento y navegar al listado de encuestas alimentos
         binding.buttonRegistrar.setOnClickListener {
             saveEncuestaAlimento()
+            Toast.makeText(context, "¡Guardado con éxito!", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.buttonVolverListado?.setOnClickListener{
             findNavController().navigate(NuevaEncuestaAlimentoFragmentDirections.actionNewEncuestaFragmentToListEncuestasAlimentosFragment(encuestaAlimento.encuestaId))
         }
     }
@@ -201,9 +219,36 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
             currentEncuesta.frecuency = extractNumber(editText.text.toString()) // Obtener el número de frecuencia desde el EditText
             currentEncuesta.estado = "COMPLETADA"
             encuestaAlimentoViewModel.update(currentEncuesta)
+
+            // Llamar a la función para verificar y finalizar la encuesta general si es necesario
+            verificarEstados(currentEncuesta)
+
         } else {
             Log.e("NuevaEncuestaAlimentoFragment", "La encuesta actual no está inicializada")
         }
+    }
+
+    // Verificar y actualizar el estado de las encuestas
+    private fun verificarEstados(encuestaAlimento: EncuestaAlimento) {
+        Log.i("PruebaVerificar", "Entro a verificar 1")
+        Log.i("PruebaVerificar", encuestaAlimento.toString())
+
+        // Usar todasLasEncuestas que ya has cargado
+        todasLasEncuestas?.let { encuestasAlimentos ->
+            Log.i("PruebaVerificar", encuestasAlimentos.toString())
+            if (encuestasAlimentos.all { it.estado == "COMPLETADA" }) {
+                Log.i("PruebaVerificar", "Entro a verificar 2")
+                updateEncuestaEstado()
+            }
+        }
+    }
+
+
+    // Actualizar el estado de la encuesta
+    private fun updateEncuestaEstado() {
+            encuestaGeneral.estado = "FINALIZADA"
+            encuestaViewModel.update(encuestaGeneral)
+            Log.i("PruebaVerificar", "Estado actualizado a FINALIZADA")
     }
 
     // Configura un spinner con los elementos proporcionados y establece un valor por defecto si es necesario.
