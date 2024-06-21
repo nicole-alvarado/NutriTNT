@@ -70,14 +70,14 @@
             android:orientation="vertical">
 
             <FrameLayout
-                android:id="@+id/frame_cuchara_pequena"
+                android:id="@+id/frameCucharaPequena"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:background="@drawable/default_background">
 
                 <ImageView
-                    android:id="@+id/cuchara_pequena"
+                    android:id="@+id/cucharaPequena"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_margin="8dp"
@@ -87,7 +87,7 @@
             </FrameLayout>
 
             <TextView
-                android:id="@+id/text_potion_pequena"
+                android:id="@+id/text_potionB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -103,14 +103,14 @@
             android:orientation="vertical">
 
             <FrameLayout
-                android:id="@+id/frame_cuchara_grande"
+                android:id="@+id/frameCucharaGrande"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:background="@drawable/default_background">
 
                 <ImageView
-                    android:id="@+id/cuchara_grande"
+                    android:id="@+id/cucharaGrande"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_margin="8dp"
@@ -120,7 +120,7 @@
             </FrameLayout>
 
             <TextView
-                android:id="@+id/text_portion_grande"
+                android:id="@+id/text_portionD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"

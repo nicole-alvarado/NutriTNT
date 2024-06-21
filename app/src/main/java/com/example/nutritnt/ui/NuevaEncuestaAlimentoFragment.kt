@@ -18,7 +18,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.nutritnt.R
@@ -30,7 +29,6 @@ import com.example.nutritnt.databinding.FragmentNuevaEncuestaAlimentoBinding
 import com.example.nutritnt.viewmodel.AlimentoViewModel
 import com.example.nutritnt.viewmodel.EncuestaAlimentoViewModel
 import com.example.nutritnt.viewmodel.EncuestaViewModel
-import kotlinx.coroutines.launch
 
 class NuevaEncuestaAlimentoFragment : Fragment() {
 
@@ -311,7 +309,7 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         selectedImageView.alpha = 1.0f
 
         previousSelectedFrame?.setBackgroundResource(R.drawable.default_background)
-        selectedFrame.setBackgroundResource(R.drawable.border)
+        selectedFrame.setBackgroundResource(R.drawable.border_image_selected)
 
         previousSelectedFrame = selectedFrame
     }

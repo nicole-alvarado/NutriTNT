@@ -1,6 +1,0 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@android:color/transparent" />
-    <stroke
-        android:width="14dp"
-        android:color="#4EC653" /> <!-- Aquí puedes cambiar el color del borde -->
-</shape>
