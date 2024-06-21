@@ -38,5 +38,16 @@ data class EncuestaAlimento(
 
     @ColumnInfo(name = "estado")
     var estado: String,
-
 )
+
+fun EncuestaAlimento.toMap(): Map<String, Any> {
+    return mapOf(
+        "encuestaAlimentoId" to encuestaAlimentoId,
+        "portion" to portion,
+        "period" to period,
+        "frecuency" to frecuency,
+        "encuestaId" to encuestaId,
+        "alimentoId" to alimentoId,
+        "estado" to estado
+    )
+}
