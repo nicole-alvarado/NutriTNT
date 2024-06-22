@@ -46,8 +46,8 @@ class CopiaNuevaEncuestaAlimentoFragment : Fragment() {
 
   //  private val args: CopiaNuevaEncuestaAlimentoFragmentArgs by navArgs()
     private lateinit var editText: EditText
-    private lateinit var minusButton: Button
-    private lateinit var plusButton: Button
+  //  private lateinit var minusButton: Button
+   // private lateinit var plusButton: Button
     private var valueFrecuency: Int = 0
 
     private lateinit var encuestaAlimento: EncuestaAlimento
@@ -84,12 +84,12 @@ class CopiaNuevaEncuestaAlimentoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         editText = view.findViewById(R.id.editText)
-        minusButton = view.findViewById(R.id.minusButton)
-        plusButton = view.findViewById(R.id.plusButton)
+//        minusButton = view.findViewById(R.id.minusButton)
+//        plusButton = view.findViewById(R.id.plusButton)
 
         // Configurar los botones de incremento y decremento
-        minusButton.setOnClickListener { decrement() }
-        plusButton.setOnClickListener { increment() }
+        //minusButton.setOnClickListener { decrement() }
+        //plusButton.setOnClickListener { increment() }
         
         
 
