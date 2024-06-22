@@ -6,6 +6,10 @@
     <color name="transparent">#00000000</color> <!-- Color transparente (totalmente transparente) -->
     <color name="red">#FF0000</color>
     <color name="green">#4CAF50</color>
+    <color name="colorPrimary">#CAACD7</color> <!-- Lila claro -->
+    <color name="colorAccent">#8E24AA</color> <!-- Violeta más oscuro -->
+    <color name="colorPrimaryDark">#6A1B9A</color> <!-- Violeta oscuro -->
+    <color name="colorText">#FFFFFF</color> <!-- Blanco para el texto -->
 
 
 </resources>

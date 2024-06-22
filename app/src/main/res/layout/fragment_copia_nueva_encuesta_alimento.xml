@@ -1,164 +1,488 @@
 <?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nuevaEncuestaAlimento"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_new_encuestaalimento"
+    android:orientation="vertical"
+    tools:context=".ui.prueba.CopiaNuevaEncuestaAlimentoFragment">
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <TextView
+        android:id="@+id/textViewBoton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:drawableLeft="@drawable/arrow_left_back"
+        android:drawablePadding="8dp"
+        android:focusable="true"
+        android:onClick="onClickVolverListado"
+        android:padding="12dp"
+        android:text="Volver al listado"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!-- Título -->
+
+    <!--
+    <TextView
+        android:id="@+id/textViewAlimento"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:text="Alimento:"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageviewTitle" />
+-->
+    <!--grupo o subgrupo
+    <TextView
+        android:id="@+id/textViewGroupAlimento"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:text="Grupo del alimento"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewAlimento" />
+-->
+    <!--Nombre del Alimento-->
+
+    <ImageView
+        android:id="@+id/imageviewTitle"
+        android:layout_width="80dp"
+        android:layout_height="74dp"
+        android:gravity="center"
+        android:src="@drawable/icon_leche_subgroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewBoton"
+        tools:layout_editor_absoluteX="180dp" />
+
+    <TextView
+        android:id="@+id/textViewNameAlimento"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:text="Nombre del alimento"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageviewTitle" />
+
+    <!-- Periodo -->
+
+    <TextView
+        android:id="@+id/textViewPeriod"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/textview_title_border"
+        android:layout_marginTop="12dp"
+        android:text="Período"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNameAlimento" />
+
+    <GridLayout
+        android:id="@+id/gridPeriods"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alignmentMode="alignMargins"
+        android:layout_marginTop="12dp"
+        android:columnCount="3"
+        android:rowCount="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewPeriod"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="525dp">
+
+        <CheckBox
+            android:id="@+id/checkBoxNunca"
+            android:layout_width="0dp"
+            android:layout_height="29dp"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_columnWeight="1"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:padding="0dp"
+            android:text="Nunca" />
+
+        <CheckBox
+            android:id="@+id/checkBoxDia"
+            android:layout_width="0dp"
+            android:layout_height="29dp"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:layout_columnWeight="1"
+            android:layout_gravity="center_vertical"
+            android:padding="5dp"
+            android:text="Dia" />
+
+        <CheckBox
+            android:id="@+id/checkBoxSemana"
+            android:layout_width="0dp"
+            android:layout_height="29dp"
+            android:layout_row="0"
+            android:layout_column="2"
+            android:layout_columnWeight="1"
+            android:layout_gravity="center_vertical"
+            android:padding="5dp"
+            android:text="Semana" />
+
+        <CheckBox
+            android:id="@+id/checkBoxMes"
+            android:layout_width="0dp"
+            android:layout_height="29dp"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:layout_columnWeight="1"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:text="Mes" />
+
+        <CheckBox
+            android:id="@+id/checkBoxAnio"
+            android:layout_width="0dp"
+            android:layout_height="29dp"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:layout_columnWeight="1"
+            android:layout_gravity="center_vertical"
+            android:padding="5dp"
+            android:text="Año" />
+
+
+    </GridLayout>
+
+
+
+
+    <!-- Porción -->
+
+    <TextView
+        android:id="@+id/textViewPortion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Porción"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/textview_title_border"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gridPeriods" />
+
+    <!-- Selector for porciones -->
+    <LinearLayout
+        android:id="@+id/linearLayout_portions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:orientation="vertical"
-    android:background="@drawable/background_new_encuesta"
-        tools:context=".ui.prueba.CopiaNuevaEncuestaAlimentoFragment">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="wrap"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPortion"
+        app:layout_constraintWidth_default="wrap">
 
-        <!-- Título -->
-        <TextView
-            android:id="@+id/alimento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Alimento: Yogur Bebible Entero"
-            android:textSize="18sp"
-            android:layout_margin="16dp"/>
 
-        <!-- Porción -->
-        <TextView
-            android:id="@+id/porcion_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Porción:"
-            android:textSize="16sp"
-            android:layout_margin="16dp"/>
-
-        <!-- Image selector for porciones -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal"
-            android:gravity="center">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
+            app:layout_constraintTop_toTopOf="parent">
 
 
             <FrameLayout
-                android:id="@+id/frame_cuchara_pequena"
+                android:id="@+id/frame_portionB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginRight="12dp"
                 android:background="@drawable/default_background">
 
-
-
-                <ImageView
-                    android:id="@+id/cuchara_pequena"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:contentDescription="Portion pequeña"
-                    android:layout_margin="8dp"
-                    android:clickable="true"
-                    android:focusable="true"/>
-
-            </FrameLayout>
-            <TextView
-                    android:id="@+id/text_potion_pequena"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textSize="24sp"/>
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text_title_portionB"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:padding="2dp"
+                        android:text="Opcion B:"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/imageview_portionB"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:clickable="true"
+                        android:contentDescription="Portion pequeña"
+                        android:focusable="true" />
+
+                    <TextView
+                        android:id="@+id/text_portionB"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
+            </FrameLayout>
 
 
-
-            <!-- android:src="@drawable/cuchara_grande" -->
-            <!--  android:src="@drawable/cuchara_pequena" -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
             <FrameLayout
-                android:id="@+id/frame_cuchara_grande"
+                android:id="@+id/frame_portionD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginLeft="12dp"
                 android:background="@drawable/default_background">
 
-
-
-                <ImageView
-                android:id="@+id/cuchara_grande"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:contentDescription="portion grande"
-                android:layout_margin="8dp"
-                android:clickable="true"
-                android:focusable="true"/>
-            </FrameLayout>
-
-                <TextView
-                    android:id="@+id/text_portion_grande"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textSize="24sp"/>
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text_title_portionD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:padding="2dp"
+                        android:text="Opcion D:"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/imageview_portionD"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:clickable="true"
+                        android:contentDescription="portion grande"
+                        android:focusable="true" />
+
+                    <TextView
+                        android:id="@+id/text_portionD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
-
+            </FrameLayout>
 
 
         </LinearLayout>
 
-        <!-- Periodo -->
-        <TextView
-            android:id="@+id/periodo_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Periodo:"
-            android:textSize="16sp"
-            android:layout_margin="16dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <!-- Seleccionable A -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/frame_portionA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/text_title_portionA"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="Opcion A: \nMenos que B"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
 
 
+                </FrameLayout>
 
-    <Spinner
-        android:id="@+id/spinner_period"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="@drawable/spinner_arrow"
-         />
+            </LinearLayout>
 
+            <!-- Seleccionable C -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
-    <!-- Frecuencia -->
-        <TextView
-            android:id="@+id/textViewFrecuency"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Frecuencia:"
-            android:textSize="16sp"
-            android:layout_margin="16dp"/>
+                <FrameLayout
+                    android:id="@+id/frame_portionC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/horizontal_button_picker"
-        layout="@layout/horizontal_button_picker"
-        android:layout_width="209dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-         />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-        <!-- Registrar Button -->
-        <Button
-            android:id="@+id/buttonRegistrar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Registrar"
-            android:layout_margin="16dp"
-            android:gravity="center"/>
+                        <TextView
+                            android:id="@+id/text_title_portionC"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="Opcion C: \nEntre B y D"
+                            android:textSize="16sp" />
 
+                    </LinearLayout>
+
+                </FrameLayout>
+            </LinearLayout>
+
+            <!-- Seleccionable mayor que D -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/frame_portionE"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/text_title_portionE"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="Opcion E: \nMás que D"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
 
+
+    <TextView
+        android:id="@+id/textViewFrecuency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/textview_title_border"
+        android:layout_marginTop="12dp"
+        android:text="Frecuencia"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_portions" />
+
+    <include
+        android:id="@+id/horizontal_button_picker"
+        layout="@layout/horizontal_button_picker_copy"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.500"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewFrecuency" />
+
+
+    <Button
+        android:id="@+id/buttonAnterior"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="14dp"
+        android:backgroundTint="#9F4EA3"
+        android:drawableLeft="@drawable/arrow_left_ant"
+        android:text="Anterior"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_button_picker"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <Button
+        android:id="@+id/buttonSiguiente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="14dp"
+        android:backgroundTint="#8A4EBF"
+        android:drawableEnd="@drawable/arrow_right_sig"
+        android:text="Siguiente"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_button_picker"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
