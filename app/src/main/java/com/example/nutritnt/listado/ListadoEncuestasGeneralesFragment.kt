@@ -23,7 +23,6 @@ import com.example.nutritnt.viewmodel.EncuestaViewModel
 class ListadoEncuestasGeneralesFragment : Fragment() {
     private lateinit var binding: FragmentListadoEncuestasGeneralesBinding
     private lateinit var encuestaViewModel: EncuestaViewModel
-    private val encuestaAlimentoViewModel: EncuestaAlimentoViewModel by viewModels()
     private lateinit var adapter: EncuestaAdapter
 
     override fun onCreateView(
@@ -51,28 +50,10 @@ class ListadoEncuestasGeneralesFragment : Fragment() {
 
         encuestaViewModel.todasLasEncuestas.observe(viewLifecycleOwner, Observer { encuestas ->
             encuestas?.let {
-                adapter.setEncuestas(it)
-                //verificarEstados(it)
+                val encuestasInvetidas = it.reversed()
+                adapter.setEncuestas(encuestasInvetidas)
             }
         })
-    }
-
-    // Verificar y actualizar el estado de las encuestas
-    private fun verificarEstados(encuestas: List<Encuesta>) {
-        encuestas.forEach { encuesta ->
-            encuestaAlimentoViewModel.getEncuestasAlimentosByEncuestaId(encuesta.encuestaId).observe(viewLifecycleOwner, Observer { encuestasAlimentos ->
-                if (encuestasAlimentos.all { it.estado == "COMPLETADA" }) {
-                    Log.i("Prueba",encuesta.toString())
-                    updateEncuestaEstado(encuesta)
-                }
-            })
-        }
-    }
-
-    // Actualizar el estado de la encuesta
-    private fun updateEncuestaEstado(encuesta: Encuesta) {
-        encuesta.estado = "FINALIZADA"
-        encuestaViewModel.update(encuesta)
     }
 
     private fun initRecyclerView() {

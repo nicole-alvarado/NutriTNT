@@ -3,4 +3,5 @@
     <stroke
         android:width="14dp"
         android:color="#4EC653" /> <!-- Aquí puedes cambiar el color del borde -->
+    <corners android:radius="8dp" /> <!-- Ajusta el radio de las esquinas si es necesario -->
 </shape>

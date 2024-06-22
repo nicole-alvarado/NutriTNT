@@ -66,7 +66,12 @@ class EncuestaGeneralOpcionesFragment : Fragment() {
         }
 
         binding.buttonSubirEncuesta.setOnClickListener {
-            subirEncuesta()
+            if (encuestaGeneral.estado == "FINALIZADA"){
+                subirEncuesta()
+            } else{
+                Toast.makeText(context, "Encuesta no finalizada", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
     }
