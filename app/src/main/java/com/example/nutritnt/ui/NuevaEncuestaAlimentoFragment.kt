@@ -1,5 +1,6 @@
 package com.example.nutritnt.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.SpannableString
@@ -19,6 +20,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -26,6 +28,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.nutritnt.R
 import com.example.nutritnt.data.DatosDatabase
+import com.example.nutritnt.data.DatosFramesPortions
 import com.example.nutritnt.data.ImagesGroups
 import com.example.nutritnt.data.Portion
 import com.example.nutritnt.database.entities.Alimento
@@ -309,6 +312,7 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     }
 
     // Actualizar la interfaz con los datos de la encuestaAlimento.
+    @SuppressLint("SetTextI18n")
     private fun updateUIWithEncuestaAlimento(encuestaAlimento: EncuestaAlimento) {
         val alimento = alimentos.find { it.alimentoId == encuestaAlimento.alimentoId }
         if (alimento != null) {
@@ -316,15 +320,25 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
             Log.i("pruebaEncuestaAlimentoCopy", "nombregrupo: ${nombreGrupo.lowercase()}")
             binding.imageviewTitle?.setImageResource(ImagesGroups.iconResourceMap[nombreGrupo.lowercase()]!!)
             binding.textViewNameAlimento.text = alimento.descripcion
-            val portion = findPortionByAlimentoID(alimento.alimentoId)
+
+            val portionsAlimento = findPortionByAlimentoID(alimento.alimentoId)
+            val portion = encuestaAlimento.portion
+            val invertedMap = invertMap(portionsAlimento?.portions)
+
+            selectedPortion = invertedMap?.get(portion) ?: ' '
+
+
+            selectCorrectCheckBoxes(encuestaAlimento.period)
+
+            editTextFrecuency.setText(encuestaAlimento.frecuency.toString())
+
+            binding.textPortionB?.text =
+                (portionsAlimento?.portions?.get('B') + portionsAlimento?.medidaPortion)
+            binding.textPortionD?.text = (portionsAlimento?.portions?.get('D') + portionsAlimento?.medidaPortion)
+
             val frames = listOf(binding.framePortionA,binding.framePortionB, binding.framePortionC, binding.framePortionD, binding.framePortionE)
+            selectPortionFrame(frames, selectedPortion)
 
-            updateFrecuencyEditText(0)
-            deselectAllFrames(frames)
-            deselectAllCheckBoxes()
-
-            binding.textPortionB?.text = portion?.portions?.get('B') ?: "no existe"
-            binding.textPortionD?.text = portion?.portions?.get('D') ?: "no existe"
 
             val images = DatosDatabase.getPortionImagesForAlimento(alimento.alimentoId)
             if (images.size >= 2) {
@@ -484,16 +498,32 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         return DatosDatabase.portions.find { it.alimentoID == alimentoID }
     }
 
-    private fun deselectAllFrames(allFrames: List<FrameLayout?>) {
-        // Reset all frames to default
+    private fun selectPortionFrame(allFrames: List<FrameLayout?>, charPortion: Char) {
+
         allFrames.forEach { frame ->
-            frame?.setBackgroundResource(R.drawable.default_background)
+
+            frame?.let {
+                val portionSelected = DatosFramesPortions.framePortionNames[charPortion]
+                if(portionSelected?.let { it1 -> resources.getResourceName(frame.id).contains(it1) } == true){
+                    frame.setBackgroundResource(R.drawable.border_portion_selected)
+                } else {
+                    frame.setBackgroundResource(R.drawable.default_background)
+                }
+            }
+
+
+
         }
 
-        selectedPortion = ' '
+
+
     }
 
-    private fun deselectAllCheckBoxes() {
-        checkBoxes.forEach { it.isChecked = false }
+    private fun selectCorrectCheckBoxes(periodSelected: String) {
+        checkBoxes.forEach { it.isChecked = (it.text == periodSelected) }
+    }
+
+    fun <Char, String> invertMap(map: Map<Char, String>?): Map<String, Char>? {
+        return map?.entries?.associate { (key, value) -> value to key }
     }
 }
