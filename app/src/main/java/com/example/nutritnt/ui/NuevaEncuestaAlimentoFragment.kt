@@ -74,6 +74,7 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     private var selectedPortion: Char = ' '
     private var previousSelectedFrame: FrameLayout? = null
     private lateinit var checkBoxes: List<CheckBox>
+    private lateinit var frames: List<FrameLayout>
 
 
     override fun onCreateView(
@@ -95,6 +96,8 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         // Configurar los botones de incremento y decremento
         minusButton.setOnClickListener { decrement() }
         plusButton.setOnClickListener { increment() }
+        frames = listOf(binding.framePortionA!!,binding.framePortionB!!, binding.framePortionC!!, binding.framePortionD!!, binding.framePortionE!!)
+
 
         checkBoxes = listOf(
             binding.checkBoxNunca!!,
@@ -103,19 +106,25 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
             binding.checkBoxSemana!!,
             binding.checkBoxAnio!!
         )
-
+        val overlayView = binding.overlayView
         // Set up listeners for each checkbox
         checkBoxes.forEach { checkBox ->
             checkBox?.setOnCheckedChangeListener { buttonView, isChecked ->
                 if (isChecked) {
-                    // Uncheck all other checkboxes
+
                     checkBoxes.filter { it != buttonView }.forEach { it?.isChecked = false }
+                    // Verifica si el CheckBox seleccionado es el que dice "nunca"
+
+                    verifyCheckboxSelected(checkBox.text.toString())
+
+                    // Log y actualización para otros períodos diferentes a "nunca"
                     Log.i("pruebaEncuestaAlimentoCopy", checkBox?.text.toString())
                     currentEncuesta.period = checkBox?.text.toString()
                     encuestaAlimentoViewModel.update(currentEncuesta)
                 }
             }
         }
+
 
 
         val spannableA = SpannableStringBuilder()
@@ -250,6 +259,23 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         }
     }
 
+    private fun verifyCheckboxSelected(checkboxSelectedText: String) {
+
+        if (checkboxSelectedText == "Nunca") {
+            binding.overlayView?.visibility = View.VISIBLE
+            binding.overlayView?.bringToFront()
+            binding.overlayView?.setOnClickListener(null)
+            deletePortionSelected()
+            updateFrecuencyEditText(0)
+        } else {
+            // Uncheck all other checkboxes except the current one
+            binding.overlayView?.visibility = View.GONE
+
+        }
+
+    }
+
+
     private fun createStyledText(
         underlinedText: String,
         regularText: String,
@@ -336,7 +362,7 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
                 (portionsAlimento?.portions?.get('B') + portionsAlimento?.medidaPortion)
             binding.textPortionD?.text = (portionsAlimento?.portions?.get('D') + portionsAlimento?.medidaPortion)
 
-            val frames = listOf(binding.framePortionA,binding.framePortionB, binding.framePortionC, binding.framePortionD, binding.framePortionE)
+            frames = listOf(binding.framePortionA!!,binding.framePortionB!!, binding.framePortionC!!, binding.framePortionD!!, binding.framePortionE!!)
             selectPortionFrame(frames, selectedPortion)
 
 
@@ -519,8 +545,26 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
 
     }
 
+    private fun deletePortionSelected() {
+        frames.forEach { frame ->
+
+            frame?.let {
+
+                    frame.setBackgroundResource(R.drawable.default_background)
+
+            }
+
+
+
+        }
+    }
+
     private fun selectCorrectCheckBoxes(periodSelected: String) {
-        checkBoxes.forEach { it.isChecked = (it.text == periodSelected) }
+        checkBoxes.forEach {
+            it.isChecked = (it.text == periodSelected)
+            Log.i("pruebaEncuestaAlimentoCopy", "checkbox: ${it.text.toString()}")
+        }
+        verifyCheckboxSelected(periodSelected)
     }
 
     fun <Char, String> invertMap(map: Map<Char, String>?): Map<String, Char>? {
