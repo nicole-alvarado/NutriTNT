@@ -16,6 +16,7 @@ class ImagesGroups {
             "cuerpos grasos" to R.drawable.icon_cuerposgrasos_subgroup,
             "quesos" to R.drawable.icon_quesos_subgroup,
             "yogur" to R.drawable.icon_yogur_subgroup,
+            "huevos" to R.drawable.icon_huevos_subgroup
             // Add mappings for all the icons you have
         )
     }

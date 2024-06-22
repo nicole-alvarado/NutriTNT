@@ -2,19 +2,23 @@ package com.example.nutritnt.ui
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
 import android.text.TextWatcher
+import android.text.style.AbsoluteSizeSpan
+import android.text.style.UnderlineSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Spinner
-import android.widget.Toast
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -22,6 +26,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.nutritnt.R
 import com.example.nutritnt.data.DatosDatabase
+import com.example.nutritnt.data.ImagesGroups
+import com.example.nutritnt.data.Portion
 import com.example.nutritnt.database.entities.Alimento
 import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.database.entities.EncuestaAlimento
@@ -39,9 +45,9 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
 
 
     private val args: NuevaEncuestaAlimentoFragmentArgs by navArgs()
-    private lateinit var editText: EditText
-    private lateinit var minusButton: Button
-    private lateinit var plusButton: Button
+    private lateinit var editTextFrecuency: EditText
+    private lateinit var minusButton: ImageView
+    private lateinit var plusButton: ImageView
     private var valueFrecuency: Int = 0
 
     private lateinit var encuestaAlimento: EncuestaAlimento
@@ -52,12 +58,19 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     private var alimentos: List<Alimento> = emptyList()
     private var isDataLoaded = false // Variable booleana para comprobar si el observable ya se ejecutó
 
-    private lateinit var imageViewPortionSmall: ImageView
-    private lateinit var imageViewPortionLarge: ImageView
-    private lateinit var frameLayoutSmall: FrameLayout
-    private lateinit var frameLayoutLarge: FrameLayout
-    private var selectedPortion: String = ""
+    private lateinit var textviewPortionA: TextView
+    private lateinit var imageviewPortionB: ImageView
+    private lateinit var textviewPortionC: TextView
+    private lateinit var imageViewPortionD: ImageView
+    private lateinit var textviewPortionE: TextView
+    private lateinit var framePortionA: FrameLayout
+    private lateinit var framePortionB: FrameLayout
+    private lateinit var framePortionC: FrameLayout
+    private lateinit var framePortionD: FrameLayout
+    private lateinit var framePortionE: FrameLayout
+    private var selectedPortion: Char = ' '
     private var previousSelectedFrame: FrameLayout? = null
+    private lateinit var checkBoxes: List<CheckBox>
 
 
     override fun onCreateView(
@@ -72,7 +85,7 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        editText = view.findViewById(R.id.editText)
+        editTextFrecuency = view.findViewById(R.id.editText)
         minusButton = view.findViewById(R.id.minusButton)
         plusButton = view.findViewById(R.id.plusButton)
 
@@ -80,20 +93,121 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         minusButton.setOnClickListener { decrement() }
         plusButton.setOnClickListener { increment() }
 
-        // Configurar las imágenes de las porciones
-        imageViewPortionSmall = binding.cucharaPequena!!
-        imageViewPortionLarge = binding.cucharaGrande!!
-        frameLayoutSmall = binding.frameCucharaPequena!!
-        frameLayoutLarge = binding.frameCucharaGrande!!
+        checkBoxes = listOf(
+            binding.checkBoxNunca!!,
+            binding.checkBoxDia!!,
+            binding.checkBoxMes!!,
+            binding.checkBoxSemana!!,
+            binding.checkBoxAnio!!
+        )
 
-        imageViewPortionSmall.setOnClickListener {
-            selectedPortion = "Cuchara pequeña"
-            highlightSelection(frameLayoutSmall, imageViewPortionSmall)
+        // Set up listeners for each checkbox
+        checkBoxes.forEach { checkBox ->
+            checkBox?.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (isChecked) {
+                    // Uncheck all other checkboxes
+                    checkBoxes.filter { it != buttonView }.forEach { it?.isChecked = false }
+                    Log.i("pruebaEncuestaAlimentoCopy", checkBox?.text.toString())
+                    currentEncuesta.period = checkBox?.text.toString()
+                    encuestaAlimentoViewModel.update(currentEncuesta)
+                }
+            }
         }
 
-        imageViewPortionLarge.setOnClickListener {
-            selectedPortion = "Cuchara grande"
-            highlightSelection(frameLayoutLarge, imageViewPortionLarge)
+
+        val spannableA = SpannableStringBuilder()
+        spannableA.append(
+            createStyledText(
+                "Opción A: ",
+                "menos que B",
+                underlinedSize = 18,
+                regularSize = 14
+            )
+        )
+        binding.textTitlePortionA?.text = spannableA
+
+        val spannableB = SpannableStringBuilder()
+        spannableB.append(
+            createStyledText(
+                "Opción B: ",
+                " ",
+                underlinedSize = 18,
+                regularSize = 14
+            )
+        )
+        binding.textTitlePortionB?.text = spannableB
+
+        // Estilizar y asignar texto a textViewC
+        val spannableC = SpannableStringBuilder()
+        spannableC.append(
+            createStyledText(
+                "Opción C: ",
+                "Entre B y D",
+                underlinedSize = 18,
+                regularSize = 14
+            )
+        )
+        binding.textTitlePortionC?.text = spannableC
+
+        val spannableD = SpannableStringBuilder()
+        spannableD.append(
+            createStyledText(
+                "Opción D: ",
+                " ",
+                underlinedSize = 18,
+                regularSize = 14
+            )
+        )
+        binding.textTitlePortionD?.text = spannableD
+
+        // Estilizar y asignar texto a textViewE
+        val spannableE = SpannableStringBuilder()
+        spannableE.append(
+            createStyledText(
+                "Opción E: ",
+                "mayor que D",
+                underlinedSize = 18,
+                regularSize = 14
+            )
+        )
+        binding.textTitlePortionE?.text = spannableE
+
+        // Configurar las imágenes de las porciones
+        textviewPortionA = binding.textTitlePortionA!!
+        textviewPortionC = binding.textTitlePortionC!!
+        textviewPortionE = binding.textTitlePortionE!!
+        imageviewPortionB = binding.imageviewPortionB!!
+        imageViewPortionD = binding.imageviewPortionD!!
+        framePortionA = binding.framePortionA!!
+        framePortionB = binding.framePortionB!!
+        framePortionC = binding.framePortionC!!
+        framePortionD = binding.framePortionD!!
+        framePortionE = binding.framePortionE!!
+
+        textviewPortionA.setOnClickListener {
+            selectedPortion = 'A'
+            highlightSelection(framePortionA, textviewPortionA)
+
+        }
+
+        imageviewPortionB.setOnClickListener {
+            selectedPortion = 'B'
+            highlightSelection(framePortionB, imageviewPortionB)
+        }
+
+        textviewPortionC.setOnClickListener {
+            selectedPortion = 'C'
+            highlightSelection(framePortionC, textviewPortionC)
+        }
+
+        imageViewPortionD.setOnClickListener {
+            selectedPortion = 'D'
+            highlightSelection(framePortionD, imageViewPortionD)
+        }
+
+        textviewPortionE.setOnClickListener {
+            selectedPortion = 'E'
+            highlightSelection(framePortionE, textviewPortionE)
         }
 
         // Obtener el id de la encuestaAlimento pasado al fragmento
@@ -125,15 +239,53 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         binding.buttonAnterior?.setOnClickListener { showPreviousEncuesta() }
         binding.buttonSiguiente?.setOnClickListener { showNextEncuesta() }
 
-        // Botón para guardar la encuestaAlimento y navegar al listado de encuestas alimentos
-        binding.buttonRegistrar.setOnClickListener {
-            saveEncuestaAlimento()
-            Toast.makeText(context, "¡Guardado con éxito!", Toast.LENGTH_SHORT).show()
-        }
 
-        binding.buttonVolverListado?.setOnClickListener{
+
+
+        binding.textviewVolverListado?.setOnClickListener{
             findNavController().navigate(NuevaEncuestaAlimentoFragmentDirections.actionNewEncuestaFragmentToListEncuestasAlimentosFragment(encuestaAlimento.encuestaId))
         }
+    }
+
+    private fun createStyledText(
+        underlinedText: String,
+        regularText: String,
+        underlinedSize: Int,
+        regularSize: Int
+    ): SpannableStringBuilder {
+        val spannable = SpannableStringBuilder()
+
+        val underlinedSpan = SpannableString(underlinedText).apply {
+            setSpan(
+                UnderlineSpan(),
+                0,
+                underlinedText.length,
+                SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            setSpan(
+                AbsoluteSizeSpan(underlinedSize, true),
+                0,
+                underlinedText.length,
+                SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+
+        spannable.append(underlinedSpan)
+
+        if (regularText.length > 2) {
+            val regularSpan = SpannableString(regularText).apply {
+                setSpan(
+                    AbsoluteSizeSpan(regularSize, true),
+                    0,
+                    regularText.length,
+                    SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
+
+            spannable.append(regularSpan)
+        }
+
+        return spannable
     }
 
     // Mostrar la encuesta de alimentos anterior
@@ -160,30 +312,29 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     private fun updateUIWithEncuestaAlimento(encuestaAlimento: EncuestaAlimento) {
         val alimento = alimentos.find { it.alimentoId == encuestaAlimento.alimentoId }
         if (alimento != null) {
+            val nombreGrupo = if (alimento.subgrupo.isBlank()) alimento.grupo else alimento.subgrupo
+            Log.i("pruebaEncuestaAlimentoCopy", "nombregrupo: ${nombreGrupo.lowercase()}")
+            binding.imageviewTitle?.setImageResource(ImagesGroups.iconResourceMap[nombreGrupo.lowercase()]!!)
             binding.textViewNameAlimento.text = alimento.descripcion
+            val portion = findPortionByAlimentoID(alimento.alimentoId)
+            val frames = listOf(binding.framePortionA,binding.framePortionB, binding.framePortionC, binding.framePortionD, binding.framePortionE)
+
+            updateFrecuencyEditText(0)
+            deselectAllFrames(frames)
+            deselectAllCheckBoxes()
+
+            binding.textPortionB?.text = portion?.portions?.get('B') ?: "no existe"
+            binding.textPortionD?.text = portion?.portions?.get('D') ?: "no existe"
+
             val images = DatosDatabase.getPortionImagesForAlimento(alimento.alimentoId)
             if (images.size >= 2) {
-                imageViewPortionSmall.setImageResource(images[0])
-                imageViewPortionLarge.setImageResource(images[1])
+                imageviewPortionB.setImageResource(images[0])
+                imageViewPortionD.setImageResource(images[1])
             }
         }
 
-        setupSpinner(binding.spinnerPeriod, resources.getStringArray(R.array.Period).toList(), encuestaAlimento.period)
-        editText.setText(encuestaAlimento.frecuency.toString())
 
-        binding.spinnerPeriod.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                val selectedPeriod = binding.spinnerPeriod.selectedItem.toString()
-                if (currentEncuesta.period != selectedPeriod) {
-                    currentEncuesta.period = selectedPeriod
-                    encuestaAlimentoViewModel.update(currentEncuesta)
-                }
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
-
-        editText.addTextChangedListener(object : TextWatcher {
+        editTextFrecuency.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val frequency = s.toString().toIntOrNull() ?: 0
                 if (currentEncuesta.frecuency != frequency) {
@@ -198,8 +349,14 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         })
     }
 
+    private fun updatePortionEncuesta(portionSelected: Char){
+        val portion = findPortionByAlimentoID(currentEncuesta.alimentoId)?.portions?.get(portionSelected).toString()
+        currentEncuesta.portion = extractNumber(portion).toString()
+        encuestaAlimentoViewModel.update(currentEncuesta)
+    }
+
     // Guardar los datos de la encuesta de alimentos en la base de datos.
-    private fun saveEncuestaAlimento() {
+   /* private fun saveEncuestaAlimento() {
         if (::currentEncuesta.isInitialized) {
             val images = DatosDatabase.getPortionImagesForAlimento(currentEncuesta.alimentoId)
             val index = if (selectedPortion == "Cuchara pequeña") 0 else 1 // Asumiendo que las imágenes están en orden de tamaño
@@ -225,7 +382,7 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
             Log.e("NuevaEncuestaAlimentoFragment", "La encuesta actual no está inicializada")
         }
     }
-
+*/
     // Verificar y actualizar el estado de las encuestas
     private fun verificarEstados(encuestaAlimento: EncuestaAlimento) {
         Log.i("PruebaVerificar", "Entro a verificar 1")
@@ -300,16 +457,19 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     }
 
     private fun updateFrecuencyEditText(frecuency: Int) {
-        editText.setText(frecuency.toString())
+        editTextFrecuency.setText(frecuency.toString())
     }
     // Función para resaltar la selección de porción (imagen)
-    private fun highlightSelection(selectedFrame: FrameLayout, selectedImageView: ImageView) {
-        imageViewPortionSmall.alpha = 0.5f
-        imageViewPortionLarge.alpha = 0.5f
-        selectedImageView.alpha = 1.0f
+    private fun highlightSelection(selectedFrame: FrameLayout, selectedView: View) {
+        imageviewPortionB.alpha = 0.5f
+        imageViewPortionD.alpha = 0.5f
+        selectedView.alpha = 1.0f
 
         previousSelectedFrame?.setBackgroundResource(R.drawable.default_background)
+
         selectedFrame.setBackgroundResource(R.drawable.border_portion_selected)
+
+        updatePortionEncuesta(selectedPortion)
 
         previousSelectedFrame = selectedFrame
     }
@@ -318,5 +478,22 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         val regex = Regex("^[0-9]+") // Expresión regular para encontrar solo los números al inicio del texto
         val matchResult = regex.find(input)
         return matchResult?.value?.toIntOrNull() ?: 0 // Devolver el valor encontrado como entero o 0 si no se encontraron números
+    }
+
+    fun findPortionByAlimentoID(alimentoID: Int): Portion? {
+        return DatosDatabase.portions.find { it.alimentoID == alimentoID }
+    }
+
+    private fun deselectAllFrames(allFrames: List<FrameLayout?>) {
+        // Reset all frames to default
+        allFrames.forEach { frame ->
+            frame?.setBackgroundResource(R.drawable.default_background)
+        }
+
+        selectedPortion = ' '
+    }
+
+    private fun deselectAllCheckBoxes() {
+        checkBoxes.forEach { it.isChecked = false }
     }
 }

@@ -5,230 +5,451 @@
     android:id="@+id/nuevaEncuestaAlimento"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_new_encuestaalimento"
     android:orientation="vertical"
-    android:background="@drawable/background_new_encuesta"
     tools:context=".ui.NuevaEncuestaAlimentoFragment">
 
-    <!-- Título -->
     <TextView
-        android:id="@+id/textViewAlimento"
-        android:layout_width="0dp"
+        android:id="@+id/textviewVolverListado"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="23dp"
-        android:text="Alimento:"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:clickable="true"
+        android:drawableLeft="@drawable/arrow_left_back"
+        android:drawablePadding="8dp"
+        android:focusable="true"
+        android:onClick="onClickVolverListado"
+        android:padding="12dp"
+        android:text="Volver al listado"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <!-- Título -->
+    <ImageView
+        android:id="@+id/imageviewTitle"
+        android:layout_width="80dp"
+        android:layout_height="74dp"
+        android:gravity="center"
+        android:src="@drawable/icon_leche_subgroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textviewVolverListado"
+        tools:layout_editor_absoluteX="180dp" />
 
     <TextView
         android:id="@+id/textViewNameAlimento"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="3dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
         android:text="Nombre del alimento"
         android:textSize="20sp"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/textViewAlimento"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@id/imageviewTitle" />
+
+    <!-- Periodo -->
+
+    <TextView
+        android:id="@+id/textViewPeriod"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/textview_title_border"
+        android:layout_marginTop="12dp"
+        android:text="Período"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNameAlimento" />
+
+    <GridLayout
+        android:id="@+id/gridPeriods"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alignmentMode="alignMargins"
+        android:layout_marginTop="12dp"
+        android:columnCount="3"
+        android:rowCount="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewPeriod"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="525dp">
+
+        <CheckBox
+            android:id="@+id/checkBoxNunca"
+            android:layout_width="0dp"
+            android:layout_height="29dp"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_columnWeight="1"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:padding="0dp"
+            android:text="Nunca" />
+
+        <CheckBox
+            android:id="@+id/checkBoxDia"
+            android:layout_width="0dp"
+            android:layout_height="29dp"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:layout_columnWeight="1"
+            android:layout_gravity="center_vertical"
+            android:padding="5dp"
+            android:text="Dia" />
+
+        <CheckBox
+            android:id="@+id/checkBoxSemana"
+            android:layout_width="0dp"
+            android:layout_height="29dp"
+            android:layout_row="0"
+            android:layout_column="2"
+            android:layout_columnWeight="1"
+            android:layout_gravity="center_vertical"
+            android:padding="5dp"
+            android:text="Semana" />
+
+        <CheckBox
+            android:id="@+id/checkBoxMes"
+            android:layout_width="0dp"
+            android:layout_height="29dp"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:layout_columnWeight="1"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:text="Mes" />
+
+        <CheckBox
+            android:id="@+id/checkBoxAnio"
+            android:layout_width="0dp"
+            android:layout_height="29dp"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:layout_columnWeight="1"
+            android:layout_gravity="center_vertical"
+            android:padding="5dp"
+            android:text="Año" />
+
+
+    </GridLayout>
+
+
+
 
     <!-- Porción -->
 
     <TextView
         android:id="@+id/textViewPortion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
-        android:text="Porción:"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewAlimento" />
-
-    <!-- Image selector for porciones -->
-    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_marginTop="120dp"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginTop="12dp"
+        android:text="Porción"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/textview_title_border"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gridPeriods" />
+
+    <!-- Selector for porciones -->
+    <LinearLayout
+        android:id="@+id/linearLayout_portions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="wrap"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPortion"
+        app:layout_constraintWidth_default="wrap">
+
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent">
+
 
             <FrameLayout
-                android:id="@+id/frameCucharaPequena"
+                android:id="@+id/frame_portionB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginRight="12dp"
                 android:background="@drawable/default_background">
 
-                <ImageView
-                    android:id="@+id/cucharaPequena"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="8dp"
-                    android:clickable="true"
-                    android:contentDescription="Portion pequeña"
-                    android:focusable="true" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text_title_portionB"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:padding="2dp"
+                        android:text="Opcion B:"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/imageview_portionB"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:clickable="true"
+                        android:contentDescription="Portion pequeña"
+                        android:focusable="true" />
+
+                    <TextView
+                        android:id="@+id/text_portionB"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
             </FrameLayout>
 
-            <TextView
-                android:id="@+id/text_potionB"
+
+            <FrameLayout
+                android:id="@+id/frame_portionD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="24sp" />
+                android:layout_marginLeft="12dp"
+                android:background="@drawable/default_background">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text_title_portionD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:padding="2dp"
+                        android:text="Opcion D:"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/imageview_portionD"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:clickable="true"
+                        android:contentDescription="portion grande"
+                        android:focusable="true" />
+
+                    <TextView
+                        android:id="@+id/text_portionD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+
         </LinearLayout>
 
-        <!-- android:src="@drawable/cuchara_grande" -->
-        <!--  android:src="@drawable/cuchara_pequena" -->
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-            <FrameLayout
-                android:id="@+id/frameCucharaGrande"
-                android:layout_width="wrap_content"
+            <!-- Seleccionable A -->
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@drawable/default_background">
-
-                <ImageView
-                    android:id="@+id/cucharaGrande"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="8dp"
-                    android:clickable="true"
-                    android:contentDescription="portion grande"
-                    android:focusable="true" />
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/text_portionD"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="24sp" />
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/frame_portionA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/text_title_portionA"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="Opcion A: \nMenos que B"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <!-- Seleccionable C -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/frame_portionC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/text_title_portionC"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="Opcion C: \nEntre B y D"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+            </LinearLayout>
+
+            <!-- Seleccionable mayor que D -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/frame_portionE"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/text_title_portionE"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="Opcion E: \nMás que D"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
         </LinearLayout>
-
-
     </LinearLayout>
 
-    <!-- Porción anterior
-    <Spinner
-        android:id="@+id/spinner_portion"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/spinner_arrow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toBottomOf="@id/textViewPortion" /> -->
-
-    <TextView
-        android:id="@+id/textViewPeriod"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="240dp"
-        android:text="Período:"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewPortion" />
-
-    <Spinner
-        android:id="@+id/spinner_period"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/spinner_arrow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewPeriod" />
+    <!-- Frecuencia -->
 
     <TextView
         android:id="@+id/textViewFrecuency"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:text="Frecuencia:"
-        android:textSize="16sp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/textview_title_border"
+        android:layout_marginTop="12dp"
+        android:text="Frecuencia"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinner_period" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_portions" />
 
     <include
         android:id="@+id/horizontal_button_picker"
         layout="@layout/horizontal_button_picker"
-        android:layout_width="209dp"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewFrecuency" />
 
-    <Button
-        android:id="@+id/buttonRegistrar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:layout_marginEnd="16dp"
-        android:text="Registrar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
+    <!--Navegacion entre encuestas-->
     <Button
         android:id="@+id/buttonAnterior"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="106dp"
+        android:layout_marginBottom="14dp"
+        android:backgroundTint="#9F4EA3"
+        android:drawableLeft="@drawable/arrow_left_ant"
         android:text="Anterior"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_button_picker"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintVertical_bias="0.5" />
 
     <Button
         android:id="@+id/buttonSiguiente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="106dp"
+        android:layout_marginBottom="14dp"
+        android:backgroundTint="#8A4EBF"
+        android:drawableEnd="@drawable/arrow_right_sig"
         android:text="Siguiente"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_button_picker"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintVertical_bias="0.5" />
 
-    <Button
-        android:id="@+id/buttonVolverListado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="12dp"
-        android:text="Volver al listado"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
