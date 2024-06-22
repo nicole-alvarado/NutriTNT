@@ -309,7 +309,7 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         selectedImageView.alpha = 1.0f
 
         previousSelectedFrame?.setBackgroundResource(R.drawable.default_background)
-        selectedFrame.setBackgroundResource(R.drawable.border_image_selected)
+        selectedFrame.setBackgroundResource(R.drawable.border_portion_selected)
 
         previousSelectedFrame = selectedFrame
     }
