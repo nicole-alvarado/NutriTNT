@@ -27,21 +27,21 @@ class DatosDatabase {
         )
 
         val encuestas = listOf(
-            Encuesta(1, "ID-123", "21-05-2024", "Finalizada", "Zona 4","codigo1","-42.780570", "-65.032188"),
-            Encuesta(2, "ID-890", "22-05-2024", "Finalizada", "Zona 3","codigo2","-42.783688", "-65.054804"),
-            Encuesta(3, "ID-296", "23-05-2024", "Finalizada", "Zona 2","codigo3","-42.775260","-65.061424"),
-            Encuesta(4, "ID-719", "15-04-2024", "Finalizada", "Zona 1","codigo4","-42.771819","-65.042573"),
-            Encuesta(5, "ID-655", "16-04-2024", "Comenzada", "Zona 1","codigo5","-42.753473","-65.053012"),
-            Encuesta(6, "ID-333", "21-05-2024", "Comenzada", "Zona 4","codigo6","-42.772346","-65.031083"),
-            Encuesta(7, "ID-978", "22-05-2024", "Comenzada", "Zona 4","codigo7","-42.778363","-65.034773"),
-            Encuesta(8, "ID-246", "23-05-2024", "Comenzada", "Zona 3","codigo8","-42.788190","-65.068591"),
-            Encuesta(9, "ID-367", "15-04-2024", "Finalizada", "Zona 2","codigo9","-42.762643","-65.058892"),
-            Encuesta(10, "ID-518", "16-04-2024", "Comenzada", "Zona 1","codigo10","-42.754545","-65.038936"),
-            Encuesta(11, "ID-332", "21-05-2024", "Comenzada", "Zona 1","codigo11","-42.771189","-65.047251"),
-            Encuesta(12, "ID-796", "22-05-2024", "Comenzada", "Zona 3","codigo12","-42.790522","-65.069910"),
-            Encuesta(13, "ID-447", "23-05-2024", "Comenzada", "Zona 3","codigo13","-42.784412","-65.050512"),
-            Encuesta(14, "ID-517", "15-04-2024", "Finalizada", "Zona 2","codigo14","-42.758105","-65.068204"),
-            Encuesta(15, "ID-642", "16-04-2024", "Comenzada", "Zona 1","codigo15","-42.756973","-65.049397")
+            Encuesta(1, "ID-123", "21-05-2024", "FINALIZADA", "Zona 4","codigo1","-42.780570", "-65.032188"),
+            Encuesta(2, "ID-890", "22-05-2024", "FINALIZADA", "Zona 3","codigo2","-42.783688", "-65.054804"),
+            Encuesta(3, "ID-296", "23-05-2024", "FINALIZADA", "Zona 2","codigo3","-42.775260","-65.061424"),
+            Encuesta(4, "ID-719", "15-04-2024", "FINALIZADA", "Zona 1","codigo4","-42.771819","-65.042573"),
+            Encuesta(5, "ID-655", "16-04-2024", "INICIADA", "Zona 1","codigo5","-42.753473","-65.053012"),
+            Encuesta(6, "ID-333", "21-05-2024", "INICIADA", "Zona 4","codigo6","-42.772346","-65.031083"),
+            Encuesta(7, "ID-978", "22-05-2024", "INICIADA", "Zona 4","codigo7","-42.778363","-65.034773"),
+            Encuesta(8, "ID-246", "23-05-2024", "INICIADA", "Zona 3","codigo8","-42.788190","-65.068591"),
+            Encuesta(9, "ID-367", "15-04-2024", "FINALIZADA", "Zona 2","codigo9","-42.762643","-65.058892"),
+            Encuesta(10, "ID-518", "16-04-2024", "INICIADA", "Zona 1","codigo10","-42.754545","-65.038936"),
+            Encuesta(11, "ID-332", "21-05-2024", "INICIADA", "Zona 1","codigo11","-42.771189","-65.047251"),
+            Encuesta(12, "ID-796", "22-05-2024", "INICIADA", "Zona 3","codigo12","-42.790522","-65.069910"),
+            Encuesta(13, "ID-447", "23-05-2024", "INICIADA", "Zona 3","codigo13","-42.784412","-65.050512"),
+            Encuesta(14, "ID-517", "15-04-2024", "FINALIZADA", "Zona 2","codigo14","-42.758105","-65.068204"),
+            Encuesta(15, "ID-642", "16-04-2024", "INICIADA", "Zona 1","codigo15","-42.756973","-65.049397")
         )
 
 

@@ -9,12 +9,28 @@
     tools:context=".listado.ListadoEncuestasGeneralesFragment">
 
     <TextView
+        android:id="@+id/buttonVolver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:drawableLeft="@drawable/arrow_left_back"
+        android:drawablePadding="8dp"
+        android:focusable="true"
+        android:onClick="onClickVolverListado"
+        android:padding="12dp"
+        android:text="Volver al inicio"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/textEncuestas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="45dp"
         android:text="Encuestas generales"
-        android:textSize="24sp"
+        android:textSize="23sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -24,13 +40,29 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewEncuesta"
         android:layout_width="409dp"
-        android:layout_height="661dp"
+        android:layout_height="600dp"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="45dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textEncuestas" />
+        app:layout_constraintTop_toBottomOf="@+id/textEncuestas"/>
 
+    <Spinner
+        android:id="@+id/spinnerEstado"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerZona"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textEncuestas" />
+
+    <Spinner
+        android:id="@+id/spinnerZona"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/spinnerEstado"
+        app:layout_constraintTop_toBottomOf="@id/textEncuestas" />
 </androidx.constraintlayout.widget.ConstraintLayout>

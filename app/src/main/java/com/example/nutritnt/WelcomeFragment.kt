@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.nutritnt.databinding.FragmentWelcomeBinding
+import com.google.firebase.auth.FirebaseAuth
 
 
 class WelcomeFragment : Fragment() {
@@ -54,6 +55,10 @@ class WelcomeFragment : Fragment() {
                 findNavController().navigate(R.id.action_welcomeFragment_to_menuEstadisticasFragment)
             }
 
+            binding.buttonLogOut?.setOnClickListener{
+                FirebaseAuth.getInstance().signOut()
+                findNavController().navigate(R.id.action_welcomeFragment_to_loginFragment)
+            }
             return view
         }
 
