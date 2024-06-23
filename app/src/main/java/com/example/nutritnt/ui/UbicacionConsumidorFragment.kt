@@ -115,7 +115,7 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
         if (marker == null) {
             // Ubicación inicial
            val startPoint = LatLng(-42.775082, -65.047036)
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPoint, 15f))
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPoint, 14f))
             // Añadir un marcador inicial
             marker = googleMap.addMarker(MarkerOptions().position(startPoint).draggable(true))
         } else {

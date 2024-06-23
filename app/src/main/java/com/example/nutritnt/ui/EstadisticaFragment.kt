@@ -183,8 +183,8 @@ class EstadisticaFragment : Fragment() {
 
                 // Configurar los datos de la entry en los TextViews
                 labelItem.text = entry.descripcion
-                infoPorcentaje.text = "${entry.porcentaje}%" // Configurar porcentaje
-                infoGramos.text = "${entry.gramos}gr" // Configurar gramos
+                infoPorcentaje.text = "${"%.2f".format(entry.porcentaje)}%" // Configurar porcentaje
+                infoGramos.text = "${"%.2f".format(entry.gramos)}gr" // Configurar gramos
 
                 // Agregar el item de leyenda al contenedor dentro de la CardView
                 legendItemContainer.addView(legendItem)

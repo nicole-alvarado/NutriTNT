@@ -69,7 +69,7 @@ class EstadisticaMapFragment : Fragment(), OnMapReadyCallback {
         googleMap.uiSettings.isZoomControlsEnabled = true
 
         val startPoint = LatLng(-42.775082, -65.047036)
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPoint, 15f))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPoint, 13f))
 
         // Observa los datos de encuestas
         encuestaViewModel.todasLasEncuestas.observe(viewLifecycleOwner) { encuestas ->
