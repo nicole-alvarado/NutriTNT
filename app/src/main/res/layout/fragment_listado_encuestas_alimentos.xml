@@ -12,7 +12,7 @@
         android:id="@+id/textEncuestasAlimentos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="45dp"
         android:text="Alimentos de la encuesta"
         android:gravity="center_horizontal"
         android:textSize="24sp"
@@ -35,16 +35,32 @@
         app:layout_constraintTop_toBottomOf="@+id/textEncuestasAlimentos" />
 
     <Button
-        android:id="@+id/buttonInicio"
+        android:id="@+id/buttonVerResultadoIndividual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Volver al inicio"
+        android:text="Ver resultado individual"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerViewEncuestaAlimento"
         app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/buttonInicio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:drawableLeft="@drawable/arrow_left_back"
+        android:drawablePadding="8dp"
+        android:focusable="true"
+        android:onClick="onClickVolverListado"
+        android:padding="12dp"
+        android:text="Volver al inicio"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,8 @@
 package com.example.nutritnt.ui.encuesta
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -45,14 +47,26 @@ class NuevaEncuestaGeneralFragment : Fragment() {
             alimentosList.addAll(alimentos)
         })
 
-        binding.buttonComenzarCopiaEncuesta.setOnClickListener{
+        // Deshabilitar el botón al inicio
+        binding.buttonComenzarEncuesta.isEnabled = false
 
+        // Añadir TextWatcher al campo de texto del código de participante
+        binding.textInputCodigoParticipante.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Habilitar o deshabilitar el botón en función de si el campo está vacío o no
+                binding.buttonComenzarEncuesta.isEnabled = !s.isNullOrEmpty()
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        binding.buttonComenzarCopiaEncuesta.setOnClickListener {
             findNavController().navigate(NuevaEncuestaGeneralFragmentDirections.actionNuevaEncuestaFragmentToCopiaNuevaEncuestaAlimentoFragment())
-
-
         }
 
-        binding.buttonComenzarEncuesta.setOnClickListener{
+        binding.buttonComenzarEncuesta.setOnClickListener {
             val nombreRandom = generateRandomNombre()
             val fecha = obtenerFechaActual()
             val codigoParticipante = binding.textInputCodigoParticipante.text.toString()
@@ -72,14 +86,12 @@ class NuevaEncuestaGeneralFragment : Fragment() {
                 // Insertar la nueva encuesta y obtener el ID generado
                 encuestaViewModel.insert(nuevaEncuesta)
 
-            // Navega al NuevaEncuestaFragment (encuesta alimento) utilizando la acción generada por Safe Args y pasa codigoParticipante como argumento
-           // findNavController().navigate(NuevaEncuestaGeneralFragmentDirections.actionNuevaEncuestaFragmentToUbicacionConsumidorFragment())
+                // Navega al NuevaEncuestaFragment (encuesta alimento) utilizando la acción generada por Safe Args y pasa codigoParticipante como argumento
+                // findNavController().navigate(NuevaEncuestaGeneralFragmentDirections.actionNuevaEncuestaFragmentToUbicacionConsumidorFragment())
                 // Observar el LiveData después de la inserción
                 encuestaViewModel.getEncuestaByCodigoParticipante(codigoParticipante).observe(viewLifecycleOwner, Observer { encuesta ->
                     if (encuesta != null) {
                         this@NuevaEncuestaGeneralFragment.encuesta = encuesta
-                        //Log.i("Muricion Encuesta", encuesta.encuestaId.toString())
-
                         val encuestasAlimentosList = alimentosList.map { alimento ->
                             //Log.i("Muricion Alimentos", alimento.descripcion)
                             EncuestaAlimento(
@@ -95,9 +107,8 @@ class NuevaEncuestaGeneralFragment : Fragment() {
                         encuestasAlimentosList.forEach { encuestaAlimento ->
                             encuestaAlimentoViewModel.insert(encuestaAlimento)
                         }
-                        Log.i("Muricion", "Encuestas alimentos cargadas")
                         findNavController().navigate(NuevaEncuestaGeneralFragmentDirections.actionNuevaEncuestaFragmentToUbicacionConsumidorFragment(codigoParticipante))
-                       // findNavController().navigate(NuevaEncuestaGeneralFragmentDirections.actionNuevaEncuestaFragmentToListEncuestasAlimentosFragment(encuesta.encuestaId))
+                        // findNavController().navigate(NuevaEncuestaGeneralFragmentDirections.actionNuevaEncuestaFragmentToListEncuestasAlimentosFragment(encuesta.encuestaId))
                         //findNavController().navigate(NuevaEncuestaGeneralFragmentDirections.actionNuevaEncuestaFragmentToNewEncuestaFragment(codigoParticipante))
                     } else {
                         Log.e("Error", "Encuesta no encontrada")
@@ -118,5 +129,4 @@ class NuevaEncuestaGeneralFragment : Fragment() {
         val formatter = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
         return formatter.format(currentDate)
     }
-
 }

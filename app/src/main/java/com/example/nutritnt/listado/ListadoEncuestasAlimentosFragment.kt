@@ -17,6 +17,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nutritnt.R
 import com.example.nutritnt.adapter.EncuestaAlimentoAdapter
+import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.databinding.FragmentListadoEncuestasAlimentosBinding
 import com.example.nutritnt.viewmodel.AlimentoViewModel
 import com.example.nutritnt.viewmodel.EncuestaAlimentoViewModel
@@ -26,6 +27,8 @@ class ListadoEncuestasAlimentosFragment : Fragment() {
     private lateinit var encuestaAlimentoViewModel: EncuestaAlimentoViewModel
     private lateinit var adapter: EncuestaAlimentoAdapter
     private val alimentoViewModel: AlimentoViewModel by viewModels()
+    private lateinit var encuestaGeneral: Encuesta
+
 
     // Inicializar la variable para manejar los argumentos utilizando navArgs()
     private val args: ListadoEncuestasAlimentosFragmentArgs by navArgs()
@@ -64,18 +67,19 @@ class ListadoEncuestasAlimentosFragment : Fragment() {
         )).get(EncuestaAlimentoViewModel::class.java)
 
         // Obtener el ID de la encuesta general a través de los argumentos
-        Log.i("Muricion Encuesta General para listado", args.encuestaId.toString())
         val encuestaGeneralId = args.encuestaId
-        Log.i("nik ", "Encuesta general id: "+encuestaGeneralId.toString())
 
         // Observar los cambios en los datos de encuestas alimentos filtrndas por ID y actualizar el adaptador cuando los datos cambien
         encuestaAlimentoViewModel.getEncuestasAlimentosByEncuestaId(encuestaGeneralId).observe(viewLifecycleOwner, Observer { encuestas_alimentos ->
             encuestas_alimentos?.let {
                 adapter.setEncuestasAlimentos(it)
-                Log.i("nik ", "Cargadas encuestas alimentos")
             }
         })
 
+        binding.buttonVerResultadoIndividual.setOnClickListener(){
+            //val action = ListadoEncuestasAlimentosFragmentDirections.actionListEncuestasAlimentosFragmentToEstadisticaIndividualFragment(encuestaGeneralId)
+            //findNavController().navigate(action)
+        }
     }
 
     private fun initRecyclerView() {
