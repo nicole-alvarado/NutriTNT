@@ -23,12 +23,12 @@ class EncuestaViewHolder(view: View, private val navigateToDetail: (Int) -> Unit
         val encuestaGeneralId = encuestaModel.encuestaId
 
         // Resaltar si es la última encuesta contestada
-        if (isUltimaEncuesta) {
-            binding.linearLayoutGrande.background = ContextCompat.getDrawable(itemView.context, R.drawable.border_ultima_encuesta)
-//            itemView.setBackgroundColor(Color.YELLOW) // Puedes cambiar esto a cualquier estilo que desees
-        } else {
-            itemView.setBackgroundColor(Color.TRANSPARENT)
-        }
+//        if (isUltimaEncuesta) {
+//            binding.linearLayoutGrande.background = ContextCompat.getDrawable(itemView.context, R.drawable.border_ultima_encuesta)
+////            itemView.setBackgroundColor(Color.YELLOW) // Puedes cambiar esto a cualquier estilo que desees
+//        } else {
+//            itemView.setBackgroundColor(Color.TRANSPARENT)
+//        }
 
         if (encuestaModel.estado == "INICIADA") {
             binding.tvEstado.setTextColor(itemView.context.getColor(R.color.orange))

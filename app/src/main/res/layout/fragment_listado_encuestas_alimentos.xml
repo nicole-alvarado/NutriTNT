@@ -15,7 +15,7 @@
         android:layout_marginTop="45dp"
         android:text="Alimentos de la encuesta"
         android:gravity="center_horizontal"
-        android:textSize="24sp"
+        android:textSize="23sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -25,7 +25,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewEncuestaAlimento"
         android:layout_width="409dp"
-        android:layout_height="550dp"
+        android:layout_height="580dp"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginTop="10dp"
