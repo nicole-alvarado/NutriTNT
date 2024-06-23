@@ -75,7 +75,7 @@ class DatosDatabase {
             Portion(mapOf('A' to "100",'B' to "240",'C' to "350",'D' to "480",'E' to "600"), "gr", listOf(R.drawable.empanadascarne_240gr, R.drawable.empanadascarne_480gr), 18),     //Empanadas de carne
 
             Portion(mapOf('A' to "100",'B' to "300",'C' to "450",'D' to "600",'E' to "1200"), "gr",listOf(R.drawable.pasteldepapa_300gr, R.drawable.pasteldepapa_600gr), 19),     //Pastel de papas
-            Portion(mapOf('A' to "100",'B' to "300",'C' to "450",'D' to "600",'E' to "1200"), "gr",listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 20),     //Puchero
+            Portion(mapOf('A' to "100",'B' to "300",'C' to "450",'D' to "600",'E' to "1200"), "gr",listOf(R.drawable.puchero_300gr, R.drawable.puchero_600gr), 20),     //Puchero
             Portion(mapOf('A' to "100",'B' to "300",'C' to "450",'D' to "600",'E' to "1200"), "gr",listOf(R.drawable.banana_300gr, R.drawable.banana_600gr), 21),     //Banana
             Portion(mapOf('A' to "100",'B' to "300",'C' to "450",'D' to "600",'E' to "1200"), "gr",listOf(R.drawable.durazno_300gr, R.drawable.durazno_600gr), 22),     //Durazno
             Portion(mapOf('A' to "100",'B' to "300",'C' to "450",'D' to "600",'E' to "1200"), "gr",listOf(R.drawable.manzana_300gr, R.drawable.manzana_600gr), 23),     //Manzana

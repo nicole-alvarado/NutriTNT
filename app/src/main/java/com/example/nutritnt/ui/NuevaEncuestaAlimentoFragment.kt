@@ -75,6 +75,7 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     private var previousSelectedFrame: FrameLayout? = null
     private lateinit var checkBoxes: List<CheckBox>
     private lateinit var frames: List<FrameLayout>
+    private var selectedPeriod: String = ""
 
 
     override fun onCreateView(
@@ -319,6 +320,8 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
 
     // Mostrar la encuesta de alimentos anterior
     private fun showPreviousEncuesta() {
+        Log.i("NicoleHoy", encuestaAlimento.toString())
+        saveEncuestaAlimento()
         if (currentIndex > 0) {
             currentIndex--
             currentEncuesta = todasLasEncuestas[currentIndex]
@@ -329,6 +332,8 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
 
     // Mostrar la siguiente encuesta de alimentos
     private fun showNextEncuesta() {
+        Log.i("NicoleHoy", encuestaAlimento.toString())
+        saveEncuestaAlimento();
         if (currentIndex < todasLasEncuestas.size - 1) {
             currentIndex++
             currentEncuesta = todasLasEncuestas[currentIndex]
@@ -395,34 +400,24 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         encuestaAlimentoViewModel.update(currentEncuesta)
     }
 
-    // Guardar los datos de la encuesta de alimentos en la base de datos.
-   /* private fun saveEncuestaAlimento() {
+    private fun saveEncuestaAlimento() {
         if (::currentEncuesta.isInitialized) {
-            val images = DatosDatabase.getPortionImagesForAlimento(currentEncuesta.alimentoId)
-            val index = if (selectedPortion == "Cuchara pequeña") 0 else 1 // Asumiendo que las imágenes están en orden de tamaño
+            if (currentEncuesta.portion=="" || currentEncuesta.period==""|| currentEncuesta.frecuency==0){
+                Log.e("NicoleHoy", "La encuesta actual no está completada")
+            }else{
+                currentEncuesta.estado = "COMPLETADA"
 
-            // Obtener la descripción de la porción seleccionada (por ejemplo, "5gr", "15gr")
-            val portionDescription = DatosDatabase.portions.find { it.imgsPortions[index] == images[index] }?.portions?.get('A')
+                // Actualizar la encuesta en la base de datos
+                encuestaAlimentoViewModel.update(currentEncuesta)
 
-            // Extraer el número de la descripción de la porción
-            val portionNumber = portionDescription?.let { extractNumber(it) }
-
-            currentEncuesta.portion =
-                (portionNumber ?: 0).toString() // Asignar el valor numérico de la porción seleccionada
-
-            currentEncuesta.period = binding.spinnerPeriod.selectedItem.toString()
-            currentEncuesta.frecuency = extractNumber(editText.text.toString()) // Obtener el número de frecuencia desde el EditText
-            currentEncuesta.estado = "COMPLETADA"
-            encuestaAlimentoViewModel.update(currentEncuesta)
-
-            // Llamar a la función para verificar y finalizar la encuesta general si es necesario
-            verificarEstados(currentEncuesta)
-
+                // Verificar y actualizar el estado general de la encuesta si es necesario
+                verificarEstados(currentEncuesta)
+            }
         } else {
-            Log.e("NuevaEncuestaAlimentoFragment", "La encuesta actual no está inicializada")
+            Log.e("NicoleHoy", "La encuesta actual no está inicializada correctamente")
         }
     }
-*/
+
     // Verificar y actualizar el estado de las encuestas
     private fun verificarEstados(encuestaAlimento: EncuestaAlimento) {
         Log.i("PruebaVerificar", "Entro a verificar 1")
@@ -476,7 +471,6 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
 
     // Incrementa el valor de la frecuencia y actualiza el campo de texto.
     private fun increment() {
-        Log.i("alvaraIncrement", "currentEncuestaId: " + currentEncuesta.encuestaAlimentoId.toString())
         valueFrecuency = currentEncuesta.frecuency
         valueFrecuency++
         updateFrecuencyEditText(valueFrecuency)
@@ -486,7 +480,6 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
 
     // Decrementa el valor de la frecuencia y actualiza el campo de texto.
     private fun decrement() {
-        Log.i("alvaraDecrement", "currentEncuestaId: " + currentEncuesta.encuestaAlimentoId.toString())
         valueFrecuency = currentEncuesta.frecuency
         if (valueFrecuency > 0) {
             valueFrecuency--
