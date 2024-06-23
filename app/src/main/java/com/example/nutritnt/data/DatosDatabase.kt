@@ -74,18 +74,18 @@ class DatosDatabase {
             Portion(mapOf('A' to "100",'B' to "300",'C' to "450",'D' to "600",'E' to "1200"), "gr", listOf(R.drawable.empanadasfritascarne_300gr, R.drawable.empanadasfritascarne_600gr), 17),     //Empanadas de carne fritas
             Portion(mapOf('A' to "100",'B' to "240",'C' to "350",'D' to "480",'E' to "600"), "gr", listOf(R.drawable.empanadascarne_240gr, R.drawable.empanadascarne_480gr), 18),     //Empanadas de carne
 
-            Portion(mapOf('A' to "100",'B' to "300",'C' to "450",'D' to "600",'E' to "1200"), "gr",listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 19),     //Pastel de papas
+            Portion(mapOf('A' to "100",'B' to "300",'C' to "450",'D' to "600",'E' to "1200"), "gr",listOf(R.drawable.pasteldepapa_300gr, R.drawable.pasteldepapa_600gr), 19),     //Pastel de papas
             Portion(mapOf('A' to "100",'B' to "300",'C' to "450",'D' to "600",'E' to "1200"), "gr",listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 20),     //Puchero
-            Portion(mapOf('A' to "100",'B' to "300",'C' to "450",'D' to "600",'E' to "1200"), "gr",listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 21),     //Banana
-            Portion(mapOf('A' to "100",'B' to "300",'C' to "450",'D' to "600",'E' to "1200"), "gr",listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 22),     //Durazno
-            Portion(mapOf('A' to "100",'B' to "300",'C' to "450",'D' to "600",'E' to "1200"), "gr",listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 23),     //Manzana
-            Portion(mapOf('A' to "100",'B' to "300",'C' to "450",'D' to "600",'E' to "1200"), "gr",listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 24),     //Aguas saborizadas clásicas
-            Portion(mapOf('A' to "100",'B' to "300",'C' to "450",'D' to "600",'E' to "1200"), "gr",listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 25),     //Bebidas deportivas y energizantes
-            Portion(mapOf('A' to "100",'B' to "300",'C' to "450",'D' to "600",'E' to "1200"), "gr",listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 26),     //Gaseosas clásicas
-            Portion(mapOf('A' to "100",'B' to "300",'C' to "450",'D' to "600",'E' to "1200"), "gr",listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 27),     //Vino
-            Portion(mapOf('A' to "100",'B' to "300",'C' to "450",'D' to "600",'E' to "1200"), "gr",listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 28),     //Cerveza o aperitivos
-            Portion(mapOf('A' to "100",'B' to "300",'C' to "450",'D' to "600",'E' to "1200"), "gr",listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 29),     //Licor
-            Portion(mapOf('A' to "100",'B' to "300",'C' to "450",'D' to "600",'E' to "1200"), "gr",listOf(R.drawable.cuchara5grq, R.drawable.cuchara15grq), 30),     //Bebidas blancas
+            Portion(mapOf('A' to "100",'B' to "300",'C' to "450",'D' to "600",'E' to "1200"), "gr",listOf(R.drawable.banana_300gr, R.drawable.banana_600gr), 21),     //Banana
+            Portion(mapOf('A' to "100",'B' to "300",'C' to "450",'D' to "600",'E' to "1200"), "gr",listOf(R.drawable.durazno_300gr, R.drawable.durazno_600gr), 22),     //Durazno
+            Portion(mapOf('A' to "100",'B' to "300",'C' to "450",'D' to "600",'E' to "1200"), "gr",listOf(R.drawable.manzana_300gr, R.drawable.manzana_600gr), 23),     //Manzana
+            Portion(mapOf('A' to "500",'B' to "1000",'C' to "1500",'D' to "2250",'E' to "3000"), "ml",listOf(R.drawable.aguasaborizada_1lt, R.drawable.aguasaborizada_2_25lt), 24),     //Aguas saborizadas clásicas
+            Portion(mapOf('A' to "250",'B' to "473",'C' to "500",'D' to "750",'E' to "1000"), "ml",listOf(R.drawable.bebidaenergizante_473ml, R.drawable.bebidaenergizante_750ml), 25),     //Bebidas deportivas y energizantes
+            Portion(mapOf('A' to "250",'B' to "500",'C' to "1000",'D' to "1500",'E' to "2250"), "ml",listOf(R.drawable.gaseosa_500ml, R.drawable.gaseosa_1500ml), 26),     //Gaseosas clásicas
+            Portion(mapOf('A' to "500",'B' to "750",'C' to "1500",'D' to "3000",'E' to "3500"), "ml",listOf(R.drawable.vino_750ml, R.drawable.vino_3000ml), 27),     //Vino
+            Portion(mapOf('A' to "330",'B' to "473",'C' to "710",'D' to "1000",'E' to "1500"), "ml",listOf(R.drawable.cerveza_473ml, R.drawable.cerveza_1000ml), 28),     //Cerveza o aperitivos
+            Portion(mapOf('A' to "500",'B' to "750",'C' to "1000",'D' to "1700",'E' to "2000"), "ml",listOf(R.drawable.licor_750ml, R.drawable.licor_1700ml), 29),     //Licor
+            Portion(mapOf('A' to "500",'B' to "750",'C' to "1000",'D' to "1750",'E' to "2000"), "ml",listOf(R.drawable.bebidablanca_750ml, R.drawable.bebidablanca_1750ml), 30),     //Bebidas blancas
 
 
             )
