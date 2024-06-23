@@ -402,9 +402,9 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
 
     private fun saveEncuestaAlimento() {
         if (::currentEncuesta.isInitialized) {
-            if (currentEncuesta.portion=="" || currentEncuesta.period==""|| currentEncuesta.frecuency==0){
-                Log.e("NicoleHoy", "La encuesta actual no está completada")
-            }else{
+            if (currentEncuesta.period == "Nunca" ||
+                (currentEncuesta.portion != "" && currentEncuesta.period != "" && currentEncuesta.frecuency != 0)) {
+
                 currentEncuesta.estado = "COMPLETADA"
 
                 // Actualizar la encuesta en la base de datos
@@ -412,11 +412,15 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
 
                 // Verificar y actualizar el estado general de la encuesta si es necesario
                 verificarEstados(currentEncuesta)
+            } else {
+                Log.e("NicoleHoy", "La encuesta actual no está completada")
             }
         } else {
             Log.e("NicoleHoy", "La encuesta actual no está inicializada correctamente")
         }
     }
+
+
 
     // Verificar y actualizar el estado de las encuestas
     private fun verificarEstados(encuestaAlimento: EncuestaAlimento) {
