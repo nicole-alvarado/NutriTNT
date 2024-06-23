@@ -30,3 +30,16 @@ data class Encuesta(
     @ColumnInfo(name = "longitud")
     var longitud: String,
 )
+
+fun Encuesta.toMap(): Map<String, Any> {
+    return mapOf(
+        "encuestaId" to encuestaId,
+        "nombre" to nombre,
+        "fecha" to fecha,
+        "estado" to estado,
+        "zona" to zona,
+        "codigoParticipante" to codigoParticipante,
+        "latitud" to latitud,
+        "longitud" to longitud
+    )
+}

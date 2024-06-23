@@ -1,7 +1,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="@android:color/transparent" />
     <stroke
-        android:width="5dp"
-        android:color="#4EC653" /> <!-- Aquí puedes cambiar el color del borde -->
+        android:width="6dp"
+        android:color="#dc7bc0" /> <!-- Aquí puedes cambiar el color del borde -->
     <corners android:radius="8dp" /> <!-- Ajusta el radio de las esquinas si es necesario -->
 </shape>
