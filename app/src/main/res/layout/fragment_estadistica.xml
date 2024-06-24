@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_estadisticas"
+    android:background="@drawable/backgound_estadisticas_description"
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".ui.EstadisticaFragment">
@@ -75,6 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Volver al Menú"
+        android:backgroundTint="@color/buttonBack"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp" />
 

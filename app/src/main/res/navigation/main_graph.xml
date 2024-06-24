@@ -182,5 +182,8 @@
         <argument
             android:name="encuestaId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_encuestaGeneralOpcionesFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
     </fragment>
 </navigation>

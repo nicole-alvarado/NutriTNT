@@ -36,10 +36,12 @@
 
     <Button
         android:id="@+id/buttonComenzarEncuesta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
         android:text="Comenzar"
         android:textSize="20sp"
+        android:backgroundTint="#8A4EBF"
+        android:drawableEnd="@drawable/arrow_right_sig"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -48,13 +50,5 @@
         app:layout_constraintVertical_bias="0.5" />
 
 
-    <Button
-        android:id="@+id/buttonComenzarCopiaEncuesta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Comenzar copia"
-        android:textSize="20sp"
-        tools:layout_editor_absoluteX="117dp"
-        tools:layout_editor_absoluteY="638dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

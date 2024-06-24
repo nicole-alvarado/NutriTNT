@@ -74,6 +74,10 @@ class EncuestaGeneralOpcionesFragment : Fragment() {
 
         }
 
+        binding.buttonBackWelcome.setOnClickListener{
+            findNavController().navigate(R.id.action_encuestaGeneralOpcionesFragment_to_welcomeFragment)
+        }
+
     }
 
     private fun subirEncuesta() {
