@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true"
     android:background="@drawable/background_estadisticas"
     tools:context=".ui.EstadisticaIndividualFragment">
@@ -13,13 +13,22 @@
     android:layout_height="match_parent"
     >
 
-    <Button
-        android:id="@+id/backButton"
+    <TextView
+        android:id="@+id/textviewVolverListado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Volver"
-        android:layout_marginTop="16dp"
-         />
+        android:clickable="true"
+        android:drawableLeft="@drawable/arrow_left_back"
+        android:drawablePadding="8dp"
+        android:focusable="true"
+        android:onClick="onClickVolverListado"
+        android:padding="12dp"
+        android:layout_marginTop="14dp"
+        android:text="Volver al listado"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Título de la estadística -->
     <TextView
@@ -29,9 +38,9 @@
         android:text="Estadística del consumidor:"
         android:textStyle="bold"
         android:textSize="24sp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="9dp"
         android:gravity="center"
-        android:layout_below="@+id/backButton"/>
+        android:layout_below="@+id/textviewVolverListado"/>
 
     <!-- Título del código de usuario -->
     <TextView

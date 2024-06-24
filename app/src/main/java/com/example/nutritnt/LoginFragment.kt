@@ -40,7 +40,7 @@ class LoginFragment : Fragment() {
         // CÓDIGO PARA AUTHENTICATION
         binding.loginButton.setOnClickListener {
             // Obtener inputUsuario e inputPassword desde el xml
-            val usernameInput = binding.inputUsuario.editText?.text.toString()
+            /*val usernameInput = binding.inputUsuario.editText?.text.toString()
             val passwordInput = binding.inputPassword.editText?.text.toString()
 
             // Actualizar los LiveData en el ViewModel con el usuario y la contraseña ingresado
@@ -58,7 +58,10 @@ class LoginFragment : Fragment() {
                             Toast.makeText(context, "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT).show()
                         }
                     }
-            }
+            } */
+
+            findNavController().navigate(R.id.action_loginFragment_to_welcomeFragment)
+
         }
 
 //        binding.loginButton.setOnClickListener(){

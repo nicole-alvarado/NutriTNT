@@ -16,7 +16,6 @@
         android:clickable="true"
         android:drawableLeft="@drawable/arrow_left_back"
         android:drawablePadding="8dp"
-        android:focusable="true"
         android:onClick="onClickVolverListado"
         android:padding="12dp"
         android:text="Volver al listado"
@@ -149,6 +148,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gridPeriods" />
 
+    <!-- Frecuencia -->
+
+    <TextView
+        android:id="@+id/textViewFrecuency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/textview_title_border"
+        android:layout_marginTop="12dp"
+        android:text="Frecuencia"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gridPeriods" />
+
+    <include
+        android:id="@+id/horizontal_button_picker"
+        layout="@layout/horizontal_button_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.500"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewFrecuency" />
+
+
 
     <!-- Porción -->
 
@@ -164,7 +193,7 @@
         android:layout_marginEnd="16dp"
         android:background="@drawable/textview_title_border"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gridPeriods" />
+        app:layout_constraintTop_toBottomOf="@id/horizontal_button_picker" />
 
     <!-- Selector for porciones -->
     <LinearLayout
@@ -193,7 +222,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="12dp"
-                android:background="@drawable/default_background">
+                android:background="@drawable/default_backgound_imgnoselected">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -205,8 +234,6 @@
                         android:id="@+id/text_title_portionB"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true"
                         android:gravity="center"
                         android:padding="2dp"
                         android:text="Opcion B:"
@@ -218,9 +245,8 @@
                         android:layout_height="130dp"
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
-                        android:clickable="true"
                         android:contentDescription="Portion pequeña"
-                        android:focusable="true" />
+                         />
 
                     <TextView
                         android:id="@+id/text_portionB"
@@ -238,7 +264,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
-                android:background="@drawable/default_background">
+                android:background="@drawable/default_backgound_imgnoselected">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -250,8 +276,6 @@
                         android:id="@+id/text_title_portionD"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true"
                         android:gravity="center"
                         android:padding="2dp"
                         android:text="Opcion D:"
@@ -263,9 +287,8 @@
                         android:layout_height="130dp"
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
-                        android:clickable="true"
-                        android:contentDescription="portion grande"
-                        android:focusable="true" />
+                         android:contentDescription="portion grande"
+                         />
 
                     <TextView
                         android:id="@+id/text_portionD"
@@ -312,7 +335,6 @@
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackground"
                             android:clickable="true"
-                            android:focusable="true"
                             android:gravity="center"
                             android:padding="8dp"
                             android:text="Opcion A: \nMenos que B"
@@ -351,7 +373,6 @@
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackground"
                             android:clickable="true"
-                            android:focusable="true"
                             android:gravity="center"
                             android:padding="8dp"
                             android:text="Opcion C: \nEntre B y D"
@@ -388,7 +409,6 @@
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackground"
                             android:clickable="true"
-                            android:focusable="true"
                             android:gravity="center"
                             android:padding="8dp"
                             android:text="Opcion E: \nMás que D"
@@ -398,38 +418,17 @@
                 </FrameLayout>
             </LinearLayout>
         </LinearLayout>
+        <View
+            android:id="@+id/focusHelper"
+            android:layout_width="0px"
+            android:layout_height="0px"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:visibility="invisible" />
     </LinearLayout>
 
 
-
-    <!-- Frecuencia -->
-
-    <TextView
-        android:id="@+id/textViewFrecuency"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/textview_title_border"
-        android:layout_marginTop="12dp"
-        android:text="Frecuencia"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout_portions" />
-
-    <include
-        android:id="@+id/horizontal_button_picker"
-        layout="@layout/horizontal_button_picker"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.500"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewFrecuency" />
 
     <!--Navegacion entre encuestas-->
     <Button
@@ -441,7 +440,7 @@
         android:backgroundTint="#9F4EA3"
         android:drawableLeft="@drawable/arrow_left_ant"
         android:text="Anterior"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_button_picker"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout_portions"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0.5" />
@@ -455,7 +454,7 @@
         android:backgroundTint="#8A4EBF"
         android:drawableEnd="@drawable/arrow_right_sig"
         android:text="Siguiente"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_button_picker"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout_portions"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0.5" />

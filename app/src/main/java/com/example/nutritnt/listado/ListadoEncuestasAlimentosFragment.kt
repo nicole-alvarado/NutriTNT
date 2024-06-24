@@ -46,6 +46,7 @@ class ListadoEncuestasAlimentosFragment : Fragment() {
             findNavController().navigate(R.id.action_listEncuestasAlimentosFragment_to_welcomeFragment)
         }
 
+
         ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -77,8 +78,8 @@ class ListadoEncuestasAlimentosFragment : Fragment() {
         })
 
         binding.buttonVerResultadoIndividual.setOnClickListener(){
-            //val action = ListadoEncuestasAlimentosFragmentDirections.actionListEncuestasAlimentosFragmentToEstadisticaIndividualFragment(encuestaGeneralId)
-            //findNavController().navigate(action)
+            findNavController().navigate(ListadoEncuestasAlimentosFragmentDirections.actionListEncuestasAlimentosFragmentToEstadisticaIndividualFragment(encuestaGeneralId))
+
         }
     }
 

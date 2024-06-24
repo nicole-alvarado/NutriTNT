@@ -29,6 +29,8 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import kotlinx.coroutines.launch
+import java.util.Locale
+import kotlin.properties.Delegates
 
 
 class EstadisticaIndividualFragment : Fragment() {
@@ -40,8 +42,8 @@ class EstadisticaIndividualFragment : Fragment() {
     private lateinit var binding: FragmentEstadisticaIndividualBinding
     private lateinit var legendContainer: LinearLayout
     private var shouldUpdateGraphAutomatically = true
-    private lateinit var codigo: String
-    private var encuestaID: Int = 0
+    private var encuestaGeneralID by Delegates.notNull<Int>()
+    private var encuestaGeneral: Encuesta? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,23 +51,11 @@ class EstadisticaIndividualFragment : Fragment() {
 
         // Obtener el argumento pasado desde el Fragment anterior
         arguments?.let {
-            codigo = EstadisticaIndividualFragmentArgs.fromBundle(it).codigo
+            encuestaGeneralID = EstadisticaIndividualFragmentArgs.fromBundle(it).encuestaGeneralID
 
         }
 
-        lifecycleScope.launch {
-            encuestaID = codigo.let {
-                encuestaViewModel.obtenerIdEncuestaPorCodigo(it)
-            }!!
 
-            // Usar encuestaID aquí después de haberlo obtenido
-            if (encuestaID != null) {
-                // Procesar el ID de la encuesta
-                Log.d("MiFragmento", "ID de la encuesta: $encuestaID")
-            } else {
-                Log.e("MiFragmento", "No se pudo obtener el ID para el código: $codigo")
-            }
-        }
     }
 
 
@@ -79,13 +69,21 @@ class EstadisticaIndividualFragment : Fragment() {
         legendContainer = view.findViewById(R.id.legendContainer)
         pieChart = view.findViewById(R.id.pieChart)
 
-        if (shouldUpdateGraphAutomatically) {
-            actualizarGrafico("dia")
-        }
+        encuestaViewModel.getEncuestaById(encuestaGeneralID).observe(
+            viewLifecycleOwner,
+            Observer { encuesta ->
+                encuestaGeneral = encuesta
+                if (shouldUpdateGraphAutomatically) {
+                    actualizarGrafico("dia")
+                }
+            }
+        )
 
-        binding.backButton.setOnClickListener{
+
+
+        binding.textviewVolverListado.setOnClickListener{
             shouldUpdateGraphAutomatically = false
-           findNavController().navigate(EstadisticaIndividualFragmentDirections.actionEstadisticaIndividualFragmentToListEncuestasAlimentosFragment(encuestaID))
+           findNavController().navigate(EstadisticaIndividualFragmentDirections.actionEstadisticaIndividualFragmentToListEncuestasAlimentosFragment(encuestaGeneralID))
         }
 
         return view
@@ -94,6 +92,8 @@ class EstadisticaIndividualFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
 
         val expandButton: Button = view.findViewById(R.id.expandButton)
         val expandableSection: LinearLayout = view.findViewById(R.id.expandableSection)
@@ -153,8 +153,14 @@ class EstadisticaIndividualFragment : Fragment() {
 
         lifecycleScope.launch {
 
-            encuestaAlimentoViewModel.fetchEncuestaAlimentosWithAlimentoAndInfo(codigo)
-            binding.titleCodeUserText.text = codigo
+
+
+            encuestaGeneral?.codigoParticipante?.let {
+                encuestaAlimentoViewModel.fetchEncuestaAlimentosWithAlimentoAndInfo(
+                    it
+                )
+            }
+            binding.titleCodeUserText.text = encuestaGeneral?.codigoParticipante
 
 
             var listaCompletada = false
@@ -213,10 +219,11 @@ class EstadisticaIndividualFragment : Fragment() {
             ColorTemplate.rgb("#fadcb4"),  // melocoton
             ColorTemplate.rgb("#e0e0e0")   // gris perla
         )
-        pieChart.setUsePercentValues(true)
+
         val pieData = PieData(dataSet)
-        pieData.setValueTextSize(15f)
-        pieData.setValueFormatter(PercentFormatter(pieChart))
+        pieData.setValueFormatter(null)
+        pieData.setValueTextSize(0f)
+       // pieData.setValueFormatter(PercentFormatter(pieChart))
         pieChart.setData(pieData)
         pieChart.isDrawHoleEnabled = false
         pieChart.description.isEnabled = false // Deshabilitar la descripción del gráfico
@@ -244,10 +251,18 @@ class EstadisticaIndividualFragment : Fragment() {
             val infoPorcentaje = legendItem.findViewById<TextView>(R.id.informacion_porcentaje)
             val infoGramos = legendItem.findViewById<TextView>(R.id.informacion_gramos)
             colorBox.setBackgroundColor(colors[i])
-            label.text = datosConsumo[i].descripcion
+            label.text = capitalizeFirstLetter(datosConsumo[i].descripcion)
             infoPorcentaje.text = "${"%.2f".format(datosConsumo[i].porcentaje)}%"
             infoGramos.text = "${"%.2f".format(datosConsumo[i].gramos)}gr"
             legendContainer.addView(legendItem)
+        }
+    }
+
+    fun capitalizeFirstLetter(str: String): String {
+        return if (str.isEmpty()) {
+            str
+        } else {
+            str.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
         }
     }
 
