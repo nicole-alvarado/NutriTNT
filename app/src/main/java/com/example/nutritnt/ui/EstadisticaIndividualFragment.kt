@@ -22,7 +22,12 @@ import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.databinding.FragmentEstadisticaIndividualBinding
 import com.example.nutritnt.viewmodel.EncuestaAlimentoViewModel
 import com.example.nutritnt.viewmodel.EncuestaViewModel
+import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -37,7 +42,7 @@ class EstadisticaIndividualFragment : Fragment() {
 
     private val encuestaAlimentoViewModel: EncuestaAlimentoViewModel by viewModels()
     private val encuestaViewModel: EncuestaViewModel by viewModels()
-    private lateinit var pieChart: PieChart
+    private lateinit var barChart: BarChart
     private lateinit var datosConsumo: List<Consumo>
     private lateinit var binding: FragmentEstadisticaIndividualBinding
     private lateinit var legendContainer: LinearLayout
@@ -67,7 +72,7 @@ class EstadisticaIndividualFragment : Fragment() {
         val view = binding.root
 
         legendContainer = view.findViewById(R.id.legendContainer)
-        pieChart = view.findViewById(R.id.pieChart)
+        barChart = view.findViewById(R.id.barChart)
 
         encuestaViewModel.getEncuestaById(encuestaGeneralID).observe(
             viewLifecycleOwner,
@@ -168,7 +173,7 @@ class EstadisticaIndividualFragment : Fragment() {
             encuestaAlimentoViewModel.encuestaAlimentosWithAlimentoAndInfo.observe(
                 viewLifecycleOwner,
                 Observer { listado ->
-                    val entries: MutableList<PieEntry> = ArrayList()
+                    val entries: MutableList<BarEntry> = ArrayList()
                     Log.i("observerEstInd", "entró a observer")
                     listado?.let { listaCompleta ->
 
@@ -180,8 +185,10 @@ class EstadisticaIndividualFragment : Fragment() {
                         if (listaCompleta.isNotEmpty()) {
                             datosConsumo =
                                 DatosConsumo.calcularValoresNutricionales(listaCompleta, periodo)
+                            var contador = 0F
                             for (dato in datosConsumo) {
-                                entries.add(PieEntry(dato.porcentaje, dato.descripcion))
+                                entries.add(BarEntry(contador, dato.gramos))
+                                contador++
                             }
                             listaCompletada = true
                         }
@@ -200,16 +207,16 @@ class EstadisticaIndividualFragment : Fragment() {
 
     }
 
-    private fun llenarGrafico(entries: MutableList<PieEntry>, datosConsumo: List<Consumo>) {
+    private fun llenarGrafico(entries: MutableList<BarEntry>, datosConsumo: List<Consumo>) {
 
-        var entriesModif: MutableList<PieEntry> = ArrayList()
-
+        var entriesModif: MutableList<BarEntry> = ArrayList()
+/*
         for (entry in entries){
-            entriesModif.add(PieEntry(entry.value, ""))
-        }
+            entriesModif.add(BarEntry(entry.x, 0F))
+        } */
 
 
-        val dataSet = PieDataSet(entriesModif, "Categorias")
+        val dataSet = BarDataSet(entries, "Categorias")
         dataSet.colors = listOf(
             ColorTemplate.rgb("#4682B4"),  //blue
             ColorTemplate.rgb("#FFA07A"),  // naranjita
@@ -220,15 +227,14 @@ class EstadisticaIndividualFragment : Fragment() {
             ColorTemplate.rgb("#e0e0e0")   // gris perla
         )
 
-        val pieData = PieData(dataSet)
-        pieData.setValueFormatter(null)
-        pieData.setValueTextSize(0f)
-       // pieData.setValueFormatter(PercentFormatter(pieChart))
-        pieChart.setData(pieData)
-        pieChart.isDrawHoleEnabled = false
-        pieChart.description.isEnabled = false // Deshabilitar la descripción del gráfico
-        pieChart.legend.isEnabled = false // Deshabilitar la leyenda
-        pieChart.invalidate() // Actualiza el gráfico
+        val barData = BarData(dataSet)
+        barData.setValueFormatter(null)
+        barData.setValueTextSize(0f)
+       // barData.setValueFormatter(PercentFormatter(pieChart))
+        barChart.setData(barData)
+        barChart.description.isEnabled = false // Deshabilitar la descripción del gráfico
+        barChart.legend.isEnabled = false // Deshabilitar la leyenda
+        barChart.invalidate() // Actualiza el gráfico
         createLegend(legendContainer, entries, dataSet.colors, datosConsumo)
     }
 
@@ -236,7 +242,7 @@ class EstadisticaIndividualFragment : Fragment() {
 
     private fun createLegend(
         legendContainer: LinearLayout,
-        entries: MutableList<PieEntry>,
+        entries: MutableList<BarEntry>,
         colors: List<Int>,
         datosConsumo: List<Consumo>
     ) {

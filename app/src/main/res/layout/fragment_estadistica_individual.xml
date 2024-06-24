@@ -114,8 +114,8 @@
     </LinearLayout>
 
     <!-- Contenedor del gráfico de pastel -->
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pieChart"
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barChart"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_below="@id/expandableSection"
@@ -131,7 +131,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        android:layout_below="@id/pieChart"/>
+        android:layout_below="@id/barChart"/>
 
 </RelativeLayout>
 

@@ -476,11 +476,11 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     // Función para resaltar la selección de porción (imagen)
     private fun highlightSelection(selectedFrame: FrameLayout, selectedView: View) {
 
-        modifyViewColorSelected(selectedFrame)
+       // modifyViewColorSelected(selectedFrame)
 
         previousSelectedFrame?.setBackgroundResource(com.example.nutritnt.R.drawable.default_background)
 
-        previousSelectedFrame?.let { modifyViewColorNotSelected(it) }
+       // previousSelectedFrame?.let { modifyViewColorNotSelected(it) }
 
         selectedFrame.setBackgroundResource(com.example.nutritnt.R.drawable.border_portion_selected)
 
@@ -508,10 +508,11 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
                 val portionSelected = DatosFramesPortions.framePortionNames[charPortion]
                 if(portionSelected?.let { it1 -> resources.getResourceName(frame.id).contains(it1) } == true){
                     frame.setBackgroundResource(com.example.nutritnt.R.drawable.border_portion_selected)
-                    modifyViewColorSelected(frame)
+                    previousSelectedFrame = frame
+                   // modifyViewColorSelected(frame)
                 } else {
                     frame.setBackgroundResource(com.example.nutritnt.R.drawable.default_backgound_imgnoselected)
-                    modifyViewColorNotSelected(frame)
+                 //   modifyViewColorNotSelected(frame)
                 }
             }
 
@@ -526,7 +527,7 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
 
             frame?.let {
                     frame.setBackgroundResource(com.example.nutritnt.R.drawable.default_background)
-                    modifyViewColorNotSelected(frame)
+                   // modifyViewColorNotSelected(frame)
             }
         }
     }
@@ -542,7 +543,7 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     fun <Char, String> invertMap(map: Map<Char, String>?): Map<String, Char>? {
         return map?.entries?.associate { (key, value) -> value to key }
     }
-    
+
 
     private fun modifyViewColorSelected(frame: FrameLayout){
 
