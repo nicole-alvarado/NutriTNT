@@ -21,11 +21,13 @@ import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.databinding.FragmentListadoEncuestasAlimentosBinding
 import com.example.nutritnt.viewmodel.AlimentoViewModel
 import com.example.nutritnt.viewmodel.EncuestaAlimentoViewModel
+import com.example.nutritnt.viewmodel.EncuestaViewModel
 
 class ListadoEncuestasAlimentosFragment : Fragment() {
     private lateinit var binding: FragmentListadoEncuestasAlimentosBinding
     private lateinit var encuestaAlimentoViewModel: EncuestaAlimentoViewModel
     private lateinit var adapter: EncuestaAlimentoAdapter
+    private val encuestaViewModel: EncuestaViewModel by viewModels()
     private val alimentoViewModel: AlimentoViewModel by viewModels()
     private lateinit var encuestaGeneral: Encuesta
 
@@ -76,10 +78,18 @@ class ListadoEncuestasAlimentosFragment : Fragment() {
             }
         })
 
+        encuestaViewModel.getEncuestaById(encuestaGeneralId).observe(viewLifecycleOwner, Observer{
+            encuestaGeneral = it
+            // Deshabilitar el botón si el estado de la encuesta no es "FINALIZADA"
+            binding.buttonVerResultadoIndividual.isEnabled = encuestaGeneral.estado == "FINALIZADA"
+        })
+
         binding.buttonVerResultadoIndividual.setOnClickListener(){
             //val action = ListadoEncuestasAlimentosFragmentDirections.actionListEncuestasAlimentosFragmentToEstadisticaIndividualFragment(encuestaGeneralId)
             //findNavController().navigate(action)
         }
+
+
     }
 
     private fun initRecyclerView() {

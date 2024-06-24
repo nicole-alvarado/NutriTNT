@@ -49,6 +49,7 @@ class EncuestaGeneralOpcionesFragment : Fragment() {
         // Obtener la encuesta general desde un principio
         encuestaViewModel.getEncuestaById(args.encuestaId).observe(viewLifecycleOwner, Observer { encuesta ->
             encuestaGeneral = encuesta
+            binding.buttonSubirEncuesta.isEnabled = encuestaGeneral.estado == "FINALIZADA"
             Log.i("PruebaHoy", encuesta.toString())
         })
 
@@ -56,7 +57,6 @@ class EncuestaGeneralOpcionesFragment : Fragment() {
         encuestaAlimentoViewModel.getEncuestasAlimentosByEncuestaId(args.encuestaId).observe(viewLifecycleOwner, Observer { encuestas_alimentos ->
             encuestas_alimentos?.let {
                 alimentosDeLaEncuesta = it
-                Log.i("PruebaHoy", "Encuestas alimentos obtenidas")
             }
         })
 
