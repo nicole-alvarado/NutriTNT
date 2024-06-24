@@ -36,7 +36,7 @@ public class DatosConsumo {
                             "semana" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() / 7
                             "mes" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() / 31
                             "año" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() / 365
-                            else -> alimentoConInfo.encuestaAlimento.frecuency.toFloat()
+                            else -> 0F
                         }
                     }
                     "semana" -> {
@@ -45,7 +45,7 @@ public class DatosConsumo {
                             "semana" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat()
                             "mes" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() / 4  // Suponiendo 4 semanas por mes
                             "año" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() / 52 // Suponiendo 52 semanas por año
-                            else -> alimentoConInfo.encuestaAlimento.frecuency.toFloat()
+                            else -> 0F
                         }
                     }
 
@@ -55,7 +55,7 @@ public class DatosConsumo {
                             "semana" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() * 4  // Suponiendo 4 semanas por mes
                             "mes" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat()
                             "año" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() / 12
-                            else -> alimentoConInfo.encuestaAlimento.frecuency.toFloat()
+                            else -> 0F
                         }
                     }
 
@@ -65,18 +65,21 @@ public class DatosConsumo {
                             "semana" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() * 52 // Suponiendo 52 semanas por año
                             "mes" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat() * 12
                             "año" -> alimentoConInfo.encuestaAlimento.frecuency.toFloat()
-                            else -> alimentoConInfo.encuestaAlimento.frecuency.toFloat()
+                            else -> 0F
                         }
                     }
 
 
-                    else -> {alimentoConInfo.encuestaAlimento.frecuency.toFloat()}
+                    else -> {0F}
                 }
 
 
                 Log.i("DatosConsumoFrecuency", "frec. ajustada $frecuenciaAjustada")
-
-                val cantidad = alimentoConInfo.encuestaAlimento.portion.toInt() * frecuenciaAjustada
+                var cantidad = 0F
+                if (alimentoConInfo.encuestaAlimento.period.lowercase() != "nunca") {
+                    cantidad =
+                        alimentoConInfo.encuestaAlimento.portion.toInt() * frecuenciaAjustada
+                }
                 val info = alimentoConInfo.alimentoInformacionNutricional.informacionNutricional
 
                 totalCalorias += info.kcalTotales * (cantidad / 100)

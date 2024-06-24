@@ -18,6 +18,7 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.view.children
@@ -38,6 +39,7 @@ import com.example.nutritnt.databinding.FragmentNuevaEncuestaAlimentoBinding
 import com.example.nutritnt.viewmodel.AlimentoViewModel
 import com.example.nutritnt.viewmodel.EncuestaAlimentoViewModel
 import com.example.nutritnt.viewmodel.EncuestaViewModel
+
 
 class NuevaEncuestaAlimentoFragment : Fragment() {
 
@@ -90,9 +92,9 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        editTextFrecuency = view.findViewById(R.id.editText)
-        minusButton = view.findViewById(R.id.minusButton)
-        plusButton = view.findViewById(R.id.plusButton)
+        editTextFrecuency = view.findViewById(com.example.nutritnt.R.id.editText)
+        minusButton = view.findViewById(com.example.nutritnt.R.id.minusButton)
+        plusButton = view.findViewById(com.example.nutritnt.R.id.plusButton)
 
         // Configurar los botones de incremento y decremento
         minusButton.setOnClickListener { decrement() }
@@ -363,12 +365,10 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
 
             editTextFrecuency.setText(encuestaAlimento.frecuency.toString())
 
+
             binding.textPortionB?.text =
                 (portionsAlimento?.portions?.get('B') + portionsAlimento?.medidaPortion)
             binding.textPortionD?.text = (portionsAlimento?.portions?.get('D') + portionsAlimento?.medidaPortion)
-
-            frames = listOf(binding.framePortionA!!,binding.framePortionB!!, binding.framePortionC!!, binding.framePortionD!!, binding.framePortionE!!)
-            selectPortionFrame(frames, selectedPortion)
 
 
             val images = DatosDatabase.getPortionImagesForAlimento(alimento.alimentoId)
@@ -376,6 +376,10 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
                 imageviewPortionB.setImageResource(images[0])
                 imageViewPortionD.setImageResource(images[1])
             }
+
+
+            frames = listOf(binding.framePortionA!!,binding.framePortionB!!, binding.framePortionC!!, binding.framePortionD!!, binding.framePortionE!!)
+            selectPortionFrame(frames, selectedPortion)
         }
 
 
@@ -445,33 +449,6 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
             Log.i("PruebaVerificar", "Estado actualizado a FINALIZADA")
     }
 
-    // Configura un spinner con los elementos proporcionados y establece un valor por defecto si es necesario.
-    private fun setupSpinner(spinner: Spinner, items: List<String>, defaultValue: String? = null) {
-        val adapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_spinner_item,
-            items
-        )
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter
-
-        if (defaultValue != null && defaultValue.isNotEmpty()) {
-            val defaultPosition = items.indexOf(defaultValue)
-            if (defaultPosition >= 0) {
-                spinner.setSelection(defaultPosition)
-            }
-        }
-
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                // Aquí puedes manejar la lógica de selección del spinner si es necesario
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                // No se seleccionó nada en el spinner
-            }
-        }
-    }
 
     // Incrementa el valor de la frecuencia y actualiza el campo de texto.
     private fun increment() {
@@ -498,13 +475,14 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     }
     // Función para resaltar la selección de porción (imagen)
     private fun highlightSelection(selectedFrame: FrameLayout, selectedView: View) {
-        imageviewPortionB.alpha = 0.5f
-        imageViewPortionD.alpha = 0.5f
-        selectedView.alpha = 1.0f
 
-        previousSelectedFrame?.setBackgroundResource(R.drawable.default_background)
+       // modifyViewColorSelected(selectedFrame)
 
-        selectedFrame.setBackgroundResource(R.drawable.border_portion_selected)
+        previousSelectedFrame?.setBackgroundResource(com.example.nutritnt.R.drawable.default_background)
+
+       // previousSelectedFrame?.let { modifyViewColorNotSelected(it) }
+
+        selectedFrame.setBackgroundResource(com.example.nutritnt.R.drawable.border_portion_selected)
 
         updatePortionEncuesta(selectedPortion)
 
@@ -523,36 +501,34 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
 
     private fun selectPortionFrame(allFrames: List<FrameLayout?>, charPortion: Char) {
 
+
         allFrames.forEach { frame ->
 
             frame?.let {
                 val portionSelected = DatosFramesPortions.framePortionNames[charPortion]
                 if(portionSelected?.let { it1 -> resources.getResourceName(frame.id).contains(it1) } == true){
-                    frame.setBackgroundResource(R.drawable.border_portion_selected)
+                    frame.setBackgroundResource(com.example.nutritnt.R.drawable.border_portion_selected)
+                    previousSelectedFrame = frame
+                   // modifyViewColorSelected(frame)
                 } else {
-                    frame.setBackgroundResource(R.drawable.default_background)
+                    frame.setBackgroundResource(com.example.nutritnt.R.drawable.default_backgound_imgnoselected)
+                 //   modifyViewColorNotSelected(frame)
                 }
             }
-
-
 
         }
 
 
-
     }
+
 
     private fun deletePortionSelected() {
         frames.forEach { frame ->
 
             frame?.let {
-
-                    frame.setBackgroundResource(R.drawable.default_background)
-
+                    frame.setBackgroundResource(com.example.nutritnt.R.drawable.default_background)
+                   // modifyViewColorNotSelected(frame)
             }
-
-
-
         }
     }
 
@@ -566,5 +542,30 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
 
     fun <Char, String> invertMap(map: Map<Char, String>?): Map<String, Char>? {
         return map?.entries?.associate { (key, value) -> value to key }
+    }
+
+
+    private fun modifyViewColorSelected(frame: FrameLayout){
+
+        val linearLayout: LinearLayout? = frame.getChildAt(0) as? LinearLayout
+
+        linearLayout?.children?.forEach { view ->
+
+                view.alpha = 1f
+
+        }
+
+    }
+
+    private fun modifyViewColorNotSelected(frame: FrameLayout){
+
+        val linearLayout: LinearLayout? = frame.getChildAt(0) as? LinearLayout
+
+        linearLayout?.children?.forEach { view ->
+
+            view.alpha = 0.5f
+
+        }
+
     }
 }

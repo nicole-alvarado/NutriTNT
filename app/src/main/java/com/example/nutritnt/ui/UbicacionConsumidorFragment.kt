@@ -32,6 +32,7 @@ import com.google.android.gms.maps.model.PolylineOptions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlin.properties.Delegates
 
 
 class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
@@ -39,7 +40,7 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
     private lateinit var googleMap: GoogleMap
     private var marker: Marker? = null
     private lateinit var binding: FragmentUbicacionConsumidorBinding
-    private lateinit var codigo: String
+    private lateinit var codigoParticipante: String
     private val encuestaViewModel : EncuestaViewModel by viewModels()
     private lateinit var encuestaGeneral: Encuesta
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +48,7 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
 
         // Obtener el argumento pasado desde FragmentA
         arguments?.let {
-            codigo = UbicacionConsumidorFragmentArgs.fromBundle(it).codigo
+            codigoParticipante = UbicacionConsumidorFragmentArgs.fromBundle(it).codigoParticipante
         }
     }
 
@@ -62,7 +63,7 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
 
-        encuestaViewModel.getEncuestaByCodigoParticipante(codigo).observe(viewLifecycleOwner, Observer<Encuesta> { encuesta ->
+        encuestaViewModel.getEncuestaByCodigoParticipante(codigoParticipante).observe(viewLifecycleOwner, Observer<Encuesta> { encuesta ->
             // Manipular la encuesta recibida aquí
             encuesta.let {
                 encuestaGeneral = encuesta
@@ -115,7 +116,7 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
         if (marker == null) {
             // Ubicación inicial
            val startPoint = LatLng(-42.775082, -65.047036)
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPoint, 15f))
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPoint, 14f))
             // Añadir un marcador inicial
             marker = googleMap.addMarker(MarkerOptions().position(startPoint).draggable(true))
         } else {
