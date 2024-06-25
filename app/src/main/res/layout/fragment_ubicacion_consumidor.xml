@@ -11,7 +11,7 @@
         android:id="@+id/instructionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Por favor, mueva el pin a su zona de residencia"
+        android:text="Por favor, mueva el pin a la zona de residencia"
         android:textStyle="bold"
         android:textSize="18sp"
         android:layout_marginTop="70dp"
@@ -32,6 +32,7 @@
             android:layout_gravity="center_horizontal"
         android:layout_marginTop="2dp"
         android:backgroundTint="#8A4EBF"
+        android:textSize="16dp"
         android:drawableEnd="@drawable/arrow_right_sig"
         android:layout_marginBottom="20dp"
             android:text="Siguiente" />
