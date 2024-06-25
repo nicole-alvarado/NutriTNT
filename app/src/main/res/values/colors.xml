@@ -11,6 +11,8 @@
     <color name="colorPrimaryDark">#6A1B9A</color> <!-- Violeta oscuro -->
     <color name="colorText">#FFFFFF</color> <!-- Blanco para el texto -->
     <color name="orange">#FB5E2C</color>
+    <color name="buttonBack">#286473</color>
+    <color name="buttonEstInd">#24988E</color>
 
 
 

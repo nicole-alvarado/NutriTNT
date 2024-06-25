@@ -14,7 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Estadisticas"
+        android:textStyle="bold"
         android:textSize="24sp"
+        android:padding="16dp"
         android:gravity="center"
         android:layout_marginTop="100dp"
         android:layout_marginBottom="20dp"/>
@@ -62,10 +64,10 @@
             <Button
                 android:id="@+id/buttonBackWelcome"
                 android:layout_width="200dp"
-                android:layout_height="50dp"
+                android:layout_height="60dp"
                 android:layout_marginTop="55dp"
                 android:text="Volver al Inicio"
-                android:background="@drawable/welcome"
+                android:backgroundTint="@color/buttonBack"
                 android:drawableStart="@drawable/ic_arrow_left"
                 android:textColor="#FFFFFF" />
 

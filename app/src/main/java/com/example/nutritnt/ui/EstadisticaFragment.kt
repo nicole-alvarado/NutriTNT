@@ -36,6 +36,7 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 
 class EstadisticaFragment : Fragment() {
@@ -160,10 +161,6 @@ class EstadisticaFragment : Fragment() {
                 false
             )
 
-            // Obtener referencia al TextView 'label' dentro de la CardView
-            val label = legendZone.findViewById<TextView>(com.example.nutritnt.R.id.cardTitle)
-            label.text = zona // Establecer el texto de la zona en el TextView 'label'
-
             // Obtener el contenedor donde se agregarán los items de leyenda
             val legendItemContainer = legendZone.findViewById<LinearLayout>(com.example.nutritnt.R.id.legendContainer)
 
@@ -182,7 +179,7 @@ class EstadisticaFragment : Fragment() {
                 val infoGramos = legendItem.findViewById<TextView>(com.example.nutritnt.R.id.informacion_gramos)
 
                 // Configurar los datos de la entry en los TextViews
-                labelItem.text = entry.descripcion
+                labelItem.text = capitalizeFirstLetter(entry.descripcion)
                 infoPorcentaje.text = "${"%.2f".format(entry.porcentaje)}%" // Configurar porcentaje
                 infoGramos.text = "${"%.2f".format(entry.gramos)}gr" // Configurar gramos
 
@@ -193,6 +190,14 @@ class EstadisticaFragment : Fragment() {
             // Agregar la CardView completa (con todas sus entradas de leyenda) a legendContainer
             legendContainer.addView(legendZone)
 
+    }
+
+    fun capitalizeFirstLetter(str: String): String {
+        return if (str.isEmpty()) {
+            str
+        } else {
+            str.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+        }
     }
 
 
