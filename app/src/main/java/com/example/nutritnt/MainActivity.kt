@@ -4,6 +4,7 @@ package com.example.nutritnt
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.nutritnt.data.DatosDatabase
@@ -31,6 +32,13 @@ class MainActivity :  AppCompatActivity() {
            // val encuestaDAO = database.encuestaDao()
            // val alimentoDAO = database.alimentoDao()
            // val encuestaAlimentoDAO = database.encuestaAlimentoDao()
+
+            // Interceptar el botón de retroceso
+            onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    // No hacer nada para deshabilitar el botón de retroceso
+                }
+            })
 
             encuestaAlimentoViewModel = ViewModelProvider(this).get(EncuestaAlimentoViewModel::class.java)
                 var x = 0F
