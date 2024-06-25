@@ -62,6 +62,10 @@ class NuevaEncuestaGeneralFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
+        binding.buttonBackWelcome.setOnClickListener {
+            findNavController().navigate(R.id.action_nuevaEncuestaFragment_to_welcomeFragment)
+        }
+
 
         binding.buttonComenzarEncuesta.setOnClickListener {
             val nombreRandom = generateRandomNombre()

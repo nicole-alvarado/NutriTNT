@@ -119,6 +119,9 @@
         <action
             android:id="@+id/action_nuevaEncuestaFragment_to_listEncuestasAlimentosFragment"
             app:destination="@id/listEncuestasAlimentosFragment" />
+        <action
+            android:id="@+id/action_nuevaEncuestaFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/estadisticaMapFragment"

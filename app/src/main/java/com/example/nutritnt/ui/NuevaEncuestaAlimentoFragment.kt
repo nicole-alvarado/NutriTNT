@@ -21,6 +21,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
@@ -313,8 +314,12 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
 
     // Mostrar la encuesta de alimentos anterior
     private fun showPreviousEncuesta() {
-        Log.i("NicoleHoy", encuestaAlimento.toString())
         saveEncuestaAlimento()
+        if (encuestaGeneral.estado == "FINALIZADA") {
+            Toast.makeText(context, "¡Encuesta finalizada con éxito!", Toast.LENGTH_SHORT).show()
+            navigateToList()
+            return
+        }
         if (currentIndex > 0) {
             currentIndex--
             currentEncuesta = todasLasEncuestas[currentIndex]
@@ -325,14 +330,23 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
 
     // Mostrar la siguiente encuesta de alimentos
     private fun showNextEncuesta() {
-        Log.i("NicoleHoy", encuestaAlimento.toString())
-        saveEncuestaAlimento();
+        saveEncuestaAlimento()
+        if (encuestaGeneral.estado == "FINALIZADA") {
+            Toast.makeText(context, "¡Encuesta finalizada con éxito!", Toast.LENGTH_SHORT).show()
+            navigateToList()
+            return
+        }
         if (currentIndex < todasLasEncuestas.size - 1) {
             currentIndex++
             currentEncuesta = todasLasEncuestas[currentIndex]
             encuestaAlimento = currentEncuesta // Actualizar encuestaAlimento
             updateUIWithEncuestaAlimento(encuestaAlimento)
         }
+    }
+
+    // Navegar al listado de encuestas
+    private fun navigateToList() {
+        findNavController().navigate(NuevaEncuestaAlimentoFragmentDirections.actionNewEncuestaFragmentToListEncuestasAlimentosFragment(encuestaAlimento.encuestaId))
     }
 
     // Actualizar la interfaz con los datos de la encuestaAlimento.
