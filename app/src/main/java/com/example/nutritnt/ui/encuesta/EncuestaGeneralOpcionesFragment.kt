@@ -30,7 +30,6 @@ class EncuestaGeneralOpcionesFragment : Fragment() {
     private lateinit var encuestaGeneral: Encuesta
     private val db = FirebaseFirestore.getInstance()
 
-
     // Inicializar la variable para manejar los argumentos utilizando navArgs()
     private val args: EncuestaGeneralOpcionesFragmentArgs by navArgs()
 
@@ -40,16 +39,42 @@ class EncuestaGeneralOpcionesFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentEncuestaGeneralOpcionesBinding.inflate(inflater, container, false)
+        binding.buttonSubirEncuesta.isEnabled = false
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Verificar en Firebase si la encuesta ya existe y su estado
+        db.collection("encuestas")
+            .whereEqualTo("encuestaId", args.encuestaId)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (documents.isEmpty) {
+                    if (encuestaGeneral.estado == "FINALIZADA") {
+                        // Si no existe la encuesta y está finalizada, habilitar el botón
+                        binding.buttonSubirEncuesta.isEnabled = true
+                    } else {
+                        // Si la encuesta no está finalizada
+                        binding.buttonSubirEncuesta.isEnabled = false
+                        Toast.makeText(context, "La encuesta no ha sido finalizada", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    // Si ya existe la encuesta en la nube
+                    binding.buttonSubirEncuesta.isEnabled = false
+                    Toast.makeText(context, "La encuesta ya existe en la nube", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("EncuestaGeneralOpcionesFragment", "Error getting documents: ", exception)
+                Toast.makeText(context, "Error al verificar la encuesta: ${exception.message}", Toast.LENGTH_SHORT).show()
+            }
+
+
         // Obtener la encuesta general desde un principio
         encuestaViewModel.getEncuestaById(args.encuestaId).observe(viewLifecycleOwner, Observer { encuesta ->
             encuestaGeneral = encuesta
-            binding.buttonSubirEncuesta.isEnabled = encuestaGeneral.estado == "FINALIZADA"
             Log.i("PruebaHoy", encuesta.toString())
         })
 
@@ -66,15 +91,11 @@ class EncuestaGeneralOpcionesFragment : Fragment() {
         }
 
         binding.buttonSubirEncuesta.setOnClickListener {
-            if (encuestaGeneral.estado == "FINALIZADA"){
+                binding.buttonSubirEncuesta.isEnabled = false // Deshabilitar el botón después de presionarlo
                 subirEncuesta()
-            } else{
-                Toast.makeText(context, "Encuesta no finalizada", Toast.LENGTH_SHORT).show()
-            }
-
         }
 
-        binding.buttonBackWelcome.setOnClickListener{
+        binding.buttonBackWelcome.setOnClickListener {
             findNavController().navigate(R.id.action_encuestaGeneralOpcionesFragment_to_welcomeFragment)
         }
 
@@ -96,6 +117,7 @@ class EncuestaGeneralOpcionesFragment : Fragment() {
             }
             .addOnFailureListener { e ->
                 Toast.makeText(context, "Error al subir la encuesta: ${e.message}", Toast.LENGTH_SHORT).show()
+                binding.buttonSubirEncuesta.isEnabled = true // Rehabilitar el botón si falla
             }
     }
 }
