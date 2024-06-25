@@ -48,14 +48,11 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     private val encuestaAlimentoViewModel: EncuestaAlimentoViewModel by viewModels()
     private val alimentoViewModel: AlimentoViewModel by viewModels()
     private val encuestaViewModel: EncuestaViewModel by viewModels()
-
-
     private val args: NuevaEncuestaAlimentoFragmentArgs by navArgs()
     private lateinit var editTextFrecuency: EditText
     private lateinit var minusButton: ImageView
     private lateinit var plusButton: ImageView
     private var valueFrecuency: Int = 0
-
     private lateinit var encuestaAlimento: EncuestaAlimento
     private lateinit var encuestaGeneral: Encuesta
     private var currentIndex: Int = -1
@@ -63,7 +60,6 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     private lateinit var todasLasEncuestas: List<EncuestaAlimento>
     private var alimentos: List<Alimento> = emptyList()
     private var isDataLoaded = false // Variable booleana para comprobar si el observable ya se ejecutó
-
     private lateinit var textviewPortionA: TextView
     private lateinit var imageviewPortionB: ImageView
     private lateinit var textviewPortionC: TextView
@@ -111,8 +107,6 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         minusButton.setOnClickListener { decrement() }
         plusButton.setOnClickListener { increment() }
         frames = listOf(binding.framePortionA!!,binding.framePortionB!!, binding.framePortionC!!, binding.framePortionD!!, binding.framePortionE!!)
-
-
         checkBoxes = listOf(
             binding.checkBoxNunca!!,
             binding.checkBoxDia!!,
@@ -125,10 +119,8 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         checkBoxes.forEach { checkBox ->
             checkBox?.setOnCheckedChangeListener { buttonView, isChecked ->
                 if (isChecked) {
-
                     checkBoxes.filter { it != buttonView }.forEach { it?.isChecked = false }
                     // Verifica si el CheckBox seleccionado es el que dice "nunca"
-
                     verifyCheckboxSelected(checkBox.text.toString())
 
                     // Log y actualización para otros períodos diferentes a "nunca"
@@ -138,8 +130,6 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
                 }
             }
         }
-
-
 
         val spannableA = SpannableStringBuilder()
         spannableA.append(
@@ -265,17 +255,13 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         // Configurar los botones "Anterior" y "Siguiente"
         binding.buttonAnterior?.setOnClickListener { showPreviousEncuesta() }
         binding.buttonSiguiente?.setOnClickListener { showNextEncuesta() }
-
-
-
-
         binding.textviewVolverListado?.setOnClickListener{
+            saveEncuestaAlimento();
             findNavController().navigate(NuevaEncuestaAlimentoFragmentDirections.actionNewEncuestaFragmentToListEncuestasAlimentosFragment(encuestaAlimento.encuestaId))
         }
     }
 
     private fun verifyCheckboxSelected(checkboxSelectedText: String) {
-
         if (checkboxSelectedText == "Nunca") {
             binding.overlayView?.visibility = View.VISIBLE
             binding.overlayView?.bringToFront()
@@ -285,11 +271,8 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         } else {
             // Uncheck all other checkboxes except the current one
             binding.overlayView?.visibility = View.GONE
-
         }
-
     }
-
 
     private fun createStyledText(
         underlinedText: String,
@@ -298,7 +281,6 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         regularSize: Int
     ): SpannableStringBuilder {
         val spannable = SpannableStringBuilder()
-
         val underlinedSpan = SpannableString(underlinedText).apply {
             setSpan(
                 UnderlineSpan(),
@@ -313,7 +295,6 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
                 SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
             )
         }
-
         spannable.append(underlinedSpan)
 
         if (regularText.length > 2) {
@@ -325,10 +306,8 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
                     SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
             }
-
             spannable.append(regularSpan)
         }
-
         return spannable
     }
 
@@ -371,29 +350,20 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
             val invertedMap = invertMap(portionsAlimento?.portions)
 
             selectedPortion = invertedMap?.get(portion) ?: ' '
-
-
             selectCorrectCheckBoxes(encuestaAlimento.period)
-
             editTextFrecuency.setText(encuestaAlimento.frecuency.toString())
-
-
             binding.textPortionB?.text =
                 (portionsAlimento?.portions?.get('B') + portionsAlimento?.medidaPortion)
             binding.textPortionD?.text = (portionsAlimento?.portions?.get('D') + portionsAlimento?.medidaPortion)
-
 
             val images = DatosDatabase.getPortionImagesForAlimento(alimento.alimentoId)
             if (images.size >= 2) {
                 imageviewPortionB.setImageResource(images[0])
                 imageViewPortionD.setImageResource(images[1])
             }
-
-
             frames = listOf(binding.framePortionA!!,binding.framePortionB!!, binding.framePortionC!!, binding.framePortionD!!, binding.framePortionE!!)
             selectPortionFrame(frames, selectedPortion)
         }
-
 
         editTextFrecuency.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -436,8 +406,6 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         }
     }
 
-
-
     // Verificar y actualizar el estado de las encuestas
     private fun verificarEstados(encuestaAlimento: EncuestaAlimento) {
         Log.i("PruebaVerificar", "Entro a verificar 1")
@@ -453,14 +421,12 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         }
     }
 
-
     // Actualizar el estado de la encuesta
     private fun updateEncuestaEstado() {
             encuestaGeneral.estado = "FINALIZADA"
             encuestaViewModel.update(encuestaGeneral)
             Log.i("PruebaVerificar", "Estado actualizado a FINALIZADA")
     }
-
 
     // Incrementa el valor de la frecuencia y actualiza el campo de texto.
     private fun increment() {
@@ -487,17 +453,11 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     }
     // Función para resaltar la selección de porción (imagen)
     private fun highlightSelection(selectedFrame: FrameLayout, selectedView: View) {
-
        // modifyViewColorSelected(selectedFrame)
-
         previousSelectedFrame?.setBackgroundResource(com.example.nutritnt.R.drawable.default_background)
-
        // previousSelectedFrame?.let { modifyViewColorNotSelected(it) }
-
         selectedFrame.setBackgroundResource(com.example.nutritnt.R.drawable.border_portion_selected)
-
         updatePortionEncuesta(selectedPortion)
-
         previousSelectedFrame = selectedFrame
     }
 
@@ -512,10 +472,7 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     }
 
     private fun selectPortionFrame(allFrames: List<FrameLayout?>, charPortion: Char) {
-
-
         allFrames.forEach { frame ->
-
             frame?.let {
                 val portionSelected = DatosFramesPortions.framePortionNames[charPortion]
                 if(portionSelected?.let { it1 -> resources.getResourceName(frame.id).contains(it1) } == true){
@@ -527,16 +484,11 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
                  //   modifyViewColorNotSelected(frame)
                 }
             }
-
         }
-
-
     }
-
 
     private fun deletePortionSelected() {
         frames.forEach { frame ->
-
             frame?.let {
                     frame.setBackgroundResource(com.example.nutritnt.R.drawable.default_background)
                    // modifyViewColorNotSelected(frame)
@@ -556,28 +508,17 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         return map?.entries?.associate { (key, value) -> value to key }
     }
 
-
     private fun modifyViewColorSelected(frame: FrameLayout){
-
         val linearLayout: LinearLayout? = frame.getChildAt(0) as? LinearLayout
-
         linearLayout?.children?.forEach { view ->
-
                 view.alpha = 1f
-
         }
-
     }
 
     private fun modifyViewColorNotSelected(frame: FrameLayout){
-
         val linearLayout: LinearLayout? = frame.getChildAt(0) as? LinearLayout
-
         linearLayout?.children?.forEach { view ->
-
             view.alpha = 0.5f
-
         }
-
     }
 }

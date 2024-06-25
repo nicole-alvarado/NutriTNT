@@ -43,10 +43,23 @@
         android:layout_height="600dp"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textEncuestas"/>
+
+    <TextView
+        android:id="@+id/textViewEstado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Estado:"
+        android:textSize="16sp"
+        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textEncuestas" />
 
     <Spinner
         android:id="@+id/spinnerEstado"
@@ -55,6 +68,20 @@
         android:layout_margin="8dp"
         app:layout_constraintEnd_toStartOf="@+id/spinnerZona"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEstado" />
+
+    <TextView
+        android:id="@+id/textViewZona"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Zona:"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintStart_toEndOf="@+id/textViewEstado"
         app:layout_constraintTop_toBottomOf="@id/textEncuestas" />
 
     <Spinner
@@ -64,5 +91,5 @@
         android:layout_margin="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/spinnerEstado"
-        app:layout_constraintTop_toBottomOf="@id/textEncuestas" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewZona" />
 </androidx.constraintlayout.widget.ConstraintLayout>
