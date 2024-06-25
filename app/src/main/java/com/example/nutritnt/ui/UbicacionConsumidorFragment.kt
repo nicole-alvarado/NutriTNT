@@ -20,6 +20,7 @@ import com.example.nutritnt.data.DatosDatabase
 import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.databinding.FragmentNuevaEncuestaAlimentoBinding
 import com.example.nutritnt.databinding.FragmentUbicacionConsumidorBinding
+import com.example.nutritnt.viewmodel.EncuestaAlimentoViewModel
 import com.example.nutritnt.viewmodel.EncuestaViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -43,6 +44,8 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
     private lateinit var codigoParticipante: String
     private val encuestaViewModel : EncuestaViewModel by viewModels()
     private lateinit var encuestaGeneral: Encuesta
+    private val encuestaAlimentoViewModel: EncuestaAlimentoViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -96,11 +99,26 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun actualizarYNavegar(encuesta: Encuesta) {
-        // Llamar a la función update del ViewModel en una corrutina
         lifecycleScope.launch {
             encuestaViewModel.update(encuesta)
-            // Realizar la navegación usando el componente de navegación
-            findNavController().navigate(UbicacionConsumidorFragmentDirections.actionUbicacionConsumidorFragmentToListEncuestasAlimentosFragment(encuesta.encuestaId))
+
+            // Obtener encuestas de alimentos y navegar con el ID del primero
+            encuestaAlimentoViewModel.getEncuestasAlimentosByEncuestaId(encuesta.encuestaId).observe(viewLifecycleOwner, Observer { encuestasAlimentos ->
+                if (encuestasAlimentos.isNotEmpty()) {
+                    val primeraEncuestaAlimento = encuestasAlimentos[0]
+                    Log.i("PruebaSamsun", "Encuesta: "+ encuesta.toString())
+                    Log.i("PruebaSamsun", "EncuestaAlimento: "+ encuestasAlimentos.toString())
+                    val action = UbicacionConsumidorFragmentDirections
+                        .actionUbicacionConsumidorFragmentToNewEncuestaFragment2(
+                            encuestaGeneralId = encuesta.encuestaId,
+                            encuestaAlimentoId = primeraEncuestaAlimento.encuestaAlimentoId
+                        )
+                    findNavController().navigate(action)
+                } else {
+                    // Manejar el caso en que no hay encuestas de alimentos
+                    Toast.makeText(context, "No se encontraron encuestas de alimentos.", Toast.LENGTH_SHORT).show()
+                }
+            })
         }
     }
 
