@@ -18,7 +18,7 @@
         android:drawablePadding="8dp"
         android:onClick="onClickVolverListado"
         android:padding="12dp"
-        android:text="Volver al listado"
+        android:text="Ir al listado de alimentos"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"

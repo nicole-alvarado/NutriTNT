@@ -21,6 +21,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -79,6 +80,16 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     private lateinit var frames: List<FrameLayout>
     private var selectedPeriod: String = ""
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Interceptar el botón de retroceso
+        requireActivity().onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // No hacer nada para deshabilitar el botón de retroceso
+            }
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -227,6 +238,7 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
 
         // Obtener el id de la encuestaAlimento pasado al fragmento
         val encuestaAlimentoId = args.encuestaAlimentoId
+        Log.i("PruebaSamsun", "EncuestaAlimento recibida: "+ encuestaAlimentoId.toString())
 
         // Obtener la encuesta general desde un principio
         encuestaViewModel.getEncuestaById(args.encuestaGeneralId).observe(viewLifecycleOwner, Observer { encuesta ->
