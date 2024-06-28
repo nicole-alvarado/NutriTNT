@@ -42,10 +42,8 @@ public class ReadCSV {
                         )
 
 
-
                         informacionNutricionalList.add(informacionNutricional)
 
-                        Log.i("insercionCSV", "infonutri: " + informacionNutricional)
 
                         val alimento = Alimento(
                             alimentoId = alimentosList.size + 1,
@@ -58,7 +56,6 @@ public class ReadCSV {
 
                         alimentosList.add(alimento)
 
-                        Log.i("insercionCSV", " alimento: " + alimento)
                     }
                 }
                 reader.close()

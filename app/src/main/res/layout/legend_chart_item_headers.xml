@@ -4,15 +4,15 @@
     android:layout_height="wrap_content"
     android:gravity="end"
     android:orientation="horizontal"
-    android:padding="4dp"> <!-- Alinear a la derecha -->
+    android:padding="4dp">
 
-    <!-- Contenedor de la izquierda para colorBox y label, sin contenido visible aquí -->
+    <!-- Contenedor de la izquierda para colorBox y label -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="start"
-        android:orientation="horizontal"> <!-- Alinear a la izquierda -->
+        android:orientation="horizontal">
 
         <View
             android:layout_width="24dp"

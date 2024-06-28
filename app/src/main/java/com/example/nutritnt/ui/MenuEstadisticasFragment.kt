@@ -16,11 +16,6 @@ class MenuEstadisticasFragment : Fragment() {
     private lateinit var binding: FragmentMenuEstadisticasBinding
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

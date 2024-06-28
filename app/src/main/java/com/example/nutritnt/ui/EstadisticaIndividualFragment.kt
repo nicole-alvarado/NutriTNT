@@ -60,7 +60,6 @@ class EstadisticaIndividualFragment : Fragment() {
 
         }
 
-
     }
 
 
@@ -83,8 +82,6 @@ class EstadisticaIndividualFragment : Fragment() {
                 }
             }
         )
-
-
 
         binding.textviewVolverListado.setOnClickListener{
             shouldUpdateGraphAutomatically = false
@@ -109,7 +106,7 @@ class EstadisticaIndividualFragment : Fragment() {
         val checkboxAnio: CheckBox = view.findViewById(R.id.checkboxAnio)
 
 
-        // Configurar CheckBox1 como seleccionado por defecto
+        // Configurar CheckBoxDia como seleccionado por defecto
         checkboxDia.isChecked = true
 
         // Crear una lista de todos los CheckBox
@@ -174,13 +171,8 @@ class EstadisticaIndividualFragment : Fragment() {
                 viewLifecycleOwner,
                 Observer { listado ->
                     val entries: MutableList<BarEntry> = ArrayList()
-                    Log.i("observerEstInd", "entró a observer")
+
                     listado?.let { listaCompleta ->
-
-                        Log.i("observerEstInd", listaCompleta.toString())
-
-
-
 
                         if (listaCompleta.isNotEmpty()) {
                             datosConsumo =
@@ -209,12 +201,6 @@ class EstadisticaIndividualFragment : Fragment() {
 
     private fun llenarGrafico(entries: MutableList<BarEntry>, datosConsumo: List<Consumo>) {
 
-        var entriesModif: MutableList<BarEntry> = ArrayList()
-/*
-        for (entry in entries){
-            entriesModif.add(BarEntry(entry.x, 0F))
-        } */
-
 
         val dataSet = BarDataSet(entries, "Categorias")
         dataSet.colors = listOf(
@@ -230,7 +216,6 @@ class EstadisticaIndividualFragment : Fragment() {
         val barData = BarData(dataSet)
         barData.setValueFormatter(null)
         barData.setValueTextSize(0f)
-       // barData.setValueFormatter(PercentFormatter(pieChart))
         barChart.setData(barData)
         barChart.description.isEnabled = false // Deshabilitar la descripción del gráfico
         barChart.legend.isEnabled = false // Deshabilitar la leyenda

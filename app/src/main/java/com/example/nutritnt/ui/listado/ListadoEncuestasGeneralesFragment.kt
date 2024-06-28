@@ -1,4 +1,4 @@
-package com.example.nutritnt.listado
+package com.example.nutritnt.ui.listado
 
 import android.app.Application
 import android.os.Bundle

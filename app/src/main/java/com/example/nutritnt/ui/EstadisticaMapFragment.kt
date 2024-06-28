@@ -55,7 +55,7 @@ class EstadisticaMapFragment : Fragment(), OnMapReadyCallback {
         legendContainer = binding.leyendEstadisticaMapContainer
 
         binding.buttonBackMenu.setOnClickListener{
-            findNavController().navigate(com.example.nutritnt.R.id.action_estadisticaMapFragment_to_menuEstadisticasFragment)
+            findNavController().navigate(R.id.action_estadisticaMapFragment_to_menuEstadisticasFragment)
         }
 
 
@@ -91,7 +91,6 @@ class EstadisticaMapFragment : Fragment(), OnMapReadyCallback {
         drawSeparationLines()
 
         for (encuesta in encuestas) {
-            Log.i("encuestaMapF", "id: ${encuesta.encuestaId} : lat: ${encuesta.latitud.toDoubleOrNull()} long: ${encuesta.longitud.toDoubleOrNull()}")
             val location = LatLng(encuesta.latitud.toDouble(), encuesta.longitud.toDouble())
             val markerOptions = MarkerOptions()
                 .position(location)
@@ -140,21 +139,14 @@ class EstadisticaMapFragment : Fragment(), OnMapReadyCallback {
 
     private fun obtenerColorParaZona(zona: String): Int {
         return when (zona) {
-            "Zona 1" -> Color.parseColor("#FFA500") // ORANGE
-            "Zona 2" -> Color.parseColor("#FF00FF") // MAGENTA
-            "Zona 3" -> Color.parseColor("#00FFFF") // CYAN
-            else -> Color.parseColor("#30f72d")    // GREEN
+            "Zona 1" -> Color.parseColor("#FFA500") // Naranjita
+            "Zona 2" -> Color.parseColor("#FF00FF") // Magenta
+            "Zona 3" -> Color.parseColor("#00FFFF") // Cyan
+            else -> Color.parseColor("#30f72d")    // Verdecito
         }
     }
 
     private fun drawSeparationLines() {
-        val centerLatitude = ((-42.769412) + (-42.787398)) /2
-        val centerLongitude = ((-65.030643) + (-65.083944)) /2
-
-
-        Log.i("centerlat", "latitud " + centerLatitude)
-        Log.i("centerlat", "longitud " + centerLongitude)
-
 
         // Definir puntos para las líneas
         val horizontalLine = mutableListOf(

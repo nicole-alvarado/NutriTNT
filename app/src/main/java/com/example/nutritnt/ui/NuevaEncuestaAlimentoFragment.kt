@@ -124,8 +124,7 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
                     // Verifica si el CheckBox seleccionado es el que dice "nunca"
                     verifyCheckboxSelected(checkBox.text.toString())
 
-                    // Log y actualización para otros períodos diferentes a "nunca"
-                    Log.i("pruebaEncuestaAlimentoCopy", checkBox?.text.toString())
+                    // actualización para otros períodos diferentes a "nunca"
                     currentEncuesta.period = checkBox?.text.toString()
                     encuestaAlimentoViewModel.update(currentEncuesta)
                 }
@@ -229,12 +228,10 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
 
         // Obtener el id de la encuestaAlimento pasado al fragmento
         val encuestaAlimentoId = args.encuestaAlimentoId
-        Log.i("PruebaSamsun", "EncuestaAlimento recibida: "+ encuestaAlimentoId.toString())
 
         // Obtener la encuesta general desde un principio
         encuestaViewModel.getEncuestaById(args.encuestaGeneralId).observe(viewLifecycleOwner, Observer { encuesta ->
             encuestaGeneral = encuesta
-            Log.i("PruebaVerificar", encuesta.toString())
         })
 
         alimentoViewModel.todosLosAlimentos.observe(viewLifecycleOwner, Observer { alimentosList ->
@@ -355,7 +352,6 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         val alimento = alimentos.find { it.alimentoId == encuestaAlimento.alimentoId }
         if (alimento != null) {
             val nombreGrupo = if (alimento.subgrupo.isBlank()) alimento.grupo else alimento.subgrupo
-            Log.i("pruebaEncuestaAlimentoCopy", "nombregrupo: ${nombreGrupo.lowercase()}")
             binding.imageviewTitle?.setImageResource(ImagesGroups.iconResourceMap[nombreGrupo.lowercase()]!!)
             binding.textViewNameAlimento.text = alimento.descripcion
 
@@ -412,24 +408,16 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
 
                 // Verificar y actualizar el estado general de la encuesta si es necesario
                 verificarEstados(currentEncuesta)
-            } else {
-                Log.e("NicoleHoy", "La encuesta actual no está completada")
             }
-        } else {
-            Log.e("NicoleHoy", "La encuesta actual no está inicializada correctamente")
         }
     }
 
     // Verificar y actualizar el estado de las encuestas
     private fun verificarEstados(encuestaAlimento: EncuestaAlimento) {
-        Log.i("PruebaVerificar", "Entro a verificar 1")
-        Log.i("PruebaVerificar", encuestaAlimento.toString())
 
         // Usar todasLasEncuestas que ya has cargado
         todasLasEncuestas?.let { encuestasAlimentos ->
-            Log.i("PruebaVerificar", encuestasAlimentos.toString())
             if (encuestasAlimentos.all { it.estado == "COMPLETADA" }) {
-                Log.i("PruebaVerificar", "Entro a verificar 2")
                 updateEncuestaEstado()
             }
         }
@@ -439,7 +427,6 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     private fun updateEncuestaEstado() {
             encuestaGeneral.estado = "FINALIZADA"
             encuestaViewModel.update(encuestaGeneral)
-            Log.i("PruebaVerificar", "Estado actualizado a FINALIZADA")
     }
 
     // Incrementa el valor de la frecuencia y actualiza el campo de texto.
@@ -467,10 +454,8 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     }
     // Función para resaltar la selección de porción (imagen)
     private fun highlightSelection(selectedFrame: FrameLayout, selectedView: View) {
-       // modifyViewColorSelected(selectedFrame)
-        previousSelectedFrame?.setBackgroundResource(com.example.nutritnt.R.drawable.default_background)
-       // previousSelectedFrame?.let { modifyViewColorNotSelected(it) }
-        selectedFrame.setBackgroundResource(com.example.nutritnt.R.drawable.border_portion_selected)
+        previousSelectedFrame?.setBackgroundResource(R.drawable.default_background)
+        selectedFrame.setBackgroundResource(R.drawable.border_portion_selected)
         updatePortionEncuesta(selectedPortion)
         previousSelectedFrame = selectedFrame
     }
@@ -490,12 +475,11 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
             frame?.let {
                 val portionSelected = DatosFramesPortions.framePortionNames[charPortion]
                 if(portionSelected?.let { it1 -> resources.getResourceName(frame.id).contains(it1) } == true){
-                    frame.setBackgroundResource(com.example.nutritnt.R.drawable.border_portion_selected)
+                    frame.setBackgroundResource(R.drawable.border_portion_selected)
                     previousSelectedFrame = frame
-                   // modifyViewColorSelected(frame)
                 } else {
-                    frame.setBackgroundResource(com.example.nutritnt.R.drawable.default_backgound_imgnoselected)
-                 //   modifyViewColorNotSelected(frame)
+                    frame.setBackgroundResource(R.drawable.default_backgound_imgnoselected)
+
                 }
             }
         }
@@ -504,8 +488,7 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     private fun deletePortionSelected() {
         frames.forEach { frame ->
             frame?.let {
-                    frame.setBackgroundResource(com.example.nutritnt.R.drawable.default_background)
-                   // modifyViewColorNotSelected(frame)
+                    frame.setBackgroundResource(R.drawable.default_background)
             }
         }
     }
@@ -513,7 +496,6 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
     private fun selectCorrectCheckBoxes(periodSelected: String) {
         checkBoxes.forEach {
             it.isChecked = (it.text == periodSelected)
-            Log.i("pruebaEncuestaAlimentoCopy", "checkbox: ${it.text.toString()}")
         }
         verifyCheckboxSelected(periodSelected)
     }
@@ -522,17 +504,4 @@ class NuevaEncuestaAlimentoFragment : Fragment() {
         return map?.entries?.associate { (key, value) -> value to key }
     }
 
-    private fun modifyViewColorSelected(frame: FrameLayout){
-        val linearLayout: LinearLayout? = frame.getChildAt(0) as? LinearLayout
-        linearLayout?.children?.forEach { view ->
-                view.alpha = 1f
-        }
-    }
-
-    private fun modifyViewColorNotSelected(frame: FrameLayout){
-        val linearLayout: LinearLayout? = frame.getChildAt(0) as? LinearLayout
-        linearLayout?.children?.forEach { view ->
-            view.alpha = 0.5f
-        }
-    }
 }

@@ -88,8 +88,6 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
 
                 actualizarYNavegar(encuestaGeneral)
 
-                Log.i("zonaEncuesta", "id: ${encuestaGeneral.encuestaId} zona ${encuestaGeneral.zona} lat: ${encuestaGeneral.latitud} long: ${encuestaGeneral.longitud} ")
-
             }
         }
 
@@ -106,8 +104,6 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
             encuestaAlimentoViewModel.getEncuestasAlimentosByEncuestaId(encuesta.encuestaId).observe(viewLifecycleOwner, Observer { encuestasAlimentos ->
                 if (encuestasAlimentos.isNotEmpty()) {
                     val primeraEncuestaAlimento = encuestasAlimentos[0]
-                    Log.i("PruebaSamsun", "Encuesta: "+ encuesta.toString())
-                    Log.i("PruebaSamsun", "EncuestaAlimento: "+ encuestasAlimentos.toString())
                     val action = UbicacionConsumidorFragmentDirections
                         .actionUbicacionConsumidorFragmentToNewEncuestaFragment2(
                             encuestaGeneralId = encuesta.encuestaId,
@@ -125,8 +121,6 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
-
-
 
         // Habilitar controles de zoom
         googleMap.uiSettings.isZoomControlsEnabled = true
@@ -159,8 +153,6 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
         })
 
 
-     //   drawSeparationLines()
-
 
     }
 
@@ -190,35 +182,5 @@ class UbicacionConsumidorFragment : Fragment(), OnMapReadyCallback {
             else -> 4
         }
     }
-
-
-
-
-    private fun drawSeparationLines() {
-        val centerLatitude = ((-42.769412) + (-42.787398)) /2
-        val centerLongitude = ((-65.030643) + (-65.083944)) /2
-
-
-        Log.i("centerlat", "latitud " + centerLatitude)
-        Log.i("centerlat", "longitud " + centerLongitude)
-
-
-        // Definir puntos para las líneas
-        val horizontalLine = mutableListOf(
-            LatLng(-42.769412, -65.030643),
-            LatLng(-42.787398, -65.083944)
-        )
-
-        val verticalLine = mutableListOf(
-            LatLng(-42.751162, -65.061959),
-            LatLng(-42.790792, -65.036940)
-        )
-
-        // Dibujar líneas en el mapa
-        googleMap.addPolyline(PolylineOptions().addAll(horizontalLine).color(Color.RED))
-        googleMap.addPolyline(PolylineOptions().addAll(verticalLine).color(Color.BLUE))
-    }
-
-
 
 }

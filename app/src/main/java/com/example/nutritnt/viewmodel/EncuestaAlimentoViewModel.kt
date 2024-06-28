@@ -41,9 +41,6 @@ class EncuestaAlimentoViewModel(application: Application) : AndroidViewModel(app
     private val _encuestasAlimentosConInfo = MutableLiveData<Map<String, List<EncuestaAlimento_AlimentoInformacionNutricional>>>()
     val encuestasAlimentosConInfo: LiveData<Map<String, List<EncuestaAlimento_AlimentoInformacionNutricional>>> get() = _encuestasAlimentosConInfo
 
-    private val _encuestaAlimentos = MutableStateFlow<List<EncuestaAlimento>>(emptyList())
-    val encuestaAlimentos: StateFlow<List<EncuestaAlimento>> get() = _encuestaAlimentos.asStateFlow()
-
     private val _encuestaAlimentosWithAlimentoAndInfo = MutableLiveData<List<EncuestaAlimento_AlimentoInformacionNutricional>>(emptyList())
     val encuestaAlimentosWithAlimentoAndInfo: LiveData<List<EncuestaAlimento_AlimentoInformacionNutricional>> = _encuestaAlimentosWithAlimentoAndInfo
 
@@ -66,30 +63,6 @@ class EncuestaAlimentoViewModel(application: Application) : AndroidViewModel(app
         repositorio.actualizar(encuestaAlimento)
     }
 
-    /*
-    fun getEncuestaAlimentosByZonaAndAlimento(alimentoId: Int): LiveData<List<EncuestaAlimento>> {
-        return liveData {
-            val result = repositorio.getEncuestaAlimentosByZonaAndAlimento(alimentoId)
-            emit(result)
-        }
-    }*/
-
-    // StateFlow para la consulta
-
-
-    fun fetchEncuestaAlimentosByZonaAndAlimento(zona: String, alimentoId: Int): Flow<List<EncuestaAlimento>> {
-        return flow {
-            val datos = repositorio.getEncuestaAlimentosByZonaAndAlimento(zona, alimentoId)
-            emit(datos)
-        }.flowOn(Dispatchers.IO)
-    }
-
-    fun fetchEncuestaAlimentosByZona(zona: String): Flow<List<EncuestaAlimento>> {
-        return flow {
-            val datos = repositorio.getEncuestaAlimentosByZona(zona)
-            emit(datos)
-        }.flowOn(Dispatchers.IO)
-    }
 
 
     fun fetchEncuestasAlimentosConInfo(zonas: List<String>) {
@@ -112,24 +85,11 @@ class EncuestaAlimentoViewModel(application: Application) : AndroidViewModel(app
         }
     }
 
-    fun getEncuestaAlimentoByEncuestaAndAlimento(encuestaId: Int, alimentoId: Int): LiveData<EncuestaAlimento>{
-        return repositorio.getEncuestaAlimentoByEncuestaAndAlimento(encuestaId, alimentoId)
-    }
 
     fun getEncuestasAlimentosByEncuestaId(id: Int): LiveData<List<EncuestaAlimento>>{
         return repositorio.getEncuestasAlimentosByEncuestaId(id)
     }
 
-    fun getEncuestaAlimentoById(id: Int): LiveData<EncuestaAlimento>{
-        return repositorio.getEncuestaAlimentoById(id)
-    }
-
-    fun fetchEncuestaAlimentosByCodigoParticipante(codigoParticipante: String) {
-        viewModelScope.launch {
-            val alimentos = repositorio.getEncuestaAlimentosByCodigoParticipante(codigoParticipante)
-            _encuestaAlimentos.value = alimentos
-        }
-    }
 
     suspend fun safeInsertMultiple(
         encuestasGeneral: List<Encuesta>,

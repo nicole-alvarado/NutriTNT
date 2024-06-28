@@ -16,7 +16,6 @@ import com.example.nutritnt.database.entities.Encuesta
 import com.example.nutritnt.database.entities.EncuestaAlimento
 import com.example.nutritnt.database.entities.toMap
 import com.example.nutritnt.databinding.FragmentEncuestaGeneralOpcionesBinding
-import com.example.nutritnt.listado.ListadoEncuestasGeneralesFragmentDirections
 import com.example.nutritnt.viewmodel.EncuestaAlimentoViewModel
 import com.example.nutritnt.viewmodel.EncuestaViewModel
 import com.google.firebase.firestore.FirebaseFirestore
@@ -75,7 +74,6 @@ class EncuestaGeneralOpcionesFragment : Fragment() {
         // Obtener la encuesta general desde un principio
         encuestaViewModel.getEncuestaById(args.encuestaId).observe(viewLifecycleOwner, Observer { encuesta ->
             encuestaGeneral = encuesta
-            Log.i("PruebaHoy", encuesta.toString())
         })
 
         // Observa los cambios en los datos de encuestas alimentos

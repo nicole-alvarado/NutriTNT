@@ -19,18 +19,15 @@
             android:padding="4dp">
 
 
-
-
-    <LinearLayout
+            <LinearLayout
                 android:id="@+id/legendContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp"
-                />
+                android:padding="16dp" />
 
         </LinearLayout>
 
 
-</ScrollView>
+    </ScrollView>
 </androidx.cardview.widget.CardView>

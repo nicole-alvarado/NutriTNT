@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.nutritnt.LoginFragment"
+        android:name="com.example.nutritnt.ui.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/listEncuestasFragment"
-        android:name="com.example.nutritnt.listado.ListadoEncuestasGeneralesFragment"
+        android:name="com.example.nutritnt.ui.listado.ListadoEncuestasGeneralesFragment"
         android:label="fragment_list_encuestas"
         tools:layout="@layout/fragment_listado_encuestas_generales" >
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailEncuestaFragment"
-        android:name="com.example.nutritnt.DetailEncuestaFragment"
+        android:name="com.example.nutritnt.ui.DetailEncuestaFragment"
         android:label="fragment_detail_encuesta"
         tools:layout="@layout/fragment_detail_encuesta" >
         <argument
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.example.nutritnt.WelcomeFragment"
+        android:name="com.example.nutritnt.ui.WelcomeFragment"
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome" >
         <action
@@ -89,7 +89,7 @@
     </fragment>
     <fragment
         android:id="@+id/listEncuestasAlimentosFragment"
-        android:name="com.example.nutritnt.listado.ListadoEncuestasAlimentosFragment"
+        android:name="com.example.nutritnt.ui.listado.ListadoEncuestasAlimentosFragment"
         android:label="fragment_list_encuestas_alimentos"
         tools:layout="@layout/fragment_listado_encuestas_alimentos" >
         <action
@@ -110,10 +110,7 @@
         android:name="com.example.nutritnt.ui.encuesta.NuevaEncuestaGeneralFragment"
         android:label="fragment_nueva_encuesta"
         tools:layout="@layout/fragment_nueva_encuesta_general" >
-        <action
-            android:id="@+id/action_nuevaEncuestaFragment_to_copiaNuevaEncuestaAlimentoFragment"
-            app:destination="@id/copiaNuevaEncuestaAlimentoFragment" />
-        <action
+       <action
             android:id="@+id/action_nuevaEncuestaFragment_to_ubicacionConsumidorFragment"
             app:destination="@id/ubicacionConsumidorFragment" />
         <action
@@ -131,11 +128,6 @@
             android:id="@+id/action_estadisticaMapFragment_to_menuEstadisticasFragment"
             app:destination="@id/menuEstadisticasFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/copiaNuevaEncuestaAlimentoFragment"
-        android:name="com.example.nutritnt.ui.prueba.CopiaNuevaEncuestaAlimentoFragment"
-        android:label="fragment_copia_nueva_encuesta_alimento"
-        tools:layout="@layout/fragment_copia_nueva_encuesta_alimento" />
     <fragment
         android:id="@+id/ubicacionConsumidorFragment"
         android:name="com.example.nutritnt.ui.UbicacionConsumidorFragment"

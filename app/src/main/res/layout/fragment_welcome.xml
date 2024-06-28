@@ -5,7 +5,7 @@
     android:id="@+id/welcome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WelcomeFragment"
+    tools:context=".ui.WelcomeFragment"
     android:background="@drawable/backgound_welcome"
     android:orientation="vertical">
 
@@ -19,15 +19,6 @@
         app:cardBackgroundColor="@android:color/transparent"
         >
 
-        <!-- Aquí puedes ajustar la imagen según tu necesidad -->
-        <!--  <ImageView
-              android:id="@+id/imageView"
-              android:layout_width="match_parent"
-              android:layout_height="150dp"
-              android:scaleType="centerCrop"
-              android:adjustViewBounds="true"
-              android:src="@drawable/alimentos" />
-  -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -48,7 +39,6 @@
 
     </androidx.cardview.widget.CardView>
 
-    <!-- Aquí se añaden los botones en dos pilas -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,7 +46,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center_horizontal">
 
-        <!-- Pila de botones 1 -->
+        <!-- Pila de botones -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

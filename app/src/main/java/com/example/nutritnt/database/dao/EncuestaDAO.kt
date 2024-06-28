@@ -11,7 +11,7 @@ import com.example.nutritnt.database.entities.Encuesta
 
 @Dao
 interface EncuestaDAO {
-    // LiveData como ya hemos visto anteriormente va a contener nuestros
+    // LiveData va a contener nuestros
     // datos y permitir que estos sean observados dentro de un ciclo de vida dado.
     // Siempre guarda / almacena en caché la última versión de los datos.
     // Notifica a sus observadores activos cuando los datos han cambiado.

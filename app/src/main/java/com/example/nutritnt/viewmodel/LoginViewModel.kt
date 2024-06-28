@@ -19,13 +19,11 @@ class LoginViewModel : ViewModel(){
     // Establecer el valor del usuario
     fun setUser(username: String) {
         _user.value = username
-        Log.d("enLoginViewModel", "Usuario actualizado: $username")
     }
 
     // Establecer el valor de la contraseña
     fun setPassword(password: String) {
         _password.value = password
-        Log.d("enLoginViewModel", "Contraseña actualizada: $password")
     }
 
     init {

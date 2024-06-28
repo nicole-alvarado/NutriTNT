@@ -7,20 +7,7 @@
 
     <string name="selected_item">Selected item:</string>
 
-    <!-- Yogur -->
-    <string-array name="Portion">
-        <item>100 ml</item>
-        <item>200 ml</item>
-        <item>275 ml</item>
-    </string-array>
 
-    <string-array name="Period">
-        <item>Nunca</item>
-        <item>Día</item>
-        <item>Semana</item>
-        <item>Mes</item>
-        <item>Año</item>
-    </string-array>
     <string name="title_activity_estadistica_maps">EstadisticaMapsActivity</string>
 
 </resources>

@@ -26,12 +26,6 @@ class MainActivity :  AppCompatActivity() {
 
             setContentView(R.layout.activity_main)
 
-            // Inicialización de la base de datos y carga de datos de ejemplo
-            //val database = EncuestaRoomDatabase.obtenerDatabase(applicationContext)
-
-           // val encuestaDAO = database.encuestaDao()
-           // val alimentoDAO = database.alimentoDao()
-           // val encuestaAlimentoDAO = database.encuestaAlimentoDao()
 
             // Interceptar el botón de retroceso
             onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
@@ -41,13 +35,10 @@ class MainActivity :  AppCompatActivity() {
             })
 
             encuestaAlimentoViewModel = ViewModelProvider(this).get(EncuestaAlimentoViewModel::class.java)
-                var x = 0F
+
             CoroutineScope(Dispatchers.Main).launch {
-                Log.i("xvalue", "Entro en el scrope:" + x)
-                x+=1F
 
                 val encuestasGeneral = DatosDatabase.encuestas
-                //val alimentos = DatosDatabase.alimentos
                 val alimentosList = mutableListOf<Alimento>()
                 val informacionNutricionalList = mutableListOf<InformacionNutricional>()
 
@@ -56,12 +47,11 @@ class MainActivity :  AppCompatActivity() {
                 val encuestasAlimento = DatosDatabase.datosConsumoYogur
                 val encuestadores = DatosDatabase.encuestadores
                 val zonas = DatosDatabase.zonas
-                Log.i("xvalue", "va a entrar en el insert:" + x + " tamaño de alimentosList " + alimentosList.size)
                 encuestaAlimentoViewModel.safeInsertMultiple(encuestasGeneral, alimentosList, encuestasAlimento, encuestadores, zonas, informacionNutricionalList).let { exitoso ->
                         if (exitoso) {
                             Log.i("Insercion", "insercion Exitosa")
                         } else {
-                            Log.i("Insercion", "insercion Desastrosa")
+                            Log.i("Insercion", "Error de insercion")
                         }
                     }
             }

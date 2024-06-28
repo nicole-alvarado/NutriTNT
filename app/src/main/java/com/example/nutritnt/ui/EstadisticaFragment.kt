@@ -4,7 +4,6 @@ package com.example.nutritnt.model
 import android.R
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,15 +25,6 @@ import com.example.nutritnt.viewmodel.AlimentoViewModel
 import com.example.nutritnt.viewmodel.EncuestaAlimentoViewModel
 import com.example.nutritnt.viewmodel.EncuestaViewModel
 import com.github.mikephil.charting.charts.PieChart
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
-import com.github.mikephil.charting.data.PieData
-import com.github.mikephil.charting.data.PieDataSet
-import com.github.mikephil.charting.data.PieEntry
-import com.github.mikephil.charting.formatter.PercentFormatter
-import com.github.mikephil.charting.formatter.ValueFormatter
-import com.github.mikephil.charting.utils.ColorTemplate
 import kotlinx.coroutines.launch
 import java.util.Locale
 
@@ -121,7 +111,7 @@ class EstadisticaFragment : Fragment() {
     private fun actualizarGrafico() {
         // Llama a la función para actualizar los datos del ViewModel si es necesario
         lifecycleScope.launch {
-            // Suponiendo que este método es necesario para cargar los datos
+
             alimentoViewModel.cargarAlimentosConInformacionNutricional()
 
             val listadoZonas = encuestaViewModel.obtenerZonasDistintas()
@@ -151,8 +141,6 @@ class EstadisticaFragment : Fragment() {
     ) {
         legendContainer.removeAllViews() // Limpiar vistas anteriores si es necesario
         val inflater = LayoutInflater.from(legendContainer.context)
-
-        // Iterar sobre las zonas para crear una CardView por zona
 
             // Inflar la CardView principal por cada zona
             val legendZone: View = inflater.inflate(
